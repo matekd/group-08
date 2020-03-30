@@ -1,4 +1,4 @@
-# DIT112 Mini Project: System development
+# Mini project: BergerBil - EEG in IoT
 ## Team members
 - Liv Alterskjaer, gusalteli
 - Annan Lao, guslaoan
@@ -7,23 +7,21 @@
 - Mattias Ekdahl, gusekdmad
 - Simon Engström, gussimen
 ## What?
-### What are we going to make?
-A software that allows an end-user to remotely give a destination to a personal or commercial vehicle in order to either summon it, or send it between two locations.
+A software that allows an end-user to remotely control a smart-car in a less traditional way, with the use of an EEG-headset and a mobile app. Moreover, the smart-car can protect itself to prevent for example hitting an obstacle.
 ## Why?
-### Why are we going to make it?
-The main objective of this software is to solve the issues surrounding the scarcity of time as a currency provided by humans into the operability of systems.
-This also contributes to achieving our goal to utilize and expand on the technology surrounding self driving vehicles, to add useful and robust functionalities that will make future everydaylife a bit more convenient.
-### What problem does it solve?
-With this software, our team hopes to develop a solution that provides the end-user with more free time, which could be spent on multitasking, or completing other objectives.
-The software would solve the issue of spending time collecting a vehicle from a known or unknown location in order to use it. It could also be applied to situations where products or people need to be delivered from one point to another, but a human driver is unavailable.
-A concrete example of this would be the current covid-19 crisis, where public transport systems as well as logistic systems in different parts of Sweden/the world have had to lower their capacity due to their drivers taking sick leave.
+The main objective of this software is to utilize and demonstrate the use and application of EEG (Electroencephalography) readings to IoT items. By exploring this domain we hope to demonstrate ways using software engineering to develop for people with different levels of mobility.
 ## How?
+The EEG-chip within the “Force Trainer II Bluetooth Headset” measures brain activity in Hz, and depending on users’ mental state e.g. stressed or relaxed, the headset will pick up frequencies within different Hz intervals. With the data retrieved from the headset, we will be able to control the forward throttle of the car, while being able to steer right and left via an app.  
+The smart-car will also be able to prevent itself from colliding with obstacles by using ultrasonic sensors. Once the ultrasonic wave reaches the wall or obstacle it bounces back and the displacement between the car and the wall is calculated, and once it is too short the car will be locked in that direction.
+## Resources
 ### Hardware
 - 1x Smartcar
 - 8x AA rechargeable batteries
 - 2x micro-LIDAR sensors
 - 2x ultrasonic sensors
 - 1x MicroUSB cable
+- [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE)
+- Smartphone
 ### Software
 - Smart Car shield library
 - Java
