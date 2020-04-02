@@ -27,7 +27,7 @@ void loop(){
 
   if(sensor.readRangeContinuousMillimeters() < 200) {
     car.setSpeed(20);
-    car.setAngle(45);
+    car.setAngle(90);
   } else {
     car.setSpeed(50);
     car.setAngle(0);
