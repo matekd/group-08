@@ -1,12 +1,13 @@
 #include <VL53L0X.h>
-#include <Smartcar.h>
+#include <SimpleCar.h>
 #include <Wire.h>
-VL53L0X sensor;
 
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
+
 SimpleCar car(control);
+VL53L0X sensor;
 
 void setup(){
   Serial.begin(9600);
@@ -21,14 +22,12 @@ void setup(){
 }
 void loop(){
   Serial.println(sensor.readRangeContinuousMillimeters());
+
   if(sensor.timeoutOccurred()) {
   Serial.print("TIMEOUT");
   }
 
   if(sensor.readRangeContinuousMillimeters() < 200) {
-    car.setSpeed(10);
-    car.setAngle(45);
-  } else {
-    car.setSpeed(50);
+    car.setSpeed(0);
   }
 }
