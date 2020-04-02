@@ -1,21 +1,9 @@
 #include <Smartcar.h>
 
-// TODO: Find out which pins to place in which variables.
+BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
+BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
 
-// Left motor
-int leftMotorForwardPin = 8;
-int leftMotorBackwardPin = 10;
-int leftMotorSpeedPin = 9;
-
-// Right motor
-int rightMotorForwardPin = 12;
-int rightMotorBackwardPin = 13;
-int rightMotorSpeedPin = 11;
-
-BrushedMotor leftMotor(leftMotorForwardPin, leftMotorBackwardPin, leftMotorSpeedPin);
-BrushedMotor rightMotor(rightMotorForwardPin, rightMotorBackwardPin, rightMotorSpeedPin);
-
-DifferentialControl(leftMotor, rightMotor);
+DifferentialControl control(leftMotor, rightMotor);
 
 SmartCar car(control);
 
