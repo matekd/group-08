@@ -5,7 +5,7 @@ BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
 
 DifferentialControl control(leftMotor, rightMotor);
 
-SmartCar car(control);
+SimpleCar car(control);
 
 void setup() {
     car.setSpeed(100);
