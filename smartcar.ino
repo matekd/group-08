@@ -1,5 +1,5 @@
 #include <VL53L0X.h>
-#include <Smartcar.h>
+#include <SimpleCar.h>
 #include <Wire.h>
 
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
