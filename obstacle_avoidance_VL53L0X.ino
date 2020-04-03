@@ -7,8 +7,6 @@ The range readings are in units of mm. */
 #include <Wire.h>
 #include <VL53L0X.h>
 #include <Smartcar.h>
-#include <Wire.h>
-#include <VL53L0X.h>
 
 VL53L0X sensor;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
@@ -35,7 +33,6 @@ void setup()
   // instead, provide a desired inter-measurement period in
   // ms (e.g. sensor.startContinuous(100)).
   sensor.startContinuous();
- 
 }
 
 void loop()
@@ -43,9 +40,11 @@ void loop()
   Serial.print(sensor.readRangeContinuousMillimeters());
   if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
   Serial.println();
-   car.setSpeed(50);
-  while(sensor.readRangeContinuousMillimeters()!=0 && sensor.readRangeContinuousMillimeters()<200)
+  car.setSpeed(50);
+  int distance = sensor.readRangeContinuousMillimeters();
+  while(distance != 0 && distance < 200)
   {
     car.setSpeed(0);
+    distance = sensor.readRangeContinuousMillimeters();
   }
 }
