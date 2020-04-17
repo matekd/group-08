@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <!-- Start of connectivity and github buttons -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Headset connectivity button -->
+        <!-- TODO: This is a placeholder for headset connection -->
+        <Button
+            android:id="@+id/connect_headset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="headset"
+            android:textColor="@drawable/button_text"
+            android:textAllCaps="false"
+            android:textSize="20sp"/>
+
+        <!-- Car connectivity button -->
+        <!-- TODO: This is a placeholder for car connection -->
+        <Button
+            android:id="@+id/connect_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/nunito_extrabold"
+            android:text="car"
+            android:textColor="@drawable/button_text"
+            android:textAllCaps="false"
+            android:textSize="20sp"/>
+l
+        <!-- Github repository link button -->
+        <!-- TODO: Figure out why github icon isn't displaying -->
+        <ImageButton
+            android:id="@+id/github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/GitHub-Mark-Light-32px"/>
+
+    </LinearLayout>
+    <!-- End of connectivity and github buttons -->
+
+    <!-- Start of car control option buttons -->
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/header_nav"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="partial mind control"
+        android:textColor="@drawable/button_text"
+        android:textAllCaps="false"
+        android:textSize="20sp"/>
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/header_nav"
+        android:fontFamily="@font/nunito_extrabold"
+        android:text="total mind control"
+        android:textColor="@drawable/button_text"
+        android:textAllCaps="false"
+        android:textSize="20sp"/>
+    <!-- End of car control option buttons -->
+
+</LinearLayout>
