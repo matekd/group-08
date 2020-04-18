@@ -1,4 +1,4 @@
-# Mini project: Mind control smart car
+# Mini project: BergerBil - EEG in IoT
 ## Team members
 - Liv Alterskjaer, gusalteli
 - Annan Lao, guslaoan

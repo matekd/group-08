@@ -1,0 +1,2 @@
+rootProject.name='mcsc'
+include ':app'
