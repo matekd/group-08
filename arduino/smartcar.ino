@@ -17,6 +17,11 @@ const int fSpeed   = 50;  // 50% of the full speed forward
 const int bSpeed   = -50; // 50% of the full speed backward
 const int lDegrees = -55; // degrees to turn left
 const int rDegrees = 55;  // degrees to turn right
+const int flDegrees = -28; // degrees to turn forward left
+const int frDegrees = 28;  // degrees to turn forward right
+const int blDegrees = -152; // degrees to turn backward left
+const int brDegrees = 152; // degrees to turn backward right
+
 BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
@@ -49,7 +54,10 @@ void loop()
      Serial.println(front.getDistance());
   if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
   Serial.println();
+
+
  
+
 }
 
 
@@ -106,7 +114,9 @@ void rotateOnSpot(int targetDegrees, int speed) // taken from smartcar library
 void handleInput()
 { 
         while (bluetooth.available()){input = bluetooth.read();
-        
+
+
+
         }        
                  int back = front.getDistance(); 
                  int distance = sensor.readRangeContinuousMillimeters();
@@ -115,9 +125,14 @@ void handleInput()
     while (bluetooth.available()){input = bluetooth.read();}
     if(input=='x' && distance !=0 && distance<200){
       rotateOnSpot(-180, 80);
+
+
+    }
+
+
       
     }
-    
+
     if(input=='y'&& back !=0 && back <20){
       rotateOnSpot(-180, 80);
     }
@@ -133,10 +148,15 @@ void handleInput()
     distance = sensor.readRangeContinuousMillimeters();
     back = front.getDistance(); 
   }
+
+
+        switch (input){
+
+
   
                        
         switch (input){
-        
+
         case 'l': // rotate counter-clockwise going forward
             car.setSpeed(fSpeed);
             car.setAngle(lDegrees);
@@ -153,9 +173,34 @@ void handleInput()
             car.setSpeed(bSpeed);
             car.setAngle(0);
             break;
+
+        case 'fr': // go forward right
+            car.setSpeed(fSpeed);
+            car.setAngle(frDegrees);
+            break;
+         case 'fl': // go forward left
+            car.setSpeed(fSpeed);
+            car.setAngle(flDegrees);
+            break;
+         case 'br': // go backward right
+            car.setSpeed(bSpeed);
+            car.setAngle(brDegrees);
+            break;
+         case 'bl': // go backward left
+            car.setSpeed(bSpeed);
+            car.setAngle(blDegrees);
+            break;
+
+
         default: // if you receive something that you don't know, just stop
             car.setSpeed(0);
             car.setAngle(0);
         }
+
+
+}
+
+
   
 }
+
