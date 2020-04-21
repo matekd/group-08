@@ -3,8 +3,6 @@
 #include <VL53L0X.h>
 #include <Wire.h>
 
-void handleInput();
-char input; 
 const int TRIGGER_PIN = 5; //D5 red cable
 const int ECHO_PIN = 18; //D18 green cable
 const unsigned int MAX_DISTANCE = 100;
@@ -38,28 +36,23 @@ void setup()
     Serial.begin(9600);
     bluetooth.begin("Car"); // Device name
     Wire.begin();
-     sensor.setTimeout(500);
-  if (!sensor.init())
-  {
-    Serial.println("Failed to detect and initialize sensor!");
-    while (1) {}
-  }
-  sensor.startContinuous();
+    sensor.setTimeout(500);
+    if (!sensor.init())
+    {
+        Serial.println("Failed to detect and initialize sensor!");
+        while (1) {}
+    }
+    sensor.startContinuous();
 }
 
 void loop()
 {
     handleInput();
-     Serial.println(sensor.readRangeContinuousMillimeters());
-     Serial.println(front.getDistance());
-  if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
-  Serial.println();
-
-
- 
-
+    Serial.println(sensor.readRangeContinuousMillimeters());
+    Serial.println(front.getDistance());
+    if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
+    Serial.println();
 }
-
 
 void rotateOnSpot(int targetDegrees, int speed) // taken from smartcar library
 {
@@ -107,100 +100,79 @@ void rotateOnSpot(int targetDegrees, int speed) // taken from smartcar library
     car.setSpeed(0); // we have reached the target, so stop the car
 }
 
-
-
-
-
 void handleInput()
 { 
-        while (bluetooth.available()){input = bluetooth.read();
-
-
-
-        }        
-                 int back = front.getDistance(); 
-                 int distance = sensor.readRangeContinuousMillimeters();
-  while(distance !=0 && distance<200 || back !=0 && back <20)
-  { 
-    while (bluetooth.available()){input = bluetooth.read();}
-    if(input=='x' && distance !=0 && distance<200){
-      rotateOnSpot(-180, 80);
-
-
-    }
-
-
-      
+    char input = '';
+    while (bluetooth.available()){
+        input = bluetooth.read();
+    }        
+    int back = front.getDistance(); 
+    int distance = sensor.readRangeContinuousMillimeters();
+    while(distance != 0 && distance < 200 || back != 0 && back < 20)
+    { 
+        while (bluetooth.available()){
+            input = bluetooth.read();
+        }
+        if(input=='x' && distance !=0 && distance<200){
+            rotateOnSpot(-180, 80);
+        }
     }
 
     if(input=='y'&& back !=0 && back <20){
-      rotateOnSpot(-180, 80);
+        rotateOnSpot(-180, 80);
     }
 
     if(input=='f'&& distance> 200){
-      car.setSpeed(fSpeed);
-      car.setAngle(0);
+        car.setSpeed(fSpeed);
+        car.setAngle(0);
     }
     else {
-      car.setSpeed(0);
-      car.setAngle(0);
+        car.setSpeed(0);
+        car.setAngle(0);
     }
     distance = sensor.readRangeContinuousMillimeters();
     back = front.getDistance(); 
-  }
-
-
-        switch (input){
-
-
-  
-                       
-        switch (input){
-
-        case 'l': // rotate counter-clockwise going forward
-            car.setSpeed(fSpeed);
-            car.setAngle(lDegrees);
-            break;
-        case 'r': // turn clock-wise
-            car.setSpeed(fSpeed);
-            car.setAngle(rDegrees);
-            break;
-        case 'f': // go ahead
-            car.setSpeed(fSpeed);
-            car.setAngle(0);
-            break;
-        case 'b': // go back
-            car.setSpeed(bSpeed);
-            car.setAngle(0);
-            break;
-
-        case 'fr': // go forward right
-            car.setSpeed(fSpeed);
-            car.setAngle(frDegrees);
-            break;
-         case 'fl': // go forward left
-            car.setSpeed(fSpeed);
-            car.setAngle(flDegrees);
-            break;
-         case 'br': // go backward right
-            car.setSpeed(bSpeed);
-            car.setAngle(brDegrees);
-            break;
-         case 'bl': // go backward left
-            car.setSpeed(bSpeed);
-            car.setAngle(blDegrees);
-            break;
-
-
-        default: // if you receive something that you don't know, just stop
-            car.setSpeed(0);
-            car.setAngle(0);
-        }
-
-
 }
+             
+    switch (input){
 
+    case 'l': // rotate counter-clockwise going forward
+        car.setSpeed(fSpeed);
+        car.setAngle(lDegrees);
+        break;
+    case 'r': // turn clock-wise
+        car.setSpeed(fSpeed);
+        car.setAngle(rDegrees);
+        break;
+    case 'f': // go ahead
+        car.setSpeed(fSpeed);
+        car.setAngle(0);
+        break;
+    case 'b': // go back
+        car.setSpeed(bSpeed);
+        car.setAngle(0);
+        break;
 
-  
+    case 'fr': // go forward right
+        car.setSpeed(fSpeed);
+        car.setAngle(frDegrees);
+        break;
+    case 'fl': // go forward left
+        car.setSpeed(fSpeed);
+        car.setAngle(flDegrees);
+        break;
+    case 'br': // go backward right
+        car.setSpeed(bSpeed);
+        car.setAngle(brDegrees);
+        break;
+    case 'bl': // go backward left
+        car.setSpeed(bSpeed);
+        car.setAngle(blDegrees);
+        break;
+
+    default: // if you receive something that you don't know, just stop
+        car.setSpeed(0);
+        car.setAngle(0);
+    }
 }
 
