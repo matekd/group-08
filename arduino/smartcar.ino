@@ -19,6 +19,7 @@ const int flDegrees = -28; // degrees to turn forward left
 const int frDegrees = 28;  // degrees to turn forward right
 const int blDegrees = -152; // degrees to turn backward left
 const int brDegrees = 152; // degrees to turn backward right
+unsigned long previousToggle = 0;
 
 BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
@@ -47,7 +48,12 @@ void setup()
 
 void loop()
 {
-    handleInput();
+    unsigned long currentTime = millis();
+    if (currentTime > previousToggle + 95){
+      
+        handleInput();
+        previousToggle = currentTime;
+    }
     Serial.println(sensor.readRangeContinuousMillimeters());
     Serial.println(sensorB.getDistance());
     if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
@@ -110,8 +116,14 @@ void handleInput()
 
     while(front != 0 && front < 200 || back != 0 && back < 20) { 
 
-        if (bluetooth.available()){ input = bluetooth.read(); } 
-        else { input = 'P';}
+        unsigned long currentTime = millis();
+        if (currentTime > previousToggle + 95){
+        
+            if (bluetooth.available()){ input = bluetooth.read(); } 
+            else { input = 'P';}
+          
+            previousToggle = currentTime;
+        }
 
         if(input == 'x' && front != 0 && front < 200){
             rotateOnSpot(-180, 80);
