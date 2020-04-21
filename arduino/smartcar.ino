@@ -103,14 +103,15 @@ void rotateOnSpot(int targetDegrees, int speed) // taken from smartcar library
 void handleInput()
 { 
     char input = 'P'; //'P' is a placeholder value since input could not be empty
-    while (bluetooth.available()){ input = bluetooth.read(); }        
+    if (bluetooth.available()){ input = bluetooth.read(); }        
     
     int back = sensorB.getDistance(); 
     int front = sensor.readRangeContinuousMillimeters();
 
     while(front != 0 && front < 200 || back != 0 && back < 20) { 
 
-        while (bluetooth.available()){ input = bluetooth.read(); }
+        if (bluetooth.available()){ input = bluetooth.read(); } 
+        else { input = 'P';}
 
         if(input == 'x' && front != 0 && front < 200){
             rotateOnSpot(-180, 80);
