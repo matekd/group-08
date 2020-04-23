@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mmDevice;
 
     OutputStream mmOutputStream;
-
+    
+    //connect 8 directions button with the car
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         myLabel = (TextView) findViewById(R.id.myLabel);
         
-        Button connectBtn = (Button) findViewById(R.id.connectbtn);
-        connectBtn.setOnClickListener(new View.OnClickListener() {
+        Button connectCar = (Button) findViewById(R.id.connectCar);
+        connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    findBT();
-                    openBT();
+                    findCarBT();
+                    openCarBT();
                 } catch (IOException ex) {
                 }
             }
@@ -127,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     
-    void findBT() {
+    //find car bluetooth and respond through text if no bluetooth found.
+    void findCarBT() {
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             myLabel.setText("No bluetooth adapter available");
@@ -141,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
-                if (device.getName().equals("Car"))// change accordingly
+                if (device.getName().equals("Car"))
                 {
                     mmDevice = device;
                     myLabel.setText("Bluetooth Device Found");
@@ -153,8 +155,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    void openBT() throws IOException {
+ 
+    //open car bluetooth 
+    void openCarBT() throws IOException {
         UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
         if (mmDevice != null) {
             mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
@@ -163,7 +166,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
+    
+    // The getBytes() method encodes a given String into a sequence of bytes and returns an array of bytes. 
+    // 8 directons proceeding methods
     void goForward() throws IOException {
         String msg = "f";
         mmOutputStream.write(msg.getBytes());
