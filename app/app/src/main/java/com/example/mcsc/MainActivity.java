@@ -1,4 +1,4 @@
-package com.example.testcar;
+package com.example.mcsc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.net.Uri; //for hyperlink in url
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
@@ -28,9 +28,10 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mmDevice;
 
     OutputStream mmOutputStream;
-    
-    //TODO: set up    android:onClick="goToUrl"      in image xml view. 
-    
+
+    // TODO Liv: Convert kotlin code to java and paste here, for switching app state
+
+    // Method to take user to external github page in browser
     private void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         myLabel = (TextView) findViewById(R.id.myLabel);
         
-        Button connectCar = (Button) findViewById(R.id.connectCar);
+        Button connectCar = (Button) findViewById(R.id.connectCarBtn);
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button forward = (Button) findViewById(R.id.forward);
+        ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button left = (Button) findViewById(R.id.left);
+        ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button right = (Button) findViewById(R.id.right);
+        ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,52 +88,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button backward = (Button) findViewById(R.id.backward);
+        ImageButton backward = (ImageButton) findViewById(R.id.backwardBtn);
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     goBack();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button forwardRight = (Button) findViewById(R.id.forwardRight);
-        forwardRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goForwardRight();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button forwardLeft = (Button) findViewById(R.id.forwardLeft);
-        forwardLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goForwardLeft();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button backwardRight = (Button) findViewById(R.id.backwardRight);
-        backwardRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goBackwardRight();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button backwardLeft = (Button) findViewById(R.id.backwardLeft);
-        backwardLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goBackwardLeft();
                 } catch (IOException ex) {
                 }
             }
@@ -199,25 +160,5 @@ public class MainActivity extends AppCompatActivity {
         String msg = "r";
         mmOutputStream.write(msg.getBytes());
         myLabel.setText("Going Right!");
-    }
-    void goForwardLeft() throws IOException {
-        String msg = "fl";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Forward Left!");
-    }
-    void goForwardRight() throws IOException {
-        String msg = "fr";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Forward Right!");
-    }
-    void goBackwardLeft() throws IOException {
-        String msg = "bl";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Backward Left!");
-    }
-    void goBackwardRight() throws IOException {
-        String msg = "br";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Backward Right!");
     }
 }

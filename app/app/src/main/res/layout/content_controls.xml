@@ -15,46 +15,34 @@
 
     <!-- Forward button -->
     <ImageButton
-        android:id="@+id/forward"
+        android:id="@+id/forwardBtn"
         android:layout_above="@id/whitespace"
         android:layout_centerHorizontal="true"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/forward"
-        android:background="@drawable/car_control_button"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:src="@drawable/nav_forward"
+        style="@style/controlBtn" />
 
     <!-- Backward button -->
     <ImageButton
-        android:id="@+id/backward"
+        android:id="@+id/backwardBtn"
         android:layout_below="@id/whitespace"
         android:layout_centerHorizontal="true"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/backward"
-        android:background="@drawable/car_control_button"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:src="@drawable/nav_backward"
+        style="@style/controlBtn" />
 
     <!-- Left button -->
     <ImageButton
-        android:id="@+id/left"
+        android:id="@+id/leftBtn"
         android:layout_toLeftOf="@id/whitespace"
         android:layout_centerVertical="true"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/left"
-        android:background="@drawable/car_control_button"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:src="@drawable/nav_left"
+        style="@style/controlBtn" />
 
     <!-- Right button -->
     <ImageButton
-        android:id="@+id/right"
+        android:id="@+id/rightBtn"
         android:layout_toRightOf="@id/whitespace"
         android:layout_centerVertical="true"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/right"
-        android:background="@drawable/car_control_button"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:src="@drawable/nav_right"
+        style="@style/controlBtn" />
 
 </RelativeLayout>

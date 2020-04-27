@@ -4,9 +4,11 @@
     <!-- Background color -->
     <gradient
         android:angle="45"
-        android:startColor="#FF3434"
-        android:endColor="#FF4E4E"
+        android:startColor="#A5A5A5"
+        android:endColor="#D2D2D2"
         android:type="linear"/>
+
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(246,98,128,1) 0%, rgba(248,129,135,1) 98.3% );
 
     <!-- Rounded corners -->
     <corners
@@ -14,7 +16,7 @@
 
     <!-- Border -->
     <stroke
-        android:width="6dp"
+        android:width="4dp"
         android:color="#fff"/>
 
 </shape>
