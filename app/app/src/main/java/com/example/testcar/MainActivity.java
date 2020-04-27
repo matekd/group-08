@@ -8,10 +8,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.net.Uri; //for hyperlink in url
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mmDevice;
 
     OutputStream mmOutputStream;
+    
+    //TODO: set up    android:onClick="goToUrl"      in image xml view. 
+    
+    private void goToUrl(View view) {
+        String url = "https://github.com/DIT112-V20/group-08";
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+    }
     
     //connect 8 directions button with the car
     @Override
