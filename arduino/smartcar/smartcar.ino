@@ -114,7 +114,7 @@ void handleInput()
     int back = sensorB.getDistance(); 
     int front = sensor.readRangeContinuousMillimeters();
 
-    while(front != 0 && front < 200 || back != 0 && back < 20) { 
+    while((front != 0 && front < 200) || (back != 0 && back < 20)) { 
 
         unsigned long currentTime = millis();
         if (currentTime > previousToggle + 95){
@@ -162,19 +162,19 @@ void handleInput()
             car.setAngle(0);
             break;
 
-        case 'fr': // go forward right
+        case 'e': // go forward right
             car.setSpeed(fSpeed);
             car.setAngle(frDegrees);
             break;
-        case 'fl': // go forward left
+        case 'q': // go forward left
             car.setSpeed(fSpeed);
             car.setAngle(flDegrees);
             break;
-        case 'br': // go backward right
+        case 'c': // go backward right
             car.setSpeed(bSpeed);
             car.setAngle(brDegrees);
             break;
-        case 'bl': // go backward left
+        case 'z': // go backward left
             car.setSpeed(bSpeed);
             car.setAngle(blDegrees);
             break;
@@ -184,4 +184,3 @@ void handleInput()
             car.setAngle(0);
     }
 }
-
