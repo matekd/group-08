@@ -8,6 +8,7 @@
     tools:context=".MainActivity" >
 
     <!-- EEG headset data display layout -->
+
     <include layout="@layout/content_eeg" />
 
     <LinearLayout
@@ -17,6 +18,7 @@
         android:padding="20dp">
 
         <!-- Header button layout -->
+
         <include layout="@layout/content_connect"/>
         <include layout="@layout/content_switch"/>
 
