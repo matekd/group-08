@@ -10,7 +10,7 @@
 
     <!-- Car connection button -->
     <Button
-        android:id="@+id/connect_car"
+        android:id="@+id/connectCarBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -20,7 +20,7 @@
 
     <!-- Headset connection button -->
     <Button
-        android:id="@+id/connect_headset"
+        android:id="@+id/connectHeadsetBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
