@@ -1,8 +1,8 @@
-package com.example.testcar;
+package com.example.mcsc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.neurosky.connection.*;
+// import com.neurosky.connection.*; (TODO: Commented out for build to run)
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -11,7 +11,8 @@ import android.os.Bundle;
 import android.net.Uri; //for hyperlink in url
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -28,9 +29,67 @@ public class MainActivity extends AppCompatActivity {
     BluetoothDevice mmDevice;
 
     OutputStream mmOutputStream;
-    
-    //TODO: set up    android:onClick="goToUrl"      in image xml view. 
-    
+
+    // Buttons for external connections
+    Button connectCar = (Button) findViewById(R.id.connectCarBtn);
+    Button connectHeadset = (Button) findViewById(R.id.connectHeadsetBtn);
+
+    // Buttons to switch app UI state
+    Button partial = (Button) findViewById(R.id.partialBtn);
+    Button total = (Button) findViewById(R.id.totalBtn);
+    Button manual = (Button) findViewById(R.id.manualBtn);
+
+    // Car control buttons
+    ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
+    ImageButton backward = (ImageButton) findViewById(R.id.backwardBtn);
+    ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
+    ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
+
+    // EEG layout id for visibility regulation
+    RelativeLayout eegView = (RelativeLayout) findViewById(R.id.eegLayout);
+
+    public void hideControls() {
+        forward.setVisibility(View.GONE);
+        backward.setVisibility(View.GONE);
+        left.setVisibility(View.GONE);
+        right.setVisibility(View.GONE);
+    }
+
+    public void showControls() {
+        forward.setVisibility(View.VISIBLE);
+        backward.setVisibility(View.VISIBLE);
+        left.setVisibility(View.VISIBLE);
+        right.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEeg() {eegView.setVisibility(View.GONE);}
+
+    public void showEeg() {eegView.setVisibility(View.VISIBLE);}
+
+    public void showTotalPartialBtns() {
+        manual.setVisibility(View.GONE);
+
+        total.setVisibility(View.VISIBLE);
+        partial.setVisibility(View.VISIBLE);
+    }
+
+    public void showTotalManualBtns() {
+        partial.setVisibility(View.GONE);
+
+        total.setVisibility(View.VISIBLE);
+        manual.setVisibility(View.VISIBLE);
+    }
+
+    public void showManualPartialBtns() {
+        total.setVisibility(View.GONE);
+
+        manual.setVisibility(View.VISIBLE);
+        partial.setVisibility(View.VISIBLE);
+    }
+
+
+
+    // Method to take user to external github page in browser
     private void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -44,9 +103,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myLabel = (TextView) findViewById(R.id.myLabel);
+        // Logic for changing app UI states
+        partial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTotalManualBtns();
+                showEeg();
+                showControls();
+            }
+        });
+        total.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showManualPartialBtns();
+                showEeg();
+                hideControls();
+            }
+        });
+        manual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTotalPartialBtns();
+                hideEeg();
+                showControls();
+            }
+        });
+
+        // myLabel = (TextView) findViewById(R.id.myLabel); (TODO: Commented out for build to run)
         
-        Button connectCar = (Button) findViewById(R.id.connectCar);
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button forward = (Button) findViewById(R.id.forward);
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button left = (Button) findViewById(R.id.left);
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button right = (Button) findViewById(R.id.right);
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,52 +168,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        Button backward = (Button) findViewById(R.id.backward);
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     goBack();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button forwardRight = (Button) findViewById(R.id.forwardRight);
-        forwardRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goForwardRight();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button forwardLeft = (Button) findViewById(R.id.forwardLeft);
-        forwardLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goForwardLeft();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button backwardRight = (Button) findViewById(R.id.backwardRight);
-        backwardRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goBackwardRight();
-                } catch (IOException ex) {
-                }
-            }
-        });
-        Button backwardLeft = (Button) findViewById(R.id.backwardLeft);
-        backwardLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    goBackwardLeft();
                 } catch (IOException ex) {
                 }
             }
@@ -199,25 +239,5 @@ public class MainActivity extends AppCompatActivity {
         String msg = "r";
         mmOutputStream.write(msg.getBytes());
         myLabel.setText("Going Right!");
-    }
-    void goForwardLeft() throws IOException {
-        String msg = "fl";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Forward Left!");
-    }
-    void goForwardRight() throws IOException {
-        String msg = "fr";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Forward Right!");
-    }
-    void goBackwardLeft() throws IOException {
-        String msg = "bl";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Backward Left!");
-    }
-    void goBackwardRight() throws IOException {
-        String msg = "br";
-        mmOutputStream.write(msg.getBytes());
-        myLabel.setText("Going Backward Right!");
     }
 }

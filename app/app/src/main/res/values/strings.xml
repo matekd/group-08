@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">mcsc</string>
+
+    <!-- header strings -->
+    <string name="car">car</string>
+    <string name="headset">headset</string>
+    <string name="total">total mind control</string>
+    <string name="partial">partial mind control</string>
+    <string name="manual">manual control</string>
+    <string name="title_activity_main">Main activity</string>
+
 </resources>

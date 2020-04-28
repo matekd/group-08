@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- TODO: Fix background for buttons so that they change colour on connect -->
+    <!-- TODO: Fix github button design in drawable -->
+
+    <!-- Car connection button -->
+    <Button
+        android:id="@+id/connectCarBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/wifi"
+        android:text="@string/car"
+        style="@style/connectBtn" />
+
+    <!-- Headset connection button -->
+    <Button
+        android:id="@+id/connectHeadsetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/bluetooth"
+        android:text="@string/headset"
+        style="@style/connectBtn" />
+
+    <!-- Github link button -->
+    <ImageButton
+        android:id="@+id/githubBtn"
+        android:onClick="goToUrl"
+        android:src="@drawable/github"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        style="@style/githubBtn" />
+
+</LinearLayout>
