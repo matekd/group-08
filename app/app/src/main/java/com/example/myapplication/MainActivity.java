@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     TextView myLabel;
     TgStreamReader tgStreamReader;
 
+    boolean eegActive = false;
+
     Connector Car = new Connector();
     Connector Headset = new Connector();
 
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 controlEeg.setVisibility(View.GONE);
 
                 // Method to stop eeg reading in UI
-                // stop();
+                stop();
             }
         });
 
@@ -249,20 +251,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void start() {  //Starts reading eeg data
+    //Starts reading eeg data
+    public void start() {
 
-        createStreamReader(Headset.mmDevice);
+        if (eegActive == false) {
+            createStreamReader(Headset.mmDevice);
 
-        tgStreamReader.connectAndStart();
+            tgStreamReader.connectAndStart();
+        }
 
+        eegActive = true;
     }
 
-    public void stop() { //Stops reading eeg data
+    //Stops reading eeg data
+    public void stop() {
 
-        tgStreamReader.stop();
-        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
-        tgStreamReader = null;
+        if (eegActive == true) {
+            tgStreamReader.stop();
+            tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+            tgStreamReader = null;
+        }
 
+        eegActive = false;
     }
 
     public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
