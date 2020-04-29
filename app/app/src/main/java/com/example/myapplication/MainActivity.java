@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.net.Uri; //for hyperlink in url
 import android.bluetooth.BluetoothAdapter;
 import android.os.Handler;
 import android.os.Message;
@@ -251,6 +252,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        backward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    goBackward();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     //Starts reading eeg data
@@ -335,6 +347,14 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
+    //go to webpage through the link in GitHub shape
+    public void goToUrl(View view) {
+        String url = "https://github.com/DIT112-V20/group-08";
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+    }
+
     public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
 
         if (tgStreamReader == null) {
@@ -356,6 +376,11 @@ public class MainActivity extends AppCompatActivity {
 
     void goRight() throws IOException {
         String msg = "r";
+        Car.mmOutputStream.write(msg.getBytes());
+    }
+
+    void goBackward() throws IOException {
+        String msg = "b";
         Car.mmOutputStream.write(msg.getBytes());
     }
 }
