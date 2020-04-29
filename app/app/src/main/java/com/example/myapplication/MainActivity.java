@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -153,8 +154,32 @@ public class MainActivity extends AppCompatActivity {
 
                 // Visibility of eeg control button
                 controlEeg.setVisibility(View.GONE);
+
+                // Method to stop eeg reading in UI
+                // stop();
             }
         });
+
+        // Changes size of start/stop Eeg reading button when in total mind control mode
+        /* if (total.getVisibility() == View.GONE) {
+
+            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
+
+            params.width = 150;
+            params.height = 150;
+
+            controlEeg.setLayoutParams(params);
+
+        } else {
+
+            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
+
+            params.width = 100;
+            params.height = 100;
+
+            controlEeg.setLayoutParams(params);
+
+        } */
 
 
         // Click listeners for starting and stopping the eeg reading in the UI
@@ -237,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
         tgStreamReader.stop();
         tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
         tgStreamReader = null;
+
     }
 
     public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
