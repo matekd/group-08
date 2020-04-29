@@ -158,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
                 controlEeg.setVisibility(View.GONE);
 
                 // Method to stop eeg reading in UI
+                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                controlEeg.setText(getString(R.string.start));
                 stop();
             }
         });
@@ -186,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
-        if (controlEeg.getText() == getString(R.string.start)) {
+        if (eegActive == false) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: Bug! The button doesn't switch back from "stop" to "start"?
 
-        if (controlEeg.getText() == getString(R.string.stop)) {
+        if (eegActive == true) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -258,9 +260,9 @@ public class MainActivity extends AppCompatActivity {
             createStreamReader(Headset.mmDevice);
 
             tgStreamReader.connectAndStart();
-        }
 
-        eegActive = true;
+            eegActive = true;
+        }
     }
 
     //Stops reading eeg data
@@ -270,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
             tgStreamReader.stop();
             tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
             tgStreamReader = null;
-        }
 
-        eegActive = false;
+            eegActive = false;
+        }
     }
 
     public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
