@@ -37,32 +37,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv_attention = (TextView) findViewById(R.id.tv_attention);
-        Button btn_stop = (Button) findViewById(R.id.btn_stop);
-        Button btn_start = (Button) findViewById(R.id.btn_start);
+
+        // Buttons to connect to external hardware, in content_connect.xml
         Button btn_connectcar = (Button) findViewById(R.id.connect_car);
         Button connectBtnH = (Button) findViewById(R.id.connect_headset);
-        ImageButton forwardBtn = (ImageButton) findViewById(R.id.forwardBtn);
-        ImageButton Btn_left = (ImageButton) findViewById(R.id.leftBtn);
-        ImageButton Btn_right = (ImageButton) findViewById(R.id.rightBtn);
 
-        btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                start();
-            }
-        });
+        // Buttons for switching between UI states, found in content_switch.xml
+        Button partial = (Button) findViewById(R.id.partialBtn);
+        Button total = (Button) findViewById(R.id.totalBtn);
+        Button manual = (Button) findViewById(R.id.manualBtn);
 
-        btn_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stop();
-            }
-        });
+        // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
+        Button btn_stop = (Button) findViewById(R.id.btn_stop);
+        Button btn_start = (Button) findViewById(R.id.btn_start);
 
+        // Smart car control buttons in content_controls.xml
+        ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
+        // TODO: Integrate backward button into controls logic below.
+        ImageButton backward = (ImageButton) findViewById(R.id.backwardBtn);
+        ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
+        ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
+
+        // Click listeners for connecting to external hardware
         btn_connectcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Car.findBT("Car");
+                Car.findBT("Car");
                 try {
                     Car.openBT();
                 } catch (IOException e) {
@@ -84,7 +84,26 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        forwardBtn.setOnClickListener(new View.OnClickListener() {
+        // Click listeners for switching between UI states
+
+
+        // Click listeners for starting and stopping the eeg reading in the UI
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                start();
+            }
+        });
+
+        btn_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stop();
+            }
+        });
+
+        // Click listeners for the smart car navigation control buttons
+        forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -95,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Btn_left.setOnClickListener(new View.OnClickListener() {
+        left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -106,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Btn_right.setOnClickListener(new View.OnClickListener() {
+        right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {

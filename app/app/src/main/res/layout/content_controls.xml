@@ -24,17 +24,17 @@
 
     <!-- This button is a white space filler which all other buttons align around -->
     <Button
-        android:id="@+id/whitespace"
+        android:id="@+id/controlEegBtn"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:alpha="0"/>
+        android:layout_height="120dp" />
+    <!-- android:alpha="0" -->
 
     <!-- Forward button -->
     <ImageButton
         android:id="@+id/forwardBtn"
-        android:layout_above="@id/whitespace"
+        android:layout_above="@id/controlEegBtn"
         android:layout_centerHorizontal="true"
         android:src="@drawable/nav_forward"
         style="@style/controlBtn" />
@@ -42,7 +42,7 @@
     <!-- Backward button -->
     <ImageButton
         android:id="@+id/backwardBtn"
-        android:layout_below="@id/whitespace"
+        android:layout_below="@id/controlEegBtn"
         android:layout_centerHorizontal="true"
         android:src="@drawable/nav_backward"
         style="@style/controlBtn" />
@@ -50,7 +50,7 @@
     <!-- Left button -->
     <ImageButton
         android:id="@+id/leftBtn"
-        android:layout_toLeftOf="@id/whitespace"
+        android:layout_toLeftOf="@id/controlEegBtn"
         android:layout_centerVertical="true"
         android:src="@drawable/nav_left"
         style="@style/controlBtn" />
@@ -58,7 +58,7 @@
     <!-- Right button -->
     <ImageButton
         android:id="@+id/rightBtn"
-        android:layout_toRightOf="@id/whitespace"
+        android:layout_toRightOf="@id/controlEegBtn"
         android:layout_centerVertical="true"
         android:src="@drawable/nav_right"
         style="@style/controlBtn" />
