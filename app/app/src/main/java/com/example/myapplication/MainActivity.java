@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = (Button) findViewById(R.id.controlEegBtn);
-        final Button btn_stop = (Button) findViewById(R.id.btn_stop);
-        final Button btn_start = (Button) findViewById(R.id.btn_start);
 
         // Smart car control buttons in content_controls.xml
         final ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
@@ -109,9 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 // Visibility of EEG reading in UI
                 eegLayout.setVisibility(View.VISIBLE);
 
-                // Visibility of eeg control buttons
-                btn_start.setVisibility(View.VISIBLE);
-                btn_stop.setVisibility(View.VISIBLE);
+                // Visibility of eeg control button
                 controlEeg.setVisibility(View.VISIBLE);
             }
         });
@@ -133,9 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 // Visibility of EEG reading in UI
                 eegLayout.setVisibility(View.VISIBLE);
 
-                // Visibility of eeg control buttons
-                btn_start.setVisibility(View.VISIBLE);
-                btn_stop.setVisibility(View.VISIBLE);
+                // Visibility of eeg control button
                 controlEeg.setVisibility(View.VISIBLE);
             }
         });
@@ -157,28 +151,43 @@ public class MainActivity extends AppCompatActivity {
                 // Visibility of EEG reading in UI
                 eegLayout.setVisibility(View.GONE);
 
-                // Visibility of eeg control buttons
-                btn_start.setVisibility(View.GONE);
-                btn_stop.setVisibility(View.GONE);
+                // Visibility of eeg control button
                 controlEeg.setVisibility(View.GONE);
             }
         });
 
 
         // Click listeners for starting and stopping the eeg reading in the UI
-        btn_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                start();
-            }
-        });
 
-        btn_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stop();
-            }
-        });
+        if (controlEeg.getText() == getString(R.string.start)) {
+            controlEeg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                    controlEeg.setText(getString(R.string.stop));
+
+                    start();
+
+                }
+            });
+        }
+
+        // TODO: Bug! The button doesn't switch back from "stop" to "start"?
+
+        if (controlEeg.getText() == getString(R.string.stop)) {
+            controlEeg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
+
+                    stop();
+
+                }
+            });
+        }
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
