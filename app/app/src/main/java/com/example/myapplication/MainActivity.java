@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
@@ -14,14 +15,17 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
+
 import java.io.OutputStream;
 import java.util.Set;
 import java.io.IOException;
 import java.util.UUID;
+
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
+
 public class MainActivity extends AppCompatActivity {
 
     static final String TAG = null;
@@ -211,18 +215,19 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void start(){  //Starts reading eeg data
+    public void start() {  //Starts reading eeg data
 
         createStreamReader(Headset.mmDevice);
 
         tgStreamReader.connectAndStart();
 
     }
+
     public void stop() { //Stops reading eeg data
 
-            tgStreamReader.stop();
-            tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
-            tgStreamReader = null;
+        tgStreamReader.stop();
+        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+        tgStreamReader = null;
     }
 
     public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
@@ -245,9 +250,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+
         @Override
         public void onRecordFail(int flag) { //not used
         }
+
         @Override
         public void onChecksumFail(byte[] payload, int length, int checksum) { //not used
         }
@@ -259,13 +266,13 @@ public class MainActivity extends AppCompatActivity {
                     case MindDataType.CODE_ATTENTION: // Here we establish the data we want to gather
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
-                        if(msg.arg1 > 60){
+                        if (msg.arg1 > 60) {
                             String msgn = "f";
                             try {
                                 Car.mmOutputStream.write(msgn.getBytes());
                             } catch (IOException e) {
                             }
-                        }else {
+                        } else {
                             String msgn = "k";
                             try {
                                 Car.mmOutputStream.write(msgn.getBytes());
@@ -294,10 +301,12 @@ public class MainActivity extends AppCompatActivity {
         String msg = "c";
         Car.mmOutputStream.write(msg.getBytes());
     }
+
     void goLeft() throws IOException {
         String msg = "l";
         Car.mmOutputStream.write(msg.getBytes());
     }
+
     void goRight() throws IOException {
         String msg = "r";
         Car.mmOutputStream.write(msg.getBytes());
