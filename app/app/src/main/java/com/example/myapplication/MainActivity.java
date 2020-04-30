@@ -331,6 +331,20 @@ public class MainActivity extends AppCompatActivity {
                                 Car.mmOutputStream.write(msgn.getBytes());
                             } catch (IOException e) {
                             }
+                            if(msg.arg1 > 65){
+                                String msgn = "a";
+                                // goAcceleration(); number can adjust when testing
+                                try {
+                                    Car.mmOutputStream.write(msgn.getBytes());
+                                } catch (IOException e) {
+                            }
+                                if(msg.arg1 < 30){
+                                    String msgn = "d";
+                                    // goDeceleration(); number can adjust when testing
+                                    try {
+                                        Car.mmOutputStream.write(msgn.getBytes());
+                                    } catch (IOException e) {
+                                    }
                         } else {
                             String msgn = "k";
                             try {
@@ -366,6 +380,16 @@ public class MainActivity extends AppCompatActivity {
 
     void goForward() throws IOException { //Buttons to steer the car
         String msg = "c";
+        Car.mmOutputStream.write(msg.getBytes());
+    }
+
+    void goAccelerate()throws IOException { //send signal to accelerate the car
+        String msg = "a";
+        Car.mmOutputStream.write(msg.getBytes());
+    }
+
+    void goDecelerate()throws IOException { //send signarl to decelerate the car
+        String msg = "d";
         Car.mmOutputStream.write(msg.getBytes());
     }
 
