@@ -19,6 +19,7 @@
         android:id="@+id/githubBtn"
         android:src="@drawable/icon_github"
         android:layout_alignParentRight="true"
+        android:onClick="goToUrl"
         style="@style/GithubBtn" />
 
     <LinearLayout
