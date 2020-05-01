@@ -325,20 +325,20 @@ public class MainActivity extends AppCompatActivity {
                     case MindDataType.CODE_ATTENTION: // Here we establish the data we want to gather
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
-                        if (msg.arg1 > 60) {
+                        if (msg.arg1 >= 60) {
                             String msgn = "f";
                             try {
                                 Car.mmOutputStream.write(msgn.getBytes());
                             } catch (IOException e) {
                             }
-                            if(msg.arg1 > 65){
+                            if(msg.arg1 > 70 && msg.arg1 <=100){
                                 String msgn = "a";
                                 // goAcceleration(); number can adjust when testing
                                 try {
                                     Car.mmOutputStream.write(msgn.getBytes());
                                 } catch (IOException e) {
                             }
-                                if(msg.arg1 < 30){
+                                if(msg.arg1 < =70) && msg.arg1 > 61{
                                     String msgn = "d";
                                     // goDeceleration(); number can adjust when testing
                                     try {
@@ -377,7 +377,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return tgStreamReader;
     }
-
     void goForward() throws IOException { //Buttons to steer the car
         String msg = "c";
         Car.mmOutputStream.write(msg.getBytes());
