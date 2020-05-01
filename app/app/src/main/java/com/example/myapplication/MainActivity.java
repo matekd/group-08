@@ -331,31 +331,44 @@ public class MainActivity extends AppCompatActivity {
                                 Car.mmOutputStream.write(msgn.getBytes());
                             } catch (IOException e) {
                             }
+<<<<<<< Updated upstream
                             if(msg.arg1 > 70 && msg.arg1 <=100){
                                 String msgn = "a";
+=======
+                            if(msg.arg1 > 70 && msg.arg1 <=100) {
+                                String msgn2 = "a";
+>>>>>>> Stashed changes
                                 // goAcceleration(); number can adjust when testing
                                 try {
                                     Car.mmOutputStream.write(msgn.getBytes());
                                 } catch (IOException e) {
+<<<<<<< Updated upstream
                             }
                                 if(msg.arg1 < =70) && msg.arg1 > 61{
                                     String msgn = "d";
+=======
+                                }
+                                if (msg.arg1 <= 70 && msg.arg1 > 61) {
+                                    String msgn3 = "d";
+>>>>>>> Stashed changes
                                     // goDeceleration(); number can adjust when testing
                                     try {
                                         Car.mmOutputStream.write(msgn.getBytes());
                                     } catch (IOException e) {
                                     }
+<<<<<<< Updated upstream
                         } else {
                             String msgn = "k";
                             try {
                                 Car.mmOutputStream.write(msgn.getBytes());
                             } catch (IOException e) {
+=======
+                                }
+                                break;
+                            }}  default:
+                                    break;
+>>>>>>> Stashed changes
                             }
-                        }
-                        break;
-                    default:
-                        break;
-                }
                 super.handleMessage(msg);
             }
         };
