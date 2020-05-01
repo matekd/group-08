@@ -23,7 +23,7 @@
         <include layout="@layout/content_switch"/>
 
         <!-- Car control buttons layout -->
-        <include layout="@layout/content_controls" />
+        <include layout="@layout/content_joystick" />
 
     </LinearLayout>
 
