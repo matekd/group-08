@@ -19,7 +19,7 @@
 
         <!-- Header button layout -->
 
-        <include layout="@layout/content_connect"/>
+        <include layout="@layout/content_header"/>
         <include layout="@layout/content_switch"/>
 
         <!-- Car control buttons layout -->

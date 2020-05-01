@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headerView"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".Header" >
+
+    <TextView
+        android:id="@+id/appName"
+        style="@style/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name_long" />
+
+    <!-- Github link button -->
+    <ImageButton
+        android:id="@+id/githubBtn"
+        android:src="@drawable/icon_github"
+        android:layout_alignParentRight="true"
+        style="@style/GithubBtn" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/appName"
+        android:layout_margin="20dp">
+
+        <Button
+            android:id="@+id/connectCarBtn"
+            android:text="@string/car"
+            android:drawableLeft="@drawable/icon_wifi_disconnected"
+            style="@style/disconnectedBtn" />
+
+        <Button
+            android:id="@+id/connectHeadsetBtn"
+            android:text="@string/headset"
+            android:drawableLeft="@drawable/icon_bluetooth_disconnected"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            style="@style/disconnectedBtn" />
+
+        <Button
+            android:id="@+id/connectedCarBtn"
+            android:text="@string/car"
+            android:drawableLeft="@drawable/icon_wifi_connected"
+            android:visibility="gone"
+            style="@style/connectedBtn" />
+
+        <Button
+            android:id="@+id/connectedHeadsetBtn"
+            android:text="@string/headset"
+            android:drawableLeft="@drawable/icon_bluetooth_connected"
+            android:visibility="gone"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            style="@style/connectedBtn" />
+
+        <Button
+            android:id="@+id/switchToJoystickBtn"
+            android:text="@string/switchActivity"
+            style="@style/SwitchActivityBtn"
+            android:drawableLeft="@drawable/icon_controls"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/switchToEegBtn"
+            android:text="@string/switchActivity"
+            style="@style/SwitchActivityBtn"
+            android:drawableLeft="@drawable/icon_headset" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

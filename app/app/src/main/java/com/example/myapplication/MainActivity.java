@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         tv_attention = (TextView) findViewById(R.id.tv_attention);
 
         // Buttons to connect to external hardware, in content_connect.xml
-        Button btn_connectcar = (Button) findViewById(R.id.connect_car);
-        Button connectBtnH = (Button) findViewById(R.id.connect_headset);
+        Button btn_connectcar = (Button) findViewById(R.id.connectCarBtn);
+        Button connectBtnH = (Button) findViewById(R.id.connectHeadsetBtn);
 
         // Buttons for switching between UI states, found in content_switch.xml
         final Button partial = (Button) findViewById(R.id.partialBtn);
