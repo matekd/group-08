@@ -1,18 +1,15 @@
 <resources>
     <string name="app_name">mcsc</string>
+    <string name="app_name_long">.mindControl(smart-car)</string>
     <string name="title_activity_main">Main activity</string>
 
     <!-- Header strings -->
     <string name="car">Car</string>
     <string name="headset">Headset</string>
-    <string name="total">total mind control</string>
-    <string name="partial">partial mind control</string>
-    <string name="manual">manual control</string>
     <string name="switchActivity">Switch</string>
 
     <!-- Strings for eeg reading start stop button -->
     <string name="start">Start</string>
     <string name="stop">Stop</string>
-    <string name="app_name_long">.mindControl(smart-car)</string>
 
 </resources>

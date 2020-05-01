@@ -44,28 +44,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final RelativeLayout eegLayout = (RelativeLayout) findViewById(R.id.eegLayout);
-        tv_attention = (TextView) findViewById(R.id.tv_attention);
+        tv_attention = findViewById(R.id.tv_attention);
 
         // Buttons to connect to external hardware, in content_connect.xml
-        Button btn_connectcar = (Button) findViewById(R.id.connectCarBtn);
-        Button connectBtnH = (Button) findViewById(R.id.connectHeadsetBtn);
-
-        // Buttons for switching between UI states, found in content_switch.xml
-        final Button partial = (Button) findViewById(R.id.partialBtn);
-        final Button total = (Button) findViewById(R.id.totalBtn);
-        final Button manual = (Button) findViewById(R.id.manualBtn);
+        Button btn_connectcar = findViewById(R.id.connectCarBtn);
+        Button connectBtnH = findViewById(R.id.connectHeadsetBtn);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        final Button controlEeg = (Button) findViewById(R.id.controlEegBtn);
+        final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         // Smart car control buttons in content_controls.xml
-        final ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
+        final ImageButton forward = findViewById(R.id.forwardBtn);
         // TODO: Integrate backward button into controls logic below.
-        final ImageButton backward = (ImageButton) findViewById(R.id.backwardBtn);
-        final ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
-        final ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
+        final ImageButton backward = findViewById(R.id.backwardBtn);
+        final ImageButton left = findViewById(R.id.leftBtn);
+        final ImageButton right = findViewById(R.id.rightBtn);
 
         // Click listeners for connecting to external hardware
         btn_connectcar.setOnClickListener(new View.OnClickListener() {
@@ -92,100 +85,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
-        // Click listeners for switching between UI states
-        partial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.GONE);
-                total.setVisibility(View.VISIBLE);
-                manual.setVisibility(View.VISIBLE);
-
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.VISIBLE);
-                backward.setVisibility(View.VISIBLE);
-                left.setVisibility(View.VISIBLE);
-                right.setVisibility(View.VISIBLE);
-
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.VISIBLE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.VISIBLE);
-            }
-        });
-
-        total.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.VISIBLE);
-                total.setVisibility(View.GONE);
-                manual.setVisibility(View.VISIBLE);
-
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.GONE);
-                backward.setVisibility(View.GONE);
-                left.setVisibility(View.GONE);
-                right.setVisibility(View.GONE);
-
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.VISIBLE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.VISIBLE);
-            }
-        });
-
-        manual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.VISIBLE);
-                total.setVisibility(View.VISIBLE);
-                manual.setVisibility(View.GONE);
-
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.VISIBLE);
-                backward.setVisibility(View.VISIBLE);
-                left.setVisibility(View.VISIBLE);
-                right.setVisibility(View.VISIBLE);
-
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.GONE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.GONE);
-
-                // Method to stop eeg reading in UI
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                controlEeg.setText(getString(R.string.start));
-                stop();
-            }
-        });
-
-        // Changes size of start/stop Eeg reading button when in total mind control mode
-        /* if (total.getVisibility() == View.GONE) {
-
-            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
-
-            params.width = 150;
-            params.height = 150;
-
-            controlEeg.setLayoutParams(params);
-
-        } else {
-
-            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
-
-            params.width = 100;
-            params.height = 100;
-
-            controlEeg.setLayoutParams(params);
-
-        } */
-
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
