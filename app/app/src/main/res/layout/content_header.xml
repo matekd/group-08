@@ -35,19 +35,19 @@
             style="@style/disconnectedBtn" />
 
         <Button
+            android:id="@+id/connectedCarBtn"
+            android:text="@string/car"
+            android:drawableLeft="@drawable/icon_wifi_connected"
+            android:visibility="gone"
+            style="@style/connectedBtn" />
+
+        <Button
             android:id="@+id/connectHeadsetBtn"
             android:text="@string/headset"
             android:drawableLeft="@drawable/icon_bluetooth_disconnected"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             style="@style/disconnectedBtn" />
-
-        <Button
-            android:id="@+id/connectedCarBtn"
-            android:text="@string/car"
-            android:drawableLeft="@drawable/icon_wifi_connected"
-            android:visibility="gone"
-            style="@style/connectedBtn" />
 
         <Button
             android:id="@+id/connectedHeadsetBtn"

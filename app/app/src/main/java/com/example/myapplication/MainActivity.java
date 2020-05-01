@@ -35,10 +35,14 @@ public class MainActivity extends AppCompatActivity {
     TextView myLabel;
     TgStreamReader tgStreamReader;
 
-    boolean eegActive = false;
-
+    // For bluetooth connections
     Connector Car = new Connector();
     Connector Headset = new Connector();
+
+    boolean eegActive = false;
+    boolean currentLayoutEeg;
+    boolean carIsConnected = false;
+    boolean headsetIsConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,45 +50,67 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
 
-        // Buttons to connect to external hardware, in content_connect.xml
-        Button btn_connectcar = findViewById(R.id.connectCarBtn);
-        Button connectBtnH = findViewById(R.id.connectHeadsetBtn);
+        // Header buttons in content_header.xml
+        final Button connectCar = findViewById(R.id.connectCarBtn);
+        final Button carConnected = findViewById(R.id.connectedCarBtn);
+
+        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
+
+        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
+        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         // Smart car control buttons in content_controls.xml
         final ImageButton forward = findViewById(R.id.forwardBtn);
-        // TODO: Integrate backward button into controls logic below.
         final ImageButton backward = findViewById(R.id.backwardBtn);
         final ImageButton left = findViewById(R.id.leftBtn);
         final ImageButton right = findViewById(R.id.rightBtn);
 
         // Click listeners for connecting to external hardware
-        btn_connectcar.setOnClickListener(new View.OnClickListener() {
+        connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Car.findBT("Car");
+
                 try {
+
                     Car.openBT();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    carIsConnected = true;
+
+                } catch (IOException e) { e.printStackTrace(); }
             }
         });
 
-        connectBtnH.setOnClickListener(new View.OnClickListener() {
+        if (carIsConnected == true) {
+
+            connectCar.setVisibility(View.GONE);
+            carConnected.setVisibility(View.VISIBLE);
+
+        }
+
+        connectHeadset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Headset.findBT("Force Trainer II");
                 try {
-                    Headset.openBT();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
+                    Headset.openBT();
+                    headsetIsConnected = true;
+
+                } catch (IOException e) { e.printStackTrace(); }
+            }
         });
+
+        if (headsetIsConnected == true) {
+
+            connectHeadset.setVisibility(View.GONE);
+            headsetConnected.setVisibility(View.VISIBLE);
+
+        }
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
@@ -164,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Header button methods
+
+
     //Starts reading eeg data
     public void start() {
 
@@ -188,7 +217,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
+    // Handles data recieved from headset
+    public TgStreamHandler callback = new TgStreamHandler() {
 
         @Override
         public void onDataReceived(int datatype, int data, Object obj) { //A sort of constructor
@@ -246,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
-    //go to webpage through the link in GitHub shape
+    // Go to repository through the link in GitHub shape
     public void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -263,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
         return tgStreamReader;
     }
 
+    // Car control buttons
     void goForward() throws IOException { //Buttons to steer the car
         String msg = "c";
         Car.mmOutputStream.write(msg.getBytes());
