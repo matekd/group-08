@@ -118,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 joystickContentBtn.setVisibility(View.GONE);
                 eegContentBtn.setVisibility(View.VISIBLE);
 
+                // TODO bug: Eeg reading does not seem to be switched off from the stop() method when included here?
+                stop();
+
             }
         });
 
