@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     Connector Headset = new Connector();
 
     boolean eegActive = false;
-    boolean currentLayoutEeg;
     boolean carIsConnected = false;
     boolean headsetIsConnected = false;
 
@@ -60,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
         final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
 
+        // Activity content id's for changing content in main activity
+        final RelativeLayout eegContent = findViewById(R.id.eegContent);
+        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
+
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
@@ -73,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Car.findBT("Car");
-
                 try {
 
                     Car.openBT();
@@ -86,10 +87,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (carIsConnected == true) {
-
             connectCar.setVisibility(View.GONE);
             carConnected.setVisibility(View.VISIBLE);
-
         }
 
         connectHeadset.setOnClickListener(new View.OnClickListener() {
@@ -97,20 +96,43 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Headset.findBT("Force Trainer II");
                 try {
-
                     Headset.openBT();
                     headsetIsConnected = true;
-
                 } catch (IOException e) { e.printStackTrace(); }
             }
         });
 
         if (headsetIsConnected == true) {
-
             connectHeadset.setVisibility(View.GONE);
             headsetConnected.setVisibility(View.VISIBLE);
-
         }
+
+        // Click listeners for changing activity content
+        joystickContentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                joystickContent.setVisibility(View.VISIBLE);
+                eegContent.setVisibility(View.GONE);
+
+                joystickContentBtn.setVisibility(View.GONE);
+                eegContentBtn.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        eegContentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                joystickContent.setVisibility(View.GONE);
+                eegContent.setVisibility(View.VISIBLE);
+
+                joystickContentBtn.setVisibility(View.VISIBLE);
+                eegContentBtn.setVisibility(View.GONE);
+
+            }
+        });
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
@@ -119,10 +141,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
-                    controlEeg.setText(getString(R.string.stop));
+                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                controlEeg.setText(getString(R.string.stop));
 
-                    start();
+                start();
 
                 }
             });
@@ -135,10 +157,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                    controlEeg.setText(getString(R.string.start));
+                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                controlEeg.setText(getString(R.string.start));
 
-                    stop();
+                stop();
 
                 }
             });
@@ -148,44 +170,44 @@ public class MainActivity extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goForward();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                goForward();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         });
 
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goLeft();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                goLeft();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         });
 
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goRight();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                goRight();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         });
 
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goBackward();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                goBackward();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         });
     }

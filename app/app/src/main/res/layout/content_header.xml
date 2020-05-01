@@ -62,14 +62,14 @@
             android:id="@+id/switchToJoystickBtn"
             android:text="@string/switchActivity"
             style="@style/SwitchActivityBtn"
-            android:drawableLeft="@drawable/icon_controls"
-            android:visibility="gone"/>
+            android:drawableLeft="@drawable/icon_controls" />
 
         <Button
             android:id="@+id/switchToEegBtn"
             android:text="@string/switchActivity"
             style="@style/SwitchActivityBtn"
-            android:drawableLeft="@drawable/icon_headset" />
+            android:drawableLeft="@drawable/icon_headset"
+            android:visibility="gone" />
 
 
     </LinearLayout>
