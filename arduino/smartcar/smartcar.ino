@@ -178,14 +178,13 @@ void handleInput()
             car.setSpeed(bSpeed);
             car.setAngle(blDegrees);
             break;
-
          case 'a': // go accelerated forward
             car.setSpeed(car.getSpeed()+5);
-            car.setAngle(0)
+            car.setAngle(0);
             break;
-         case 'd' // go decelerated forward
+         case 'd': // go decelerated forward
             car.setSpeed(car.getSpeed()-5);
-            car.setAngle(0)
+            car.setAngle(0);
             break;
         default: // if you receive something that you don't know, just stop
             car.setSpeed(0);
