@@ -12,18 +12,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_above="@id/controlEegBtn"
+        android:textSize="25dp"
         android:text="TextView" />
 
     <Button
         android:id="@+id/controlEegBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/tv_attention"
-        android:layout_marginTop="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="40dp"
         android:background="@drawable/bg_eegcontrol_start"
-        android:textSize="18dp"
+        android:textSize="25dp"
         android:textColor="#fff"
         android:text="@string/start"
         android:fontFamily="@font/nunito_extrabold" />
