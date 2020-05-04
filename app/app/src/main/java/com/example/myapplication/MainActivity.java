@@ -95,10 +95,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Headset.findBT("Force Trainer II");
-                try {
-                    Headset.openBT();
-                    headsetIsConnected = true;
-                } catch (IOException e) { e.printStackTrace(); }
             }
         });
 
