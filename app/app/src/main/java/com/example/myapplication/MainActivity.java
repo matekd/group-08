@@ -107,44 +107,41 @@ public class MainActivity extends AppCompatActivity {
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 joystickContent.setVisibility(View.VISIBLE);
                 eegContent.setVisibility(View.GONE);
 
                 joystickContentBtn.setVisibility(View.GONE);
                 eegContentBtn.setVisibility(View.VISIBLE);
 
-                // TODO bug: Eeg reading does not seem to be switched off from the stop() method when included here?
-                stop();
-
+                if (eegActive == true) {
+                    stop();
+                }
             }
         });
 
         eegContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 joystickContent.setVisibility(View.GONE);
                 eegContent.setVisibility(View.VISIBLE);
 
                 joystickContentBtn.setVisibility(View.VISIBLE);
                 eegContentBtn.setVisibility(View.GONE);
-
             }
         });
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
-        if (eegActive == false) {
+        if (carIsConnected == true && headsetIsConnected == true && eegActive == false) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                 controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
                 controlEeg.setText(getString(R.string.stop));
 
-                start();
+                eegActive = true;
 
+                start();
                 }
             });
         }
@@ -155,12 +152,12 @@ public class MainActivity extends AppCompatActivity {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                 controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
                 controlEeg.setText(getString(R.string.start));
 
-                stop();
+                eegActive = false;
 
+                stop();
                 }
             });
         }
@@ -169,80 +166,67 @@ public class MainActivity extends AppCompatActivity {
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                goForward();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                try {
+                    goForward();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                goLeft();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                try {
+                    goLeft();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                goRight();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                try {
+                    goRight();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            try {
-                goBackward();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                try {
+                    goBackward();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    // Header button methods
-
-
     //Starts reading eeg data
     public void start() {
-
-        if (eegActive == false) {
-            createStreamReader(Headset.mmDevice);
-
-            tgStreamReader.connectAndStart();
-
-            eegActive = true;
-        }
+        createStreamReader(Headset.mmDevice);
+        tgStreamReader.connectAndStart();
     }
 
     //Stops reading eeg data
     public void stop() {
-
-        if (eegActive == true) {
-            tgStreamReader.stop();
-            tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
-            tgStreamReader = null;
-
-            eegActive = false;
-        }
+        tgStreamReader.stop();
+        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+        tgStreamReader = null;
     }
 
     // Handles data recieved from headset
     public TgStreamHandler callback = new TgStreamHandler() {
 
+        //A sort of constructor
         @Override
-        public void onDataReceived(int datatype, int data, Object obj) { //A sort of constructor
+        public void onDataReceived(int datatype, int data, Object obj) {
             Message msg = LinkDetectedHandler.obtainMessage();
             msg.what = datatype; //The type of data
             msg.arg1 = data; //The actual data
@@ -250,9 +234,9 @@ public class MainActivity extends AppCompatActivity {
             LinkDetectedHandler.sendMessage(msg);
         }
 
+        //Checks if the headset is connected
         @Override
-        public void onStatesChanged(int connectionStates) { //Checks if the headset is connected
-
+        public void onStatesChanged(int connectionStates) {
             switch (connectionStates) {
                 case ConnectionStates.STATE_CONNECTED:
                     tgStreamReader.start();
@@ -306,7 +290,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
-
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
