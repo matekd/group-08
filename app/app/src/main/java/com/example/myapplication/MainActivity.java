@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 eegContentBtn.setVisibility(View.VISIBLE);
 
                 if (eegActive == true) {
+                    eegActive = false;
                     stop();
                 }
             }
