@@ -14,7 +14,7 @@ const auto pulsesPerMeter = 600;
 const int fSpeed   = 50;  // 50% of the full speed forward
 const int hSpeed   = 70;  // 70% of the full speed 
 const int bSpeed   = -50; // 50% of the full speed backward
-const int dSpeed   = -30; // 60% of the full speed 
+const int dSpeed   = -30; // 30% of the full speed 
 const int lDegrees = -55; // degrees to turn left
 const int rDegrees = 55;  // degrees to turn right
 const int flDegrees = -28; // degrees to turn forward left
@@ -137,6 +137,14 @@ void handleInput()
             car.setSpeed(fSpeed);
             car.setAngle(0);
         }
+        else if (input == 'a' && front != 0 && front > 200) {
+            car.setSpeed(hSpeed);
+            car.setAngle(0);
+        }
+        else if (input == 'd' && front != 0 && front > 200) {
+            car.setSpeed(dSpeed);
+            car.setAngle(0);
+        }
         else {
             car.setSpeed(0);
             car.setAngle(0);
@@ -181,7 +189,7 @@ void handleInput()
             car.setAngle(blDegrees);
             break;
          case 'a': // go accelerated forward
-            car.setSpeed(tSpeed);
+            car.setSpeed(hSpeed);
          //   car.setSpeet(car.getSpeed()-5);
             car.setAngle(0);
             break;

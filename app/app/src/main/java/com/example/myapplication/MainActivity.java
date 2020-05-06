@@ -334,19 +334,15 @@ public class MainActivity extends AppCompatActivity {
 
                             if(msg.arg1 > 70 && msg.arg1 <=100){
                                 String msgn2 = "a";
-
-
                                 // goAcceleration(); number can adjust when testing
                                 try {
                                     Car.mmOutputStream.write(msgn.getBytes());
                                 } catch (IOException e) {
-
                             }
 
                                 }
                                 if (msg.arg1 <= 70 && msg.arg1 > 61) {
                                     String msgn3 = "d";
-
                                     // goDeceleration(); number can adjust when testing
                                     try {
                                         Car.mmOutputStream.write(msgn.getBytes());
