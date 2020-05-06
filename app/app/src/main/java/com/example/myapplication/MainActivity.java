@@ -35,165 +35,114 @@ public class MainActivity extends AppCompatActivity {
     TextView myLabel;
     TgStreamReader tgStreamReader;
 
-    boolean eegActive = false;
-
+    // For bluetooth connections
     Connector Car = new Connector();
     Connector Headset = new Connector();
+
+    boolean eegActive = false;
+    boolean carIsConnected = false;
+    boolean headsetIsConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        tv_attention = findViewById(R.id.tv_attention);
 
-        final RelativeLayout eegLayout = (RelativeLayout) findViewById(R.id.eegLayout);
-        tv_attention = (TextView) findViewById(R.id.tv_attention);
+        // Header buttons in content_header.xml
+        final Button connectCar = findViewById(R.id.connectCarBtn);
+        final Button carConnected = findViewById(R.id.connectedCarBtn);
 
-        // Buttons to connect to external hardware, in content_connect.xml
-        Button btn_connectcar = (Button) findViewById(R.id.connect_car);
-        Button connectBtnH = (Button) findViewById(R.id.connect_headset);
+        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
 
-        // Buttons for switching between UI states, found in content_switch.xml
-        final Button partial = (Button) findViewById(R.id.partialBtn);
-        final Button total = (Button) findViewById(R.id.totalBtn);
-        final Button manual = (Button) findViewById(R.id.manualBtn);
+        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
+        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
+
+        // Activity content id's for changing content in main activity
+        final RelativeLayout eegContent = findViewById(R.id.eegContent);
+        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        final Button controlEeg = (Button) findViewById(R.id.controlEegBtn);
+        final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         // Smart car control buttons in content_controls.xml
-        final ImageButton forward = (ImageButton) findViewById(R.id.forwardBtn);
-        // TODO: Integrate backward button into controls logic below.
-        final ImageButton backward = (ImageButton) findViewById(R.id.backwardBtn);
-        final ImageButton left = (ImageButton) findViewById(R.id.leftBtn);
-        final ImageButton right = (ImageButton) findViewById(R.id.rightBtn);
+        final ImageButton forward = findViewById(R.id.forwardBtn);
+        final ImageButton backward = findViewById(R.id.backwardBtn);
+        final ImageButton left = findViewById(R.id.leftBtn);
+        final ImageButton right = findViewById(R.id.rightBtn);
 
         // Click listeners for connecting to external hardware
-        btn_connectcar.setOnClickListener(new View.OnClickListener() {
+        connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Car.findBT("Car");
                 try {
+
                     Car.openBT();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    carIsConnected = true;
+
+                } catch (IOException e) { e.printStackTrace(); }
             }
         });
 
-        connectBtnH.setOnClickListener(new View.OnClickListener() {
+        if (carIsConnected == true) {
+            connectCar.setVisibility(View.GONE);
+            carConnected.setVisibility(View.VISIBLE);
+        }
+
+        connectHeadset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Headset.findBT("Force Trainer II");
             }
-
         });
 
-        // Click listeners for switching between UI states
-        partial.setOnClickListener(new View.OnClickListener() {
+        if (headsetIsConnected == true) {
+            connectHeadset.setVisibility(View.GONE);
+            headsetConnected.setVisibility(View.VISIBLE);
+        }
+
+        // Click listeners for changing activity content
+        joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.GONE);
-                total.setVisibility(View.VISIBLE);
-                manual.setVisibility(View.VISIBLE);
+                joystickContent.setVisibility(View.VISIBLE);
+                eegContent.setVisibility(View.GONE);
 
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.VISIBLE);
-                backward.setVisibility(View.VISIBLE);
-                left.setVisibility(View.VISIBLE);
-                right.setVisibility(View.VISIBLE);
+                joystickContentBtn.setVisibility(View.GONE);
+                eegContentBtn.setVisibility(View.VISIBLE);
 
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.VISIBLE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.VISIBLE);
+                if (eegActive == true) {
+                    eegActive = false;
+                    stop();
+                }
             }
         });
 
-        total.setOnClickListener(new View.OnClickListener() {
+        eegContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.VISIBLE);
-                total.setVisibility(View.GONE);
-                manual.setVisibility(View.VISIBLE);
+                joystickContent.setVisibility(View.GONE);
+                eegContent.setVisibility(View.VISIBLE);
 
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.GONE);
-                backward.setVisibility(View.GONE);
-                left.setVisibility(View.GONE);
-                right.setVisibility(View.GONE);
-
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.VISIBLE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.VISIBLE);
+                joystickContentBtn.setVisibility(View.VISIBLE);
+                eegContentBtn.setVisibility(View.GONE);
             }
         });
-
-        manual.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Visibility of buttons that switch UI states
-                partial.setVisibility(View.VISIBLE);
-                total.setVisibility(View.VISIBLE);
-                manual.setVisibility(View.GONE);
-
-                // Visibility for smart car control buttons
-                forward.setVisibility(View.VISIBLE);
-                backward.setVisibility(View.VISIBLE);
-                left.setVisibility(View.VISIBLE);
-                right.setVisibility(View.VISIBLE);
-
-                // Visibility of EEG reading in UI
-                eegLayout.setVisibility(View.GONE);
-
-                // Visibility of eeg control button
-                controlEeg.setVisibility(View.GONE);
-
-                // Method to stop eeg reading in UI
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                controlEeg.setText(getString(R.string.start));
-                stop();
-            }
-        });
-
-        // Changes size of start/stop Eeg reading button when in total mind control mode
-        /* if (total.getVisibility() == View.GONE) {
-
-            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
-
-            params.width = 150;
-            params.height = 150;
-
-            controlEeg.setLayoutParams(params);
-
-        } else {
-
-            ViewGroup.LayoutParams params = controlEeg.getLayoutParams();
-
-            params.width = 100;
-            params.height = 100;
-
-            controlEeg.setLayoutParams(params);
-
-        } */
-
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
-        if (eegActive == false) {
+        if (carIsConnected == true && headsetIsConnected == true && eegActive == false) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                controlEeg.setText(getString(R.string.stop));
 
-                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
-                    controlEeg.setText(getString(R.string.stop));
+                eegActive = true;
 
-                    start();
-
+                start();
                 }
             });
         }
@@ -204,12 +153,12 @@ public class MainActivity extends AppCompatActivity {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                controlEeg.setText(getString(R.string.start));
 
-                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                    controlEeg.setText(getString(R.string.start));
+                eegActive = false;
 
-                    stop();
-
+                stop();
                 }
             });
         }
@@ -262,32 +211,23 @@ public class MainActivity extends AppCompatActivity {
 
     //Starts reading eeg data
     public void start() {
-
-        if (eegActive == false) {
-            createStreamReader(Headset.mmDevice);
-
-            tgStreamReader.connectAndStart();
-
-            eegActive = true;
-        }
+        createStreamReader(Headset.mmDevice);
+        tgStreamReader.connectAndStart();
     }
 
     //Stops reading eeg data
     public void stop() {
-
-        if (eegActive == true) {
-            tgStreamReader.stop();
-            tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
-            tgStreamReader = null;
-
-            eegActive = false;
-        }
+        tgStreamReader.stop();
+        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+        tgStreamReader = null;
     }
 
-    public TgStreamHandler callback = new TgStreamHandler() { //Handles data recieved from headset
+    // Handles data recieved from headset
+    public TgStreamHandler callback = new TgStreamHandler() {
 
+        //A sort of constructor
         @Override
-        public void onDataReceived(int datatype, int data, Object obj) { //A sort of constructor
+        public void onDataReceived(int datatype, int data, Object obj) {
             Message msg = LinkDetectedHandler.obtainMessage();
             msg.what = datatype; //The type of data
             msg.arg1 = data; //The actual data
@@ -295,9 +235,9 @@ public class MainActivity extends AppCompatActivity {
             LinkDetectedHandler.sendMessage(msg);
         }
 
+        //Checks if the headset is connected
         @Override
-        public void onStatesChanged(int connectionStates) { //Checks if the headset is connected
-
+        public void onStatesChanged(int connectionStates) {
             switch (connectionStates) {
                 case ConnectionStates.STATE_CONNECTED:
                     tgStreamReader.start();
@@ -342,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
-    //go to webpage through the link in GitHub shape
+    // Go to repository through the link in GitHub shape
     public void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -351,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
-
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
@@ -359,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
         return tgStreamReader;
     }
 
+    // Car control buttons
     void goForward() throws IOException { //Buttons to steer the car
         String msg = "c";
         Car.mmOutputStream.write(msg.getBytes());

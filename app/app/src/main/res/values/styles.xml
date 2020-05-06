@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/turquoise</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,51 +17,64 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- Header button styles -->
-
-    <style
-        name="connectBtn"
-        parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:background">@drawable/bg_connectbtn</item>
-        <item name="android:padding">15dp</item>
-    </style>
-
-    <style
-        name="githubBtn"
-        parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">15dp</item>
-    </style>
-
-    <!-- Buttons to switch app state in content_switch.xml -->
-    <style
-        name="switchBtn"
-        parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">20dp</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:background">@drawable/bg_switchbtn</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-    </style>
-
     <!-- Control buttons in content_controls.xml -->
     <style name="controlBtn">
         <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">120dp</item>
         <item name="android:background">@drawable/bg_controlbtn</item>
+    </style>
+
+    <!-- NEW HEADER -->
+    <!-- Header styles in content_header.xml -->
+    <style name="headerText">
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:fontFamily">@font/nunito_light</item>
+    </style>
+
+    <style name="GithubBtn">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/btn_github</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
+    <style name="disconnectedBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="connectedBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/turquoise</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="SwitchActivityBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/pink</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
     </style>
 
 </resources>

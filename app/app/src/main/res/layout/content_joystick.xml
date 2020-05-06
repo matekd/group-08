@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/joystickContent"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <Button
-        android:id="@+id/controlEegBtn"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/bg_eegcontrol_start"
-        android:textSize="18dp"
-        android:textColor="#fff"
-        android:text="@string/start"
-        android:fontFamily="@font/nunito_extrabold" />
+    android:layout_height="fill_parent"
+    android:visibility="gone" >
 
     <!-- This button is a white space filler which all other buttons align around -->
     <Button
