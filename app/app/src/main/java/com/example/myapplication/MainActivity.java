@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (carIsConnected && headsetIsConnected) {
+                    if (carIsConnected && headsetIsConnected && !eegActive) {
                         controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
                         controlEeg.setText(getString(R.string.stop));
 
