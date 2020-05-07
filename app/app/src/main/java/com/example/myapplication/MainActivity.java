@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
 import java.io.IOException;
-
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
@@ -75,46 +74,58 @@ public class MainActivity extends AppCompatActivity {
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Car.findBT("Car");
-                try {
+                if (!carIsConnected) {
+                    Car.findBT("Car");
+                    try {
 
-                    Car.openBT();
-                    carIsConnected = true;
+                        Car.openBT();
+                        carIsConnected = true;
+                        connectCar.setVisibility(View.GONE);
+                        carConnected.setVisibility(View.VISIBLE);
 
-                } catch (IOException e) { e.printStackTrace(); }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    //do nothing
+                }
             }
         });
-
-        if (carIsConnected) {
-            connectCar.setVisibility(View.GONE);
-            carConnected.setVisibility(View.VISIBLE);
-        }
 
         connectHeadset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Headset.findBT("Force Trainer II");
+                if (!headsetIsConnected) {
+                    Headset.findBT("Force Trainer II");
+                    headsetIsConnected = true;
+                    connectHeadset.setVisibility(View.GONE);
+                    headsetConnected.setVisibility(View.VISIBLE);
+                }
+                else{
+                    // do nothing
+                }
             }
         });
-
-        if (headsetIsConnected) {
-            connectHeadset.setVisibility(View.GONE);
-            headsetConnected.setVisibility(View.VISIBLE);
-        }
 
         // Click listeners for changing activity content
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                joystickContent.setVisibility(View.VISIBLE);
-                eegContent.setVisibility(View.GONE);
+                if (headsetIsConnected && carIsConnected) {
+                    joystickContent.setVisibility(View.VISIBLE);
+                    eegContent.setVisibility(View.GONE);
 
-                joystickContentBtn.setVisibility(View.GONE);
-                eegContentBtn.setVisibility(View.VISIBLE);
+                    joystickContentBtn.setVisibility(View.GONE);
+                    eegContentBtn.setVisibility(View.VISIBLE);
 
-                if (eegActive) {
-                    eegActive = false;
-                    stopEeg();
+                    if (eegActive) {
+                        eegActive = false;
+                        stopEeg();
+                    }
+                }
+                else {
+                    // do nothing
                 }
             }
         });
@@ -132,35 +143,30 @@ public class MainActivity extends AppCompatActivity {
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
-        if (carIsConnected && headsetIsConnected && eegActive) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
-                controlEeg.setText(getString(R.string.stop));
+                    if (carIsConnected && headsetIsConnected && eegActive) {
+                        controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                        controlEeg.setText(getString(R.string.stop));
 
-                eegActive = true;
+                        eegActive = true;
 
-                startAnimation();
+                        startAnimation();
+                        startEeg();
+                    }
+                    else if (eegActive) {
 
-                startEeg();
+                                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                                controlEeg.setText(getString(R.string.start));
+                                eegActive = false;
+
+                                stopAnimation();
+                                stopEeg();
+                    }
                 }
             });
-        } else if (eegActive) {
-            controlEeg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                controlEeg.setText(getString(R.string.start));
 
-                eegActive = false;
-
-                stopAnimation();
-
-                stopEeg();
-                }
-            });
-        }
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
