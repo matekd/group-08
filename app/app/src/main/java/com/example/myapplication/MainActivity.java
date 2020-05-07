@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
 
-        init();
-        startAnimation();
+        initAnimation();
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (eegActive) {
                     eegActive = false;
-                    stop();
+                    stopEeg();
                 }
             }
         });
@@ -142,14 +141,12 @@ public class MainActivity extends AppCompatActivity {
 
                 eegActive = true;
 
-                start();
+                startAnimation();
+
+                startEeg();
                 }
             });
-        }
-
-        // TODO: Bug! The button doesn't switch back from "stop" to "start"?
-
-        if (eegActive) {
+        } else if (eegActive) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -158,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
                 eegActive = false;
 
-                stop();
+                stopAnimation();
+
+                stopEeg();
                 }
             });
         }
@@ -210,13 +209,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Starts reading eeg data
-    public void start() {
+    public void startEeg() {
         createStreamReader(Headset.mmDevice);
         tgStreamReader.connectAndStart();
     }
 
     //Stops reading eeg data
-    public void stop() {
+    public void stopEeg() {
         tgStreamReader.stop();
         tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
         tgStreamReader = null;
@@ -253,11 +252,13 @@ public class MainActivity extends AppCompatActivity {
         public void onChecksumFail(byte[] payload, int length, int checksum) { //not used
         }
 
+        // Method is used to determine what kind of data we want to gather, and what we use the data for
         private Handler LinkDetectedHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg) { //Method is used to determine what kind of data we want to gather, and what we use the data for
+            public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case MindDataType.CODE_ATTENTION: // Here we establish the data we want to gather
+                    // Here we establish the data we want to gather
+                    case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
                         if (msg.arg1 > 60) {
@@ -320,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // For pulse animation
-    private void init() {
+    private void initAnimation() {
         this.animationHandler = new Handler();
         this.animOne = findViewById(R.id.animOne);
         this.animTwo = findViewById(R.id.animTwo);
