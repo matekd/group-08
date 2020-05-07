@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Pulse animation for EEG reading -->
+
     <ImageView
         android:id="@+id/animOne"
         android:layout_width="150dp"
@@ -40,6 +42,8 @@
         android:layout_centerInParent="true"
         android:background="@drawable/circle" />
 
+    <!-- Text view of EEG reading -->
+
     <TextView
         android:id="@+id/tv_attention"
         android:layout_width="wrap_content"
@@ -48,6 +52,8 @@
         android:layout_above="@id/controlEegBtn"
         android:textSize="25dp"
         android:text="TextView" />
+
+    <!-- Start/stop button for EEG reading -->
 
     <Button
         android:id="@+id/controlEegBtn"
