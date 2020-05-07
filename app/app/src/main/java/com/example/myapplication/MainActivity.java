@@ -3,25 +3,19 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
-import android.net.Uri; //for hyperlink in url
-import android.bluetooth.BluetoothAdapter;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
-
-import java.io.OutputStream;
-import java.util.Set;
 import java.io.IOException;
-import java.util.UUID;
 
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
@@ -32,8 +26,11 @@ public class MainActivity extends AppCompatActivity {
 
     static final String TAG = null;
     TextView tv_attention;
-    TextView myLabel;
     TgStreamReader tgStreamReader;
+
+    // For pulse animation
+    private Handler animationHandler;
+    private ImageView animOne, animTwo, animThree, animFour;
 
     // For bluetooth connections
     Connector Car = new Connector();
@@ -48,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
+
+        init();
+        startAnimation();
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (carIsConnected == true) {
+        if (carIsConnected) {
             connectCar.setVisibility(View.GONE);
             carConnected.setVisibility(View.VISIBLE);
         }
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (headsetIsConnected == true) {
+        if (headsetIsConnected) {
             connectHeadset.setVisibility(View.GONE);
             headsetConnected.setVisibility(View.VISIBLE);
         }
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 joystickContentBtn.setVisibility(View.GONE);
                 eegContentBtn.setVisibility(View.VISIBLE);
 
-                if (eegActive == true) {
+                if (eegActive) {
                     eegActive = false;
                     stop();
                 }
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Click listeners for starting and stopping the eeg reading in the UI
 
-        if (carIsConnected == true && headsetIsConnected == true && eegActive == false) {
+        if (carIsConnected && headsetIsConnected && eegActive) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: Bug! The button doesn't switch back from "stop" to "start"?
 
-        if (eegActive == true) {
+        if (eegActive) {
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -318,6 +318,63 @@ public class MainActivity extends AppCompatActivity {
         String msg = "b";
         Car.mmOutputStream.write(msg.getBytes());
     }
+
+    // For pulse animation
+    private void init() {
+        this.animationHandler = new Handler();
+        this.animOne = findViewById(R.id.animOne);
+        this.animTwo = findViewById(R.id.animTwo);
+        this.animThree = findViewById(R.id.animThree);
+        this.animFour = findViewById(R.id.animFour);
+    }
+
+    private void startAnimation() { this.pulseAnimation.run(); }
+
+    private void stopAnimation() { this.animationHandler.removeCallbacks(pulseAnimation); }
+
+    private Runnable pulseAnimation = new Runnable() {
+        @Override
+        public void run() {
+
+            animOne.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(800).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    animOne.setScaleX(1f);
+                    animOne.setScaleY(1f);
+                    animOne.setAlpha(1f);
+                }
+            });
+
+            animTwo.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1200).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    animTwo.setScaleX(1f);
+                    animTwo.setScaleY(1f);
+                    animTwo.setAlpha(1f);
+                }
+            });
+
+            animThree.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1600).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    animThree.setScaleX(1f);
+                    animThree.setScaleY(1f);
+                    animThree.setAlpha(1f);
+                }
+            });
+
+            animFour.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(2000).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    animFour.setScaleX(1f);
+                    animFour.setScaleY(1f);
+                    animFour.setAlpha(1f);
+                }
+            });
+
+            animationHandler.postDelayed(pulseAnimation, 2500);
+        }
+    };
 }
 
 
