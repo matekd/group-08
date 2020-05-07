@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/eegContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TODO: Everything :D -->
+    <!-- Pulse animation for EEG reading -->
+
+    <ImageView
+        android:id="@+id/animOne"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/animTwo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/animThree"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/animFour"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/circle" />
+
+    <Button
+        android:id="@+id/centerBtn"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle" />
+
+    <!-- Text view of EEG reading -->
 
     <TextView
         android:id="@+id/tv_attention"
@@ -15,6 +52,8 @@
         android:layout_above="@id/controlEegBtn"
         android:textSize="25dp"
         android:text="TextView" />
+
+    <!-- Start/stop button for EEG reading -->
 
     <Button
         android:id="@+id/controlEegBtn"

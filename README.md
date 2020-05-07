@@ -26,6 +26,5 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 - Smart Car shield library
 - Java
 - C++
-- Kotlin
 - Travis CI
 - GitHub
