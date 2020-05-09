@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.net.Uri;
 import android.os.Handler;
@@ -39,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     boolean carIsConnected = false;
     boolean headsetIsConnected = false;
 
+    //for gyroscope sensors
+    SensorManager sensorManager;
+    Sensor accelerometer;
+    SensorEventListener accelerometerEventListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +78,30 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton backward = findViewById(R.id.backwardBtn);
         final ImageButton left = findViewById(R.id.leftBtn);
         final ImageButton right = findViewById(R.id.rightBtn);
+
+        //Used for gyroscope
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        accelerometerEventListener = new SensorEventListener(){
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+
+                int value = (int) sensorEvent.values[0];
+                value = (value *11);
+
+                try {
+                    Car.mmOutputStream.write(value);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                //Not used
+            }
+        };
 
         // Click listeners for connecting to external hardware
         connectCar.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     if (eegActive) {
                         eegActive = false;
                         stopEeg();
+                        stopGyro();
                     }
                 }
                 else {
@@ -142,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for starting and stopping the eeg reading in the UI
-
             controlEeg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -154,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
 
                         startAnimation();
                         startEeg();
+                        startGyro();
+
                     }
                     else if (eegActive) {
 
@@ -214,6 +249,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //stops reading gyroscope data
+    public void stopGyro(){
+        sensorManager.unregisterListener(accelerometerEventListener);
+    }
+
+    //starts reading gyroscope data
+    public void startGyro(){
+        sensorManager.registerListener(accelerometerEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
     //Starts reading eeg data
     public void startEeg() {
         createStreamReader(Headset.mmDevice);
@@ -267,16 +312,16 @@ public class MainActivity extends AppCompatActivity {
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
-                        if (msg.arg1 > 60) {
-                            String msgn = "f";
+                        if (msg.arg1 > 59) {
+                            int msgn = 3;
                             try {
-                                Car.mmOutputStream.write(msgn.getBytes());
+                                Car.mmOutputStream.write(msgn);
                             } catch (IOException e) {
                             }
                         } else {
-                            String msgn = "k";
+                            int msgn = 4;
                             try {
-                                Car.mmOutputStream.write(msgn.getBytes());
+                                Car.mmOutputStream.write(msgn);
                             } catch (IOException e) {
                             }
                         }
