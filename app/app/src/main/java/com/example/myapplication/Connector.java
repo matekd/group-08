@@ -15,7 +15,6 @@ public class Connector {     //Used to connect the devices via bluetooth
     BluetoothDevice mmDevice;
     OutputStream mmOutputStream;
 
-
     void findBT(String name){ //You need to specify the name of the bluetooth device
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
