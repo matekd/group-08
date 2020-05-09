@@ -319,17 +319,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
                         if (msg.arg1 > 59) {
-                            int msgn = 3;
+                            int msgn = 9; // forward
                             try {
                                 Car.mmOutputStream.write(msgn);
-                            } catch (IOException e) {
-                            }
+                            } catch (IOException e) { }
                         } else {
-                            int msgn = 4;
+                            int msgn = 10; // stop
                             try {
                                 Car.mmOutputStream.write(msgn);
-                            } catch (IOException e) {
-                            }
+                            } catch (IOException e) { }
                         }
                         break;
                     default:
@@ -358,23 +356,23 @@ public class MainActivity extends AppCompatActivity {
 
     // Car control buttons
     void goForward() throws IOException { //Buttons to steer the car
-        String msg = "c";
-        Car.mmOutputStream.write(msg.getBytes());
+        int msg = 1;
+        Car.mmOutputStream.write(msg);
     }
 
     void goLeft() throws IOException {
-        String msg = "l";
-        Car.mmOutputStream.write(msg.getBytes());
+        int msg = 8;
+        Car.mmOutputStream.write(msg);
     }
 
     void goRight() throws IOException {
-        String msg = "r";
-        Car.mmOutputStream.write(msg.getBytes());
+        int msg = 2;
+        Car.mmOutputStream.write(msg);
     }
 
     void goBackward() throws IOException {
-        String msg = "b";
-        Car.mmOutputStream.write(msg.getBytes());
+        int msg = 5;
+        Car.mmOutputStream.write(msg);
     }
 
     // For pulse animation
