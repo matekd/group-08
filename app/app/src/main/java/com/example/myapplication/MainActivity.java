@@ -24,6 +24,7 @@ import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -112,11 +113,12 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         Car.openBT();
+                        TimeUnit.SECONDS.sleep(6);
                         carIsConnected = true;
                         connectCar.setVisibility(View.GONE);
                         carConnected.setVisibility(View.VISIBLE);
 
-                    } catch (IOException e) {
+                    } catch (IOException | InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
@@ -131,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!headsetIsConnected) {
                     Headset.findBT("Force Trainer II");
+                    try {
+                        TimeUnit.SECONDS.sleep(6);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     headsetIsConnected = true;
                     connectHeadset.setVisibility(View.GONE);
                     headsetConnected.setVisibility(View.VISIBLE);
@@ -201,7 +208,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
