@@ -4,6 +4,7 @@
 #include <Wire.h>
 
 int input;
+int currentSpeed;
 const int TRIGGER_PIN = 5; //D5 red cable
 const int ECHO_PIN = 18; //D18 green cable
 const unsigned int MAX_DISTANCE = 100;
@@ -44,6 +45,7 @@ void setup()
         while (1) {}
     }
     sensor.startContinuous();
+    currentSpeed = 0;
 }
 
 void loop()
@@ -198,5 +200,25 @@ void handleInput()
 
         default: // Inputs are angles for mindcontrol steering
             car.setAngle(-input);
+    }
+}
+
+void changeSpeed(int targetSpeed)
+{
+    if(currentSpeed == 0){
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
+    } 
+    else if (currentSpeed < targetSpeed){ // backward to forward
+        car.setSpeed(0);
+        delay(10);
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
+    }
+    else if (currentSpeed > targetSpeed){ // forward to backward
+        car.setSpeed(0);
+        delay(10);
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
     }
 }
