@@ -4,7 +4,7 @@
 #include <Wire.h>
 
 int input;
-int currentSpeed;
+int currentSpeed; // The speed the car is set to move at, used for manual drive only
 const int TRIGGER_PIN = 5; //D5 red cable
 const int ECHO_PIN = 18; //D18 green cable
 const unsigned int MAX_DISTANCE = 100;
@@ -145,7 +145,7 @@ void handleInput()
     }
 
     switch (input) {
-        //  manuel  |   mindcontrol plus phone gyroscope
+        //  manual  |   mindcontrol plus phone gyroscope
         //  8 1 2   |   9
         //  7   3   |   10
         //  6 5 4   |   -110 to -11 and 11 to 110
@@ -203,6 +203,7 @@ void handleInput()
     }
 }
 
+// Motors can't switch direction without delay
 void changeSpeed(int targetSpeed)
 {
     if(currentSpeed == 0){
