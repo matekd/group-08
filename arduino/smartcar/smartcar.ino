@@ -126,7 +126,7 @@ void handleInput()
         }
         // Object behind, can move forward
         else if(input == 1 && front != 0 && front > 200){
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             car.setAngle(0);
         }
         else {
@@ -139,7 +139,6 @@ void handleInput()
     
     // Converts inputs which were neagtive back to negative
     if (input > 127){
-
         input = (256 - input);
         input = (input * -1);   
     }
@@ -152,12 +151,12 @@ void handleInput()
 
         case 1: // Move straight forward
             car.setAngle(0);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
         
         case 2: // Turn right forward
             car.setAngle(frDegrees);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 3: // turn clockwise 
@@ -167,17 +166,17 @@ void handleInput()
 
         case 4: // Turn right backward
             car.setAngle(brDegrees);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 5: // Move straight backward
             car.setAngle(0);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 6: // Turn left backward
             car.setAngle(blDegrees);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 7: // turn counterclockwise
@@ -187,11 +186,11 @@ void handleInput()
 
         case 8: // turn left forward
             car.setAngle(flDegrees);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 9: // Mindcontrol: move forwards
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 10: // Mindcontrol: stop
@@ -204,6 +203,7 @@ void handleInput()
 }
 
 // Motors can't switch direction without delay
+// When speed is set to something other than 0;
 void changeSpeed(int targetSpeed)
 {
     if(currentSpeed == 0){
