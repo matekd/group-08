@@ -101,7 +101,7 @@ void handleInput()
 
         car.setSpeed(0);
         car.setAngle(0);
-        delay(50);
+        delay(100);
         rotateOnSpot(-180, 80);
         front = sensor.getDistance(); 
     }
@@ -181,13 +181,13 @@ void changeSpeed(int targetSpeed)
     } 
     else if (currentSpeed < targetSpeed){ // backward to forward
         car.setSpeed(0);
-        delay(50);
+        delay(100);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     }
     else if (currentSpeed > targetSpeed){ // forward to backward
         car.setSpeed(0);
-        delay(50);
+        delay(100);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     }
