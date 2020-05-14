@@ -1,14 +1,12 @@
 #include <Smartcar.h>
 #include <BluetoothSerial.h>
-#include <VL53L0X.h>
-#include <Wire.h>
 
 int input;
 int currentSpeed; // The speed the car is set to move at, used for manual drive only
 const int TRIGGER_PIN = 5; //D5 red cable
 const int ECHO_PIN = 18; //D18 green cable
 const unsigned int MAX_DISTANCE = 100;
-SR04 sensorB(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+SR04 sensor(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 const int GYROSCOPE_OFFSET = 37;
 const unsigned long PRINT_INTERVAL = 100;
 unsigned long previousPrintout     = 0;
@@ -44,7 +42,7 @@ void loop()
     handleInput();
     Serial.println(input);
 
-    Serial.println(sensorB.getDistance());
+    Serial.println(sensor.getDistance());
     Serial.println();
 }
 
@@ -98,7 +96,7 @@ void handleInput()
 { 
     while (bluetooth.available()){ input = bluetooth.read(); }        
     
-    int front = sensorB.getDistance(); 
+    int front = sensor.getDistance(); 
 
     while(front != 0 && front < 20) { 
 
@@ -112,7 +110,7 @@ void handleInput()
             car.setSpeed(0);
             car.setAngle(0);
         }
-        front = sensorB.getDistance(); 
+        front = sensor.getDistance(); 
     }
     
     // Converts inputs which were neagtive back to negative
