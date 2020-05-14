@@ -18,7 +18,6 @@ const int flDegrees = -28; // degrees to turn forward left
 const int frDegrees = 28;  // degrees to turn forward right
 const int blDegrees = -152; // degrees to turn backward left
 const int brDegrees = 152; // degrees to turn backward right
-unsigned long previousToggle = 0;
 
 BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
