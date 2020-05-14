@@ -26,7 +26,6 @@ BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
-VL53L0X sensor;
 GY50 gyroscope(GYROSCOPE_OFFSET);
 DirectionlessOdometer leftOdometer(
     smartcarlib::pins::v2::leftOdometerPin, []() { leftOdometer.update(); }, pulsesPerMeter);
@@ -37,14 +36,6 @@ void setup()
 {
     Serial.begin(9600);
     bluetooth.begin("Car"); // Device name
-    Wire.begin();
-    sensor.setTimeout(500);
-    if (!sensor.init())
-    {
-        Serial.println("Failed to detect and initialize sensor!");
-        while (1) {}
-    }
-    sensor.startContinuous();
     currentSpeed = 0;
 }
 
@@ -53,9 +44,7 @@ void loop()
     handleInput();
     Serial.println(input);
 
-    Serial.println(sensor.readRangeContinuousMillimeters());
     Serial.println(sensorB.getDistance());
-    if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
     Serial.println();
 }
 
@@ -109,32 +98,21 @@ void handleInput()
 { 
     while (bluetooth.available()){ input = bluetooth.read(); }        
     
-    int back = sensorB.getDistance(); 
-    int front = sensor.readRangeContinuousMillimeters();
+    int front = sensorB.getDistance(); 
 
-    while((front != 0 && front < 200) || (back != 0 && back < 20)) { 
+    while(front != 0 && front < 20) { 
 
         while (bluetooth.available()){ input = bluetooth.read(); }
 
         // Object infront
-        if((input == 1 || input == 9) && front != 0 && front < 200){
+        if(input == 1 || input == 9){
             rotateOnSpot(-180, 80);
-        }
-        // Object behind
-        else if(input == 5 && back != 0 && back < 20){
-            rotateOnSpot(-180, 80);
-        }
-        // Object behind, can move forward
-        else if(input == 1 && front != 0 && front > 200){
-            changeSpeed(fSpeed);
-            car.setAngle(0);
         }
         else {
             car.setSpeed(0);
             car.setAngle(0);
         }
-        front = sensor.readRangeContinuousMillimeters();
-        back = sensorB.getDistance(); 
+        front = sensorB.getDistance(); 
     }
     
     // Converts inputs which were neagtive back to negative
