@@ -99,16 +99,10 @@ void handleInput()
 
     while(front != 0 && front < 20) { 
 
-        while (bluetooth.available()){ input = bluetooth.read(); }
-
-        // Object infront
-        if(input == 1 || input == 9){
-            rotateOnSpot(-180, 80);
-        }
-        else {
-            car.setSpeed(0);
-            car.setAngle(0);
-        }
+        car.setSpeed(0);
+        car.setAngle(0);
+        delay(50);
+        rotateOnSpot(-180, 80);
         front = sensor.getDistance(); 
     }
     
@@ -187,13 +181,13 @@ void changeSpeed(int targetSpeed)
     } 
     else if (currentSpeed < targetSpeed){ // backward to forward
         car.setSpeed(0);
-        delay(10);
+        delay(50);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     }
     else if (currentSpeed > targetSpeed){ // forward to backward
         car.setSpeed(0);
-        delay(10);
+        delay(50);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     }
