@@ -161,7 +161,7 @@ void handleInput()
 
         case 3: // turn clockwise 
             car.setAngle(0);
-            car.setSpeed(0);
+            rotateOnSpot(90, 80);
             break;
 
         case 4: // Turn right backward
@@ -181,7 +181,7 @@ void handleInput()
 
         case 7: // turn counterclockwise
             car.setAngle(0);
-            car.setSpeed(0);
+            rotateOnSpot(-90, 80);
             break;
 
         case 8: // turn left forward
