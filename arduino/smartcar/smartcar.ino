@@ -1,13 +1,12 @@
 #include <Smartcar.h>
 #include <BluetoothSerial.h>
-#include <VL53L0X.h>
-#include <Wire.h>
 
 int input;
+int currentSpeed; // The speed the car is set to move at, used for manual drive only
 const int TRIGGER_PIN = 5; //D5 red cable
 const int ECHO_PIN = 18; //D18 green cable
 const unsigned int MAX_DISTANCE = 100;
-SR04 sensorB(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+SR04 sensor(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 const int GYROSCOPE_OFFSET = 37;
 const unsigned long PRINT_INTERVAL = 100;
 unsigned long previousPrintout     = 0;
@@ -19,13 +18,11 @@ const int flDegrees = -28; // degrees to turn forward left
 const int frDegrees = 28;  // degrees to turn forward right
 const int blDegrees = -152; // degrees to turn backward left
 const int brDegrees = 152; // degrees to turn backward right
-unsigned long previousToggle = 0;
 
 BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
 BrushedMotor rightMotor(smartcarlib::pins::v2::rightMotorPins);
 DifferentialControl control(leftMotor, rightMotor);
-VL53L0X sensor;
 GY50 gyroscope(GYROSCOPE_OFFSET);
 DirectionlessOdometer leftOdometer(
     smartcarlib::pins::v2::leftOdometerPin, []() { leftOdometer.update(); }, pulsesPerMeter);
@@ -36,14 +33,7 @@ void setup()
 {
     Serial.begin(9600);
     bluetooth.begin("Car"); // Device name
-    Wire.begin();
-    sensor.setTimeout(500);
-    if (!sensor.init())
-    {
-        Serial.println("Failed to detect and initialize sensor!");
-        while (1) {}
-    }
-    sensor.startContinuous();
+    currentSpeed = 0;
 }
 
 void loop()
@@ -51,9 +41,7 @@ void loop()
     handleInput();
     Serial.println(input);
 
-    Serial.println(sensor.readRangeContinuousMillimeters());
-    Serial.println(sensorB.getDistance());
-    if (sensor.timeoutOccurred()) { Serial.print(" TIMEOUT"); }
+    Serial.println(sensor.getDistance());
     Serial.println();
 }
 
@@ -107,89 +95,71 @@ void handleInput()
 { 
     while (bluetooth.available()){ input = bluetooth.read(); }        
     
-    int back = sensorB.getDistance(); 
-    int front = sensor.readRangeContinuousMillimeters();
+    int front = sensor.getDistance(); 
 
-    while((front != 0 && front < 200) || (back != 0 && back < 20)) { 
+    while(front != 0 && front < 20) { 
 
-        while (bluetooth.available()){ input = bluetooth.read(); }
-
-        // Object infront
-        if((input == 1 || input == 9) && front != 0 && front < 200){
-            rotateOnSpot(-180, 80);
-        }
-        // Object behind
-        else if(input == 5 && back != 0 && back < 20){
-            rotateOnSpot(-180, 80);
-        }
-        // Object behind, can move forward
-        else if(input == 1 && front != 0 && front > 200){
-            car.setSpeed(fSpeed);
-            car.setAngle(0);
-        }
-        else {
-            car.setSpeed(0);
-            car.setAngle(0);
-        }
-        front = sensor.readRangeContinuousMillimeters();
-        back = sensorB.getDistance(); 
+        car.setSpeed(0);
+        car.setAngle(0);
+        delay(50);
+        rotateOnSpot(-180, 80);
+        front = sensor.getDistance(); 
     }
     
     // Converts inputs which were neagtive back to negative
     if (input > 127){
-
         input = (256 - input);
         input = (input * -1);   
     }
 
     switch (input) {
-        //  manuel  |   mindcontrol plus phone gyroscope
+        //  manual  |   mindcontrol plus phone gyroscope
         //  8 1 2   |   9
         //  7   3   |   10
         //  6 5 4   |   -110 to -11 and 11 to 110
 
         case 1: // Move straight forward
             car.setAngle(0);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
         
         case 2: // Turn right forward
             car.setAngle(frDegrees);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 3: // turn clockwise 
             car.setAngle(0);
-            car.setSpeed(0);
+            rotateOnSpot(90, 80);
             break;
 
         case 4: // Turn right backward
             car.setAngle(brDegrees);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 5: // Move straight backward
             car.setAngle(0);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 6: // Turn left backward
             car.setAngle(blDegrees);
-            car.setSpeed(bSpeed);
+            changeSpeed(bSpeed);
             break;
 
         case 7: // turn counterclockwise
             car.setAngle(0);
-            car.setSpeed(0);
+            rotateOnSpot(-90, 80);
             break;
 
         case 8: // turn left forward
             car.setAngle(flDegrees);
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 9: // Mindcontrol: move forwards
-            car.setSpeed(fSpeed);
+            changeSpeed(fSpeed);
             break;
 
         case 10: // Mindcontrol: stop
@@ -198,5 +168,27 @@ void handleInput()
 
         default: // Inputs are angles for mindcontrol steering
             car.setAngle(-input);
+    }
+}
+
+// Motors can't switch direction without delay
+// When speed is set to something other than 0;
+void changeSpeed(int targetSpeed)
+{
+    if(currentSpeed == 0){
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
+    } 
+    else if (currentSpeed < targetSpeed){ // backward to forward
+        car.setSpeed(0);
+        delay(50);
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
+    }
+    else if (currentSpeed > targetSpeed){ // forward to backward
+        car.setSpeed(0);
+        delay(50);
+        car.setSpeed(targetSpeed);
+        currentSpeed = targetSpeed;
     }
 }
