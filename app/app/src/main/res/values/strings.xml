@@ -8,6 +8,10 @@
     <string name="headset">Headset</string>
     <string name="switchActivity">Switch</string>
 
+    <!-- Strings for EEG reading concentration levels -->
+    <string name="eeg_description">EEG level: &#160;</string>
+    <string name="eeg_default">0</string>
+
     <!-- Strings for eeg reading start stop button -->
     <string name="start">Start</string>
     <string name="stop">Stop</string>
