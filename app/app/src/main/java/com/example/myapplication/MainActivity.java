@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -24,7 +25,6 @@ import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -111,16 +111,23 @@ public class MainActivity extends AppCompatActivity {
                 if (!carIsConnected) {
                     Car.findBT("Car");
                     try {
-
                         Car.openBT();
-                        TimeUnit.SECONDS.sleep(6);
-                        carIsConnected = true;
-                        connectCar.setVisibility(View.GONE);
-                        carConnected.setVisibility(View.VISIBLE);
-
-                    } catch (IOException | InterruptedException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    CountDownTimer timer = new CountDownTimer(6000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            connectCar.setTextSize(10);
+                            connectCar.setText("Connecting...");
+                        }
+                        @Override
+                        public void onFinish() {
+                            connectCar.setVisibility(View.GONE);
+                            carConnected.setVisibility(View.VISIBLE);
+                            carIsConnected = true;
+                        }
+                    }.start();
                 }
                 else {
                     //do nothing
@@ -133,17 +140,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!headsetIsConnected) {
                     Headset.findBT("Force Trainer II");
-                    try {
-                        TimeUnit.SECONDS.sleep(6);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    headsetIsConnected = true;
-                    connectHeadset.setVisibility(View.GONE);
-                    headsetConnected.setVisibility(View.VISIBLE);
+                    CountDownTimer timer = new CountDownTimer(6000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            connectHeadset.setTextSize(10);
+                            connectHeadset.setText("Connecting...");
+                        }
+                        @Override
+                        public void onFinish() {
+                            connectHeadset.setVisibility(View.GONE);
+                            headsetConnected.setVisibility(View.VISIBLE);
+                            headsetIsConnected = true;
+                        }
+                    }.start();
                 }
-                else{
-                    // do nothing
+                else {
+                    //do nothing
                 }
             }
         });
@@ -189,16 +201,13 @@ public class MainActivity extends AppCompatActivity {
                     if (carIsConnected && headsetIsConnected && !eegActive) {
                         controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
                         controlEeg.setText(getString(R.string.stop));
-
                         eegActive = true;
 
                         startAnimation();
                         startEeg();
                         startGyro();
-
                     }
                     else if (eegActive) {
-
                                 controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
                                 controlEeg.setText(getString(R.string.start));
                                 eegActive = false;
