@@ -43,15 +43,26 @@
         android:background="@drawable/circle" />
 
     <!-- Text view of EEG reading -->
-
-    <TextView
-        android:id="@+id/tv_attention"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
         android:layout_above="@id/controlEegBtn"
-        android:textSize="25dp"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eeg_description"
+            style="@style/concentrationStyle" />
+
+        <TextView
+            android:id="@+id/tv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eeg_default"
+            style="@style/concentrationStyle" />
+    </LinearLayout>
 
     <!-- Start/stop button for EEG reading -->
 
@@ -63,7 +74,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/bg_eegcontrol_start"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textColor="#fff"
         android:text="@string/start"
         android:fontFamily="@font/nunito_extrabold" />
