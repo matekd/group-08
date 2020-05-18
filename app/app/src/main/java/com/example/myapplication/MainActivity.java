@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.io.IOException;
+
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
@@ -84,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        accelerometerEventListener = new SensorEventListener(){
+        accelerometerEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
 
                 int value = (int) sensorEvent.values[0];
-                value = (value *11);
+                value = (value * 11);
 
                 try {
                     Car.mmOutputStream.write(value);
@@ -119,8 +123,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             connectCar.setTextSize(10);
-                            connectCar.setText("Connecting...");
+                            connectCar.setText(getString(R.string.connecting));
                         }
+
                         @Override
                         public void onFinish() {
                             connectCar.setVisibility(View.GONE);
@@ -128,9 +133,6 @@ public class MainActivity extends AppCompatActivity {
                             carIsConnected = true;
                         }
                     }.start();
-                }
-                else {
-                    //do nothing
                 }
             }
         });
@@ -146,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                             connectHeadset.setTextSize(10);
                             connectHeadset.setText("Connecting...");
                         }
+
                         @Override
                         public void onFinish() {
                             connectHeadset.setVisibility(View.GONE);
@@ -154,9 +157,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }.start();
                 }
-                else {
-                    //do nothing
-                }
             }
         });
 
@@ -164,21 +164,16 @@ public class MainActivity extends AppCompatActivity {
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (headsetIsConnected && carIsConnected) {
-                    joystickContent.setVisibility(View.VISIBLE);
-                    eegContent.setVisibility(View.GONE);
+                joystickContent.setVisibility(View.VISIBLE);
+                eegContent.setVisibility(View.GONE);
 
-                    joystickContentBtn.setVisibility(View.GONE);
-                    eegContentBtn.setVisibility(View.VISIBLE);
+                joystickContentBtn.setVisibility(View.GONE);
+                eegContentBtn.setVisibility(View.VISIBLE);
 
-                    if (eegActive) {
-                        eegActive = false;
-                        stopEeg();
-                        stopGyro();
-                    }
-                }
-                else {
-                    // do nothing
+                if (eegActive) {
+                    eegActive = false;
+                    stopEeg();
+                    stopGyro();
                 }
             }
         });
@@ -195,37 +190,47 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for starting and stopping the eeg reading in the UI
-            controlEeg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (carIsConnected && headsetIsConnected && !eegActive) {
-                        controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
-                        controlEeg.setText(getString(R.string.stop));
-                        eegActive = true;
+        controlEeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!carIsConnected && !headsetIsConnected) {
+                    pleaseConnectDevices();
+                } else if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else if (!headsetIsConnected) {
+                    pleaseConnectHeadset();
+                } else if (carIsConnected && headsetIsConnected && !eegActive) {
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
+                    controlEeg.setText(getString(R.string.stop));
+                    eegActive = true;
 
-                        startAnimation();
-                        startEeg();
-                        startGyro();
-                    }
-                    else if (eegActive) {
-                                controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
-                                controlEeg.setText(getString(R.string.start));
-                                eegActive = false;
+                    startAnimation();
+                    startEeg();
+                    startGyro();
+                } else {
+                    controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_start));
+                    controlEeg.setText(getString(R.string.start));
+                    eegActive = false;
 
-                                stopAnimation();
-                                stopEeg();
-                    }
+                    stopAnimation();
+                    stopEeg();
+                    stopGyro();
                 }
-            });
+            }
+        });
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goForward();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {
+                        goForward();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -233,10 +238,14 @@ public class MainActivity extends AppCompatActivity {
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goLeft();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {
+                        goLeft();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -244,10 +253,14 @@ public class MainActivity extends AppCompatActivity {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goRight();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {
+                        goRight();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -255,22 +268,43 @@ public class MainActivity extends AppCompatActivity {
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goBackward();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {
+                        goBackward();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
     }
 
+    // Toast methods because I couldn't get the Toasty class to work
+
+    private void pleaseConnectDevices() {
+        String toastString = "Please connect devices";
+        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void pleaseConnectHeadset() {
+        String toastString = "Please connect the headset";
+        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void pleaseConnectCar() {
+        String toastString = "Please connect to smart car";
+        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
+    }
+
     //stops reading gyroscope data
-    public void stopGyro(){
+    public void stopGyro() {
         sensorManager.unregisterListener(accelerometerEventListener);
     }
 
     //starts reading gyroscope data
-    public void startGyro(){
+    public void startGyro() {
         sensorManager.registerListener(accelerometerEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -331,12 +365,14 @@ public class MainActivity extends AppCompatActivity {
                             int msgn = 9; // forward
                             try {
                                 Car.mmOutputStream.write(msgn);
-                            } catch (IOException e) { }
+                            } catch (IOException e) {
+                            }
                         } else {
                             int msgn = 10; // stop
                             try {
                                 Car.mmOutputStream.write(msgn);
-                            } catch (IOException e) { }
+                            } catch (IOException e) {
+                            }
                         }
                         break;
                     default:
@@ -393,9 +429,13 @@ public class MainActivity extends AppCompatActivity {
         this.animFour = findViewById(R.id.animFour);
     }
 
-    private void startAnimation() { this.pulseAnimation.run(); }
+    private void startAnimation() {
+        this.pulseAnimation.run();
+    }
 
-    private void stopAnimation() { this.animationHandler.removeCallbacks(pulseAnimation); }
+    private void stopAnimation() {
+        this.animationHandler.removeCallbacks(pulseAnimation);
+    }
 
     private Runnable pulseAnimation = new Runnable() {
         @Override
