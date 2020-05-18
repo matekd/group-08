@@ -17,7 +17,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
@@ -35,10 +34,6 @@ public class MainActivity extends AppCompatActivity {
     static final String TAG = null;
     TextView tv_attention;
     TgStreamReader tgStreamReader;
-
-    // For pulse animation
-    private Handler animationHandler;
-    private ImageView animOne, animTwo, animThree, animFour;
 
     // For bluetooth connections
     Connector Car = new Connector();
@@ -58,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
-
-        initAnimation();
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -204,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                     controlEeg.setText(getString(R.string.stop));
                     eegActive = true;
 
-                    startAnimation();
                     startEeg();
                     startGyro();
                 } else {
@@ -212,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
                     controlEeg.setText(getString(R.string.start));
                     eegActive = false;
 
-                    stopAnimation();
                     stopEeg();
                     stopGyro();
                 }
@@ -419,67 +410,6 @@ public class MainActivity extends AppCompatActivity {
         int msg = 5;
         Car.mmOutputStream.write(msg);
     }
-
-    // For pulse animation
-    private void initAnimation() {
-        this.animationHandler = new Handler();
-        this.animOne = findViewById(R.id.animOne);
-        this.animTwo = findViewById(R.id.animTwo);
-        this.animThree = findViewById(R.id.animThree);
-        this.animFour = findViewById(R.id.animFour);
-    }
-
-    private void startAnimation() {
-        this.pulseAnimation.run();
-    }
-
-    private void stopAnimation() {
-        this.animationHandler.removeCallbacks(pulseAnimation);
-    }
-
-    private Runnable pulseAnimation = new Runnable() {
-        @Override
-        public void run() {
-
-            animOne.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(800).withEndAction(new Runnable() {
-                @Override
-                public void run() {
-                    animOne.setScaleX(1f);
-                    animOne.setScaleY(1f);
-                    animOne.setAlpha(1f);
-                }
-            });
-
-            animTwo.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1200).withEndAction(new Runnable() {
-                @Override
-                public void run() {
-                    animTwo.setScaleX(1f);
-                    animTwo.setScaleY(1f);
-                    animTwo.setAlpha(1f);
-                }
-            });
-
-            animThree.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(1600).withEndAction(new Runnable() {
-                @Override
-                public void run() {
-                    animThree.setScaleX(1f);
-                    animThree.setScaleY(1f);
-                    animThree.setAlpha(1f);
-                }
-            });
-
-            animFour.animate().scaleX(4f).scaleY(4f).alpha(0f).setDuration(2000).withEndAction(new Runnable() {
-                @Override
-                public void run() {
-                    animFour.setScaleX(1f);
-                    animFour.setScaleY(1f);
-                    animFour.setAlpha(1f);
-                }
-            });
-
-            animationHandler.postDelayed(pulseAnimation, 2500);
-        }
-    };
 }
 
 

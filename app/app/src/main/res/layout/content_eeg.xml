@@ -6,41 +6,9 @@
     android:layout_height="match_parent">
 
     <!-- Pulse animation for EEG reading -->
-
-    <ImageView
-        android:id="@+id/animOne"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/circle" />
-
-    <ImageView
-        android:id="@+id/animTwo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/circle" />
-
-    <ImageView
-        android:id="@+id/animThree"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/circle" />
-
-    <ImageView
-        android:id="@+id/animFour"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/circle" />
-
-    <Button
-        android:id="@+id/centerBtn"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/circle" />
+    <com.example.myapplication.PulseView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 
     <!-- Text view of EEG reading -->
     <LinearLayout
