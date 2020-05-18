@@ -133,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
                             carIsConnected = true;
                         }
                     }.start();
-                } else {
-                    //do nothing
                 }
             }
         });
@@ -158,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
                             headsetIsConnected = true;
                         }
                     }.start();
-                } else {
-                    //do nothing
                 }
             }
         });
