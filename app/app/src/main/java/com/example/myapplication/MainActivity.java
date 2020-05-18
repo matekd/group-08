@@ -219,8 +219,10 @@ public class MainActivity extends AppCompatActivity {
             });
 
         // Notification toast for when the user is trying to push navigation buttons without being connected to hardware
-        String connectionPrompt = "Please connect to the car";
-        plaseConnect = new Toast.makeText(this, connectionPrompt, Toast.LENGTH_SHORT);
+        Context context = getApplicationContext();
+        String toastText = "Please connect to the car";
+        int duration = Toast.LENGTH_SHORT;
+        plaseConnect = new Toast.makeText(context, toastText, duration);
 
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
