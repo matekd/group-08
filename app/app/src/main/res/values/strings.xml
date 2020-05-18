@@ -7,6 +7,7 @@
     <string name="car">Car</string>
     <string name="headset">Headset</string>
     <string name="switchActivity">Switch</string>
+    <string name="connecting">Connecting ...</string>
 
     <!-- Strings for EEG reading concentration levels -->
     <string name="eeg_description">EEG level: &#160;</string>
