@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import java.io.IOException;
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.TgStreamHandler;
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
+
+    // Toast that asks the user to connect to hardware before pressing buttons
+    Toast plaseConnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,21 +169,16 @@ public class MainActivity extends AppCompatActivity {
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (headsetIsConnected && carIsConnected) {
-                    joystickContent.setVisibility(View.VISIBLE);
-                    eegContent.setVisibility(View.GONE);
+                joystickContent.setVisibility(View.VISIBLE);
+                eegContent.setVisibility(View.GONE);
 
-                    joystickContentBtn.setVisibility(View.GONE);
-                    eegContentBtn.setVisibility(View.VISIBLE);
+                joystickContentBtn.setVisibility(View.GONE);
+                eegContentBtn.setVisibility(View.VISIBLE);
 
-                    if (eegActive) {
-                        eegActive = false;
-                        stopEeg();
-                        stopGyro();
-                    }
-                }
-                else {
-                    // do nothing
+                if (eegActive) {
+                    eegActive = false;
+                    stopEeg();
+                    stopGyro();
                 }
             }
         });
@@ -218,14 +218,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        // Notification toast for when the user is trying to push navigation buttons without being connected to hardware
+        String connectionPrompt = "Please connect to the car";
+        plaseConnect = new Toast.makeText(this, connectionPrompt, Toast.LENGTH_SHORT);
+
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goForward();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnect.show();
+                } else if (carIsConnected) {
+                    try {
+                        goForward();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Do nothing
                 }
             }
         });
@@ -233,10 +243,16 @@ public class MainActivity extends AppCompatActivity {
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goLeft();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnect.show();
+                } else if (carIsConnected) {
+                    try {
+                        goLeft();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Do nothing
                 }
             }
         });
@@ -244,10 +260,16 @@ public class MainActivity extends AppCompatActivity {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goRight();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnect.show();
+                } else if (carIsConnected) {
+                    try {
+                        goRight();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Do nothing
                 }
             }
         });
@@ -255,10 +277,16 @@ public class MainActivity extends AppCompatActivity {
         backward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    goBackward();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (!carIsConnected) {
+                    pleaseConnect.show();
+                } else if (carIsConnected) {
+                    try {
+                        goBackward();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Do nothing
                 }
             }
         });
