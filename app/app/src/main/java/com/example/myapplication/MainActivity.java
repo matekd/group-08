@@ -51,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
 
-    // Toast that asks the user to connect to hardware before pressing buttons
-    Toast plaseConnect;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,18 +215,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        // Notification toast for when the user is trying to push navigation buttons without being connected to hardware
-        Context context = getApplicationContext();
-        String toastText = "Please connect to the car";
-        int duration = Toast.LENGTH_SHORT;
-        plaseConnect = new Toast.makeText(context, toastText, duration);
-
         // Click listeners for the smart car navigation control buttons
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
-                    pleaseConnect.show();
+                    pleaseConnect();
                 } else if (carIsConnected) {
                     try {
                         goForward();
@@ -246,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
-                    pleaseConnect.show();
+                    pleaseConnect();
                 } else if (carIsConnected) {
                     try {
                         goLeft();
@@ -263,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
-                    pleaseConnect.show();
+                    pleaseConnect();
                 } else if (carIsConnected) {
                     try {
                         goRight();
@@ -280,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
-                    pleaseConnect.show();
+                    pleaseConnect();
                 } else if (carIsConnected) {
                     try {
                         goBackward();
@@ -292,6 +283,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void pleaseConnect() {
+        String toastString = "Please connect to the car";
+        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
     }
 
     //stops reading gyroscope data
