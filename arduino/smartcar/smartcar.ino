@@ -88,7 +88,7 @@ void rotateOnSpot(int targetDegrees, int speed) // taken from smartcar library
         // is at least 0 and at most 360. To handle the "edge" cases we substracted or added 360 to
         // currentHeading)
     }
-    car.setSpeed(0); // we have reached the target, so stop the car
+    changeSpeed(0); // we have reached the target, so stop the car
 }
 
 void handleInput()
@@ -98,10 +98,10 @@ void handleInput()
     int front = sensor.getDistance(); 
 
     while(front != 0 && front < 20) { 
-
-        car.setSpeed(0);
+        
+        changeSpeed(0);
         car.setAngle(0);
-        delay(50);
+        delay(100);
         rotateOnSpot(-180, 80);
         front = sensor.getDistance(); 
     }
@@ -163,7 +163,7 @@ void handleInput()
             break;
 
         case 10: // Mindcontrol: stop
-            car.setSpeed(0);
+            changeSpeed(0);
             break;
 
         default: // Inputs are angles for mindcontrol steering
@@ -175,20 +175,20 @@ void handleInput()
 // When speed is set to something other than 0;
 void changeSpeed(int targetSpeed)
 {
-    if(currentSpeed == 0){
+    if (currentSpeed == 0){
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     } 
     else if (currentSpeed < targetSpeed){ // backward to forward
         car.setSpeed(0);
-        delay(50);
+        delay(100);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
     }
     else if (currentSpeed > targetSpeed){ // forward to backward
         car.setSpeed(0);
-        delay(50);
+        delay(100);
         car.setSpeed(targetSpeed);
         currentSpeed = targetSpeed;
-    }
+    } else {} // targetSpeed == currentSpeed. Do nothing
 }
