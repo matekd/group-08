@@ -7,23 +7,23 @@
 
 
     <com.example.myapplication.JoyStick
-        android:background="#EBEBEB"
+        android:background="@color/white"
         android:id="@+id/joy1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
        <!-- This button is a white space filler which all other buttons align around  -->
-    <Button
-       android:id="@+id/whitespace"
-       android:layout_width="120dp"
-       android:layout_height="120dp"
-       android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
-       android:visibility="invisible" />
+    <!--  <Button
+         android:id="@+id/whitespace"
+         android:layout_width="120dp"
+         android:layout_height="120dp"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:visibility="invisible" /> -->
 
-   <!-- Forward button -->
+     <!-- Forward button -->
     <!--<ImageButton
         android:id="@+id/forwardBtn"
         style="@style/controlBtn"

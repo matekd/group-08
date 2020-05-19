@@ -68,13 +68,9 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         // Activity content id's for changing content in main activity
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
         final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
-
         JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
-        joyStick.setPadColor(Color.parseColor("#ffffff"));
-       //cancel comment 
-       // joyStick.setPadBackground(R.drawable.icon_round_arrow);
+        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
         joyStick.setListener(this);
-
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
@@ -420,13 +416,25 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         int msg = 5;
         Car.mmOutputStream.write(msg);
     }
+    void goForwardLeft()throws IOException {
+        int msg = 8;
+        Car.mmOutputStream.write(msg);
+    }
+    void goForwardRight()throws IOException {
+        int msg = 2;
+        Car.mmOutputStream.write(msg);
+    }
+    void goBackwardLeft()throws IOException {
+        int msg = 6;
+        Car.mmOutputStream.write(msg);
+    }
+    void goBackardRight()throws IOException {
+        int msg = 4;
+        Car.mmOutputStream.write(msg);
+    }
 
-
-
-    // joyStick control methods to replace four buttons
+    // joyStick eight control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-        pleaseConnectCar();
-
         switch (direction){
             case JoyStick.DIRECTION_LEFT:
                 if (!carIsConnected) {
@@ -467,6 +475,42 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 } catch (Exception e) {
                     e.printStackTrace();
                 } }
+                break;
+            case JoyStick.DIRECTION_LEFT_UP:
+                 if (!carIsConnected) {
+                     pleaseConnectCar();
+                 } else {
+                     try {goForwardLeft(); }
+                     catch (Exception e) {
+                         e.printStackTrace();
+                     } }
+                 break;
+            case JoyStick.DIRECTION_UP_RIGHT:
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {goForwardRight(); }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    } }
+                break;
+            case JoyStick.DIRECTION_DOWN_LEFT:
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {goBackwardLeft(); }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    } }
+                break;
+            case JoyStick.DIRECTION_RIGHT_DOWN:
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
+                    try {goBackardRight(); }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    } }
                 break;
             default:
                 break;

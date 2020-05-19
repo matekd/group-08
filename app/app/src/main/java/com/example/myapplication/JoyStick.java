@@ -94,7 +94,7 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.JoyStick);
             if (typedArray != null) {
-                padColor = typedArray.getColor(R.styleable.JoyStick_padColor,Color.WHITE);
+              //  padColor = typedArray.getColor(R.styleable.JoyStick_padColor,Color.WHITE);
                 buttonColor = typedArray.getColor(R.styleable.JoyStick_buttonColor, pink);
                 stayPut = typedArray.getBoolean(R.styleable.JoyStick_stayPut, false);
                 percentage = typedArray.getInt(R.styleable.JoyStick_percentage, 25);
@@ -133,7 +133,7 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     @Override
     public void onDraw(Canvas canvas) {
         if (canvas == null) return;
-        if (padBGBitmap == null) {
+      /*  if (padBGBitmap == null) {
             paint.setColor(padColor);
             canvas.drawCircle(centerX, centerY, radius, paint);
         } else {
@@ -143,6 +143,7 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
             temp.set(centerX - radius, centerY - radius, centerX + radius, centerY + radius);
             canvas.drawBitmap(padBGBitmap, null, temp, paint);
         }
+       */
         if (buttonBitmap == null) {
             paint.setColor(buttonColor);
             canvas.drawCircle(posX, posY, buttonRadius, paint);
