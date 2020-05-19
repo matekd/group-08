@@ -70,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
 
         JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
-        joyStick.setPadColor(Color.parseColor("#55ffffff"));
-        joyStick.setPadBackground(R.drawable.icon_round_arrow);
+        joyStick.setPadColor(Color.parseColor("#ffffff"));
+       //cancel comment 
+       // joyStick.setPadBackground(R.drawable.icon_round_arrow);
         joyStick.setListener(this);
 
 
@@ -79,16 +80,11 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         // Smart car control buttons in content_controls.xml
-        final ImageButton forward = findViewById(R.id.forwardBtn);
-        final ImageButton backward = findViewById(R.id.backwardBtn);
-        final ImageButton left = findViewById(R.id.leftBtn);
-        final ImageButton right = findViewById(R.id.rightBtn);
+       // final ImageButton forward = findViewById(R.id.forwardBtn);
+       // final ImageButton backward = findViewById(R.id.backwardBtn);
+       // final ImageButton left = findViewById(R.id.leftBtn);
+       // final ImageButton right = findViewById(R.id.rightBtn);
 
-        // invisible four buttons in case joysick method doesn't work
-        forward.setVisibility(View.GONE);
-        backward.setVisibility(View.GONE);
-        left.setVisibility(View.GONE);
-        right.setVisibility(View.GONE);
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -224,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         });
 
         // Click listeners for the smart car navigation control buttons
-        forward.setOnClickListener(new View.OnClickListener() {
+        /* forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
@@ -282,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     }
                 }
             }
-        });
+        }); */
     }
 
     // Toast methods because I couldn't get the Toasty class to work
@@ -290,6 +286,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     private void pleaseConnectDevices() {
         String toastString = "Please connect devices";
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
+
     }
 
     private void pleaseConnectHeadset() {
@@ -424,40 +421,52 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         Car.mmOutputStream.write(msg);
     }
 
+
+
     // joyStick control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+        pleaseConnectCar();
+
         switch (direction){
             case JoyStick.DIRECTION_LEFT:
-                Toast.makeText(MainActivity.this,"Go Left",Toast.LENGTH_SHORT).show();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
                 try {
                     goLeft();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } }
                 break;
             case JoyStick.DIRECTION_RIGHT:
-                Toast.makeText(MainActivity.this,"Go Right",Toast.LENGTH_SHORT).show();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
                 try {
                     goRight();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } }
                 break;
             case JoyStick.DIRECTION_UP:
-                Toast.makeText(MainActivity.this,"Go Forward",Toast.LENGTH_SHORT).show();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
                 try {
                     goForward();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } }
                 break;
             case JoyStick.DIRECTION_DOWN:
-                Toast.makeText(MainActivity.this,"Go back",Toast.LENGTH_SHORT).show();
+                if (!carIsConnected) {
+                    pleaseConnectCar();
+                } else {
                 try {
                     goBackward();
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
+                } }
                 break;
             default:
                 break;

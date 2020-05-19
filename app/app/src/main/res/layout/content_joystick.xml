@@ -9,50 +9,49 @@
     <com.example.myapplication.JoyStick
         android:background="#EBEBEB"
         android:id="@+id/joy1"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
-    <!-- This button is a white space filler which all other buttons align around -->
+       <!-- This button is a white space filler which all other buttons align around  -->
     <Button
-        android:id="@+id/whitespace"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible" />
+       android:id="@+id/whitespace"
+       android:layout_width="120dp"
+       android:layout_height="120dp"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:visibility="invisible" />
 
-    <!-- Forward button -->
-    <ImageButton
+   <!-- Forward button -->
+    <!--<ImageButton
         android:id="@+id/forwardBtn"
         style="@style/controlBtn"
         android:layout_above="@id/whitespace"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/nav_forward" />
+        android:src="@drawable/nav_forward" /> -->
 
     <!-- Backward button -->
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/backwardBtn"
         style="@style/controlBtn"
         android:layout_below="@id/whitespace"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/nav_backward" />
+        android:src="@drawable/nav_backward" />-->
 
     <!-- Left button -->
-    <ImageButton
-        android:id="@+id/leftBtn"
-        style="@style/controlBtn"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/whitespace"
-        android:src="@drawable/nav_left" />
+    <!-- <ImageButton
+         android:id="@+id/leftBtn"
+         style="@style/controlBtn"
+         android:layout_centerVertical="true"
+         android:layout_toLeftOf="@id/whitespace"
+         android:src="@drawable/nav_left" />-->
+     <!-- Right button -->
+    <!-- <ImageButton
+         android:id="@+id/rightBtn"
+         style="@style/controlBtn"
+         android:layout_centerVertical="true"
+         android:layout_toRightOf="@id/whitespace"
+         android:src="@drawable/nav_right" />-->
 
-    <!-- Right button -->
-    <ImageButton
-        android:id="@+id/rightBtn"
-        style="@style/controlBtn"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/whitespace"
-        android:src="@drawable/nav_right" />
-
-</RelativeLayout>
+ </RelativeLayout>
