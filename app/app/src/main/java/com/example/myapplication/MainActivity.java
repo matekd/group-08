@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,7 +30,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener{
 
     static final String TAG = null;
     TextView tv_attention;
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
         final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
 
+        JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
+        joyStick.setPadColor(Color.parseColor("#55ffffff"));
+        joyStick.setPadBackground(R.drawable.icon_round_arrow);
+        joyStick.setListener(this);
+
+
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
@@ -76,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton backward = findViewById(R.id.backwardBtn);
         final ImageButton left = findViewById(R.id.leftBtn);
         final ImageButton right = findViewById(R.id.rightBtn);
+
+        // invisible four buttons in case joysick method doesn't work
+        forward.setVisibility(View.GONE);
+        backward.setVisibility(View.GONE);
+        left.setVisibility(View.GONE);
+        right.setVisibility(View.GONE);
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -409,6 +422,52 @@ public class MainActivity extends AppCompatActivity {
     void goBackward() throws IOException {
         int msg = 5;
         Car.mmOutputStream.write(msg);
+    }
+
+    // joyStick control methods to replace four buttons
+    public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+        switch (direction){
+            case JoyStick.DIRECTION_LEFT:
+                Toast.makeText(MainActivity.this,"Go Left",Toast.LENGTH_SHORT).show();
+                try {
+                    goLeft();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case JoyStick.DIRECTION_RIGHT:
+                Toast.makeText(MainActivity.this,"Go Right",Toast.LENGTH_SHORT).show();
+                try {
+                    goRight();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case JoyStick.DIRECTION_UP:
+                Toast.makeText(MainActivity.this,"Go Forward",Toast.LENGTH_SHORT).show();
+                try {
+                    goForward();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case JoyStick.DIRECTION_DOWN:
+                Toast.makeText(MainActivity.this,"Go back",Toast.LENGTH_SHORT).show();
+                try {
+                    goBackward();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    public void onTap() {
+
+    }
+    public void onDoubleTap() {
+
     }
 }
 
