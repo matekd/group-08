@@ -373,29 +373,12 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
 
-                        // This part changes the pulse animation on EEG change
-                        if ((msg.arg1 >= 1) && (msg.arg1 <= 10)) {
-                            pulse.setConcentration(1);
-                        } else if ((msg.arg1 >= 11) && (msg.arg1 <= 20)) {
-                            pulse.setConcentration(2);
-                        } else if ((msg.arg1 >= 21) && (msg.arg1 <= 30)) {
-                            pulse.setConcentration(3);
-                        } else if ((msg.arg1 >= 31) && (msg.arg1 <= 40)) {
-                            pulse.setConcentration(4);
-                        } else if ((msg.arg1 >= 41) && (msg.arg1 <= 50)) {
-                            pulse.setConcentration(5);
-                        } else if ((msg.arg1 >= 51) && (msg.arg1 <= 60)) {
-                            pulse.setConcentration(6);
-                        } else if ((msg.arg1 >= 61) && (msg.arg1 <= 70)) {
-                            pulse.setConcentration(7);
-                        } else if ((msg.arg1 >= 71) && (msg.arg1 <= 80)) {
-                            pulse.setConcentration(8);
-                        } else if ((msg.arg1 >= 81) && (msg.arg1 <= 90)) {
-                            pulse.setConcentration(9);
-                        } else if (msg.arg1 > 90) {
-                            pulse.setConcentration(10);
+                         // This part changes the pulse animation on EEG change
+                        if (msg.arg1 > 0) {
+                        pulse.setConcentration((msg.arg1 / 10) + 1);
+                        } else {
+                            pulse.setConcentration(0);
                         }
-
                         break;
                     default:
                         break;
