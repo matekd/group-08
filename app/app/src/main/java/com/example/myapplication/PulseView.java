@@ -18,15 +18,21 @@ public class PulseView extends View {
     private float maxRadius;
     private float initialRadius;
     private float pulseGap;
-    private long duration;
     Resources res = getResources();
     int color = res.getColor(R.color.turquoise);
 
-    // For animating the circles
+    // For animation interaction
+    private int concentration;
+    private int minFade;
+    private int maxFade;
+    private long maxDuration;
+
+    // For animation
     private ValueAnimator pulseAnimator;
     private float pulseOffset;
     private int initialAlpha;
     private int fade;
+    private long duration;
 
     public PulseView(Context context) {
         super(context);
@@ -56,11 +62,17 @@ public class PulseView extends View {
         this.initialRadius = 0f;
         this.pulseGap = 100f;
 
+        // For animation interaction
+        this.concentration = 1;
+        this.minFade = 40;
+        this.maxFade = 100;
+        this.maxDuration = 1500L;
+
         // For animating the circles
         this.pulseOffset = 0f;
-        this.duration = 1500L;
+        this.duration = maxDuration / concentration;
         this.initialAlpha = 255;
-        this.fade = 40;
+        this.fade = minFade + ((maxFade - minFade) / concentration);
 
         // Cause safety first
         if (set == null) {
@@ -68,21 +80,9 @@ public class PulseView extends View {
         }
     }
 
-    // Getters and setters for adjusting animation variables remotely
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
-
-    public int getFade() {
-        return fade;
-    }
-
-    public void setFade(int fade) {
-        this.fade = fade;
+    // Setter for changing the concentration level depending on EEG
+    public void setConcentration(int concentration) {
+        this.concentration = concentration;
     }
 
     @Override

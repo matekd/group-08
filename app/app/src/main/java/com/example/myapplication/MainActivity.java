@@ -43,68 +43,23 @@ public class MainActivity extends AppCompatActivity {
     boolean carIsConnected = false;
     boolean headsetIsConnected = false;
 
-    //for gyroscope sensors
+    // For gyroscope sensors
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
+
+    // For animation interaction
+    PulseView pulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tv_attention = findViewById(R.id.tv_attention);
 
-        // Pulse animation
-        PulseView pulse = findViewById(R.id.pulse);
-
-        int concentration = 1;
-
-        // Fade calculation for case levels
-        int minFade = 40;
-        int maxFade = 100;
-        int transparent = 255;
-        int fadeCalc;
-
-        // Duration calculation for case levels
-        long maxDuration = 1500L;
-        long durationCalc;
-        long noDuration = 0L;
-
-        // If concentration is zero, make sure app doesn't crash
-        if (concentration == 0) {
-            fadeCalc = 0;
-            durationCalc = 0;
-        } else {
-            fadeCalc = minFade + ((maxFade - minFade) / concentration);
-            durationCalc = maxDuration / concentration;
-        }
-
-        // Switch case for testing purposes, will add a prettier loop later
-        switch (concentration) {
-            default:
-                pulse.setDuration(noDuration);
-                pulse.setFade(transparent);
-                break;
-            case 1:
-                pulse.setDuration(maxDuration);
-                pulse.setFade(maxFade);
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                pulse.setDuration(durationCalc);
-                pulse.setFade(fadeCalc);
-                break;
-            case 10:
-                pulse.setDuration(durationCalc);
-                pulse.setFade(minFade);
-                break;
-        }
+        // Finding pulse in layout
+        pulse = findViewById(R.id.pulse);
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -399,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
+
                     // Here we establish the data we want to gather
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
@@ -416,6 +372,30 @@ public class MainActivity extends AppCompatActivity {
                             } catch (IOException e) {
                             }
                         }
+
+                        // This part changes the pulse animation on EEG change
+                        if ((msg.arg1 >= 1) && (msg.arg1 <= 10)) {
+                            pulse.setConcentration(1);
+                        } else if ((msg.arg1 >= 11) && (msg.arg1 <= 20)) {
+                            pulse.setConcentration(2);
+                        } else if ((msg.arg1 >= 21) && (msg.arg1 <= 30)) {
+                            pulse.setConcentration(3);
+                        } else if ((msg.arg1 >= 31) && (msg.arg1 <= 40)) {
+                            pulse.setConcentration(4);
+                        } else if ((msg.arg1 >= 41) && (msg.arg1 <= 50)) {
+                            pulse.setConcentration(5);
+                        } else if ((msg.arg1 >= 51) && (msg.arg1 <= 60)) {
+                            pulse.setConcentration(6);
+                        } else if ((msg.arg1 >= 61) && (msg.arg1 <= 70)) {
+                            pulse.setConcentration(7);
+                        } else if ((msg.arg1 >= 71) && (msg.arg1 <= 80)) {
+                            pulse.setConcentration(8);
+                        } else if ((msg.arg1 >= 81) && (msg.arg1 <= 90)) {
+                            pulse.setConcentration(9);
+                        } else if (msg.arg1 > 90) {
+                            pulse.setConcentration(10);
+                        }
+
                         break;
                     default:
                         break;
