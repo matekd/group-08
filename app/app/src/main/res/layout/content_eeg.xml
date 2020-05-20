@@ -7,6 +7,7 @@
 
     <!-- Pulse animation for EEG reading -->
     <com.example.myapplication.PulseView
+        android:id="@+id/pulse"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
