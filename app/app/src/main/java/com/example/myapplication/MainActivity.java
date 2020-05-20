@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         long durationCalc = maxDuration / concentration;
         long noDuration = 0L;
 
+        // Switch case for testing purposes, will add a prettier loop later
         switch (concentration) {
             default:
                 pulse.setDuration(noDuration);
