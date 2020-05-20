@@ -63,12 +63,21 @@ public class MainActivity extends AppCompatActivity {
         int minFade = 40;
         int maxFade = 100;
         int transparent = 255;
-        int fadeCalc = minFade + ((maxFade - minFade) / concentration);
+        int fadeCalc;
 
         // Duration calculation for case levels
         long maxDuration = 1500L;
-        long durationCalc = maxDuration / concentration;
+        long durationCalc;
         long noDuration = 0L;
+
+        // If concentration is zero, make sure app doesn't crash
+        if (concentration == 0) {
+            fadeCalc = 0;
+            durationCalc = 0;
+        } else {
+            fadeCalc = minFade + ((maxFade - minFade) / concentration);
+            durationCalc = maxDuration / concentration;
+        }
 
         // Switch case for testing purposes, will add a prettier loop later
         switch (concentration) {
