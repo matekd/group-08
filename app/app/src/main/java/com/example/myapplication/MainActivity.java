@@ -435,85 +435,86 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
 
     // joyStick eight control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-        switch (direction){
-            case JoyStick.DIRECTION_LEFT:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                try {
-                    goLeft();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } }
-                break;
-            case JoyStick.DIRECTION_RIGHT:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                try {
-                    goRight();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } }
-                break;
-            case JoyStick.DIRECTION_UP:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                try {
-                    goForward();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } }
-                break;
-            case JoyStick.DIRECTION_DOWN:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                try {
-                    goBackward();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } }
-                break;
-            case JoyStick.DIRECTION_LEFT_UP:
-                 if (!carIsConnected) {
-                     pleaseConnectCar();
-                 } else {
-                     try {goForwardLeft(); }
-                     catch (Exception e) {
-                         e.printStackTrace();
-                     } }
-                 break;
-            case JoyStick.DIRECTION_UP_RIGHT:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {goForwardRight(); }
-                    catch (Exception e) {
+       // to have toast message only once
+        if (!carIsConnected) {
+            pleaseConnectCar();
+        } else {
+            switch (direction) {
+                case JoyStick.DIRECTION_LEFT:
+                {
+                    try {
+                        goLeft();
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } }
+                    }
+                }
                 break;
-            case JoyStick.DIRECTION_DOWN_LEFT:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {goBackwardLeft(); }
-                    catch (Exception e) {
+                case JoyStick.DIRECTION_RIGHT:
+                {
+                    try {
+                        goRight();
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } }
+                    }
+                }
                 break;
-            case JoyStick.DIRECTION_RIGHT_DOWN:
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {goBackardRight(); }
-                    catch (Exception e) {
+                case JoyStick.DIRECTION_UP:
+                {
+                    try {
+                        goForward();
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    } }
+                    }
+                }
                 break;
-            default:
+                case JoyStick.DIRECTION_DOWN:
+                {
+                    try {
+                        goBackward();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
+                case JoyStick.DIRECTION_LEFT_UP:
+                {
+                    try {
+                        goForwardLeft();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_UP_RIGHT:
+                     {
+                        try {
+                            goForwardRight();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case JoyStick.DIRECTION_DOWN_LEFT:
+                      {
+                        try {
+                            goBackwardLeft();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case JoyStick.DIRECTION_RIGHT_DOWN:
+                        {
+                        try {
+                            goBackardRight();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
     public void onTap() {
