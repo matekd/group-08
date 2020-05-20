@@ -68,6 +68,23 @@ public class PulseView extends View {
         }
     }
 
+    // Getters and setters for adjusting animation variables remotely
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public int getFade() {
+        return fade;
+    }
+
+    public void setFade(int fade) {
+        this.fade = fade;
+    }
+
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();

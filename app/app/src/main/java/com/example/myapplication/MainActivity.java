@@ -54,6 +54,48 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
 
+        // Pulse animation
+        PulseView pulse = findViewById(R.id.pulse);
+
+        int concentration = 1;
+
+        // Fade calculation for case levels
+        int minFade = 40;
+        int maxFade = 100;
+        int transparent = 255;
+        int fadeCalc = minFade + ((maxFade - minFade) / concentration);
+
+        // Duration calculation for case levels
+        long maxDuration = 1500L;
+        long durationCalc = maxDuration / concentration;
+        long noDuration = 0L;
+
+        switch (concentration) {
+            default:
+                pulse.setDuration(noDuration);
+                pulse.setFade(transparent);
+                break;
+            case 1:
+                pulse.setDuration(maxDuration);
+                pulse.setFade(maxFade);
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                pulse.setDuration(durationCalc);
+                pulse.setFade(fadeCalc);
+                break;
+            case 10:
+                pulse.setDuration(durationCalc);
+                pulse.setFade(minFade);
+                break;
+        }
+
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
         final Button carConnected = findViewById(R.id.connectedCarBtn);
@@ -273,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Toast methods because I couldn't get the Toasty class to work
-
     private void pleaseConnectDevices() {
         String toastString = "Please connect devices";
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
@@ -289,30 +330,30 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
     }
 
-    //stops reading gyroscope data
+    // Method to stops reading gyroscope data
     public void stopGyro() {
         sensorManager.unregisterListener(accelerometerEventListener);
     }
 
-    //starts reading gyroscope data
+    // Method to start reading gyroscope data
     public void startGyro() {
         sensorManager.registerListener(accelerometerEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    //Starts reading eeg data
+    // Method to start reading eeg data
     public void startEeg() {
         createStreamReader(Headset.mmDevice);
         tgStreamReader.connectAndStart();
     }
 
-    //Stops reading eeg data
+    // Method to stop reading eeg data
     public void stopEeg() {
         tgStreamReader.stop();
         tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
         tgStreamReader = null;
     }
 
-    // Handles data recieved from headset
+    // Handles data received from headset
     public TgStreamHandler callback = new TgStreamHandler() {
 
         //A sort of constructor
@@ -374,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
-    // Go to repository through the link in GitHub shape
+    // Method to go to repository in external browser
     public void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -382,7 +423,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(launchBrowser);
     }
 
-    public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
+    // Method to create data reader
+    public TgStreamReader createStreamReader(BluetoothDevice bd) {
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
