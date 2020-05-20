@@ -43,23 +43,16 @@ public class MainActivity extends AppCompatActivity {
     boolean carIsConnected = false;
     boolean headsetIsConnected = false;
 
-    // For gyroscope sensors
+    //for gyroscope sensors
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
-
-    // For animation interaction
-    PulseView pulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         tv_attention = findViewById(R.id.tv_attention);
-
-        // Finding pulse in layout
-        pulse = findViewById(R.id.pulse);
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -280,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Toast methods because I couldn't get the Toasty class to work
+
     private void pleaseConnectDevices() {
         String toastString = "Please connect devices";
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
@@ -295,30 +289,30 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
     }
 
-    // Method to stops reading gyroscope data
+    //stops reading gyroscope data
     public void stopGyro() {
         sensorManager.unregisterListener(accelerometerEventListener);
     }
 
-    // Method to start reading gyroscope data
+    //starts reading gyroscope data
     public void startGyro() {
         sensorManager.registerListener(accelerometerEventListener, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    // Method to start reading eeg data
+    //Starts reading eeg data
     public void startEeg() {
         createStreamReader(Headset.mmDevice);
         tgStreamReader.connectAndStart();
     }
 
-    // Method to stop reading eeg data
+    //Stops reading eeg data
     public void stopEeg() {
         tgStreamReader.stop();
         tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
         tgStreamReader = null;
     }
 
-    // Handles data received from headset
+    // Handles data recieved from headset
     public TgStreamHandler callback = new TgStreamHandler() {
 
         //A sort of constructor
@@ -354,7 +348,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-
                     // Here we establish the data we want to gather
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
@@ -372,13 +365,6 @@ public class MainActivity extends AppCompatActivity {
                             } catch (IOException e) {
                             }
                         }
-
-                         // This part changes the pulse animation on EEG change
-                        if (msg.arg1 > 0) {
-                        pulse.setConcentration((msg.arg1 / 10) + 1);
-                        } else {
-                            pulse.setConcentration(0);
-                        }
                         break;
                     default:
                         break;
@@ -388,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
         };
     };
 
-    // Method to go to repository in external browser
+    // Go to repository through the link in GitHub shape
     public void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
         Uri uriUrl = Uri.parse(url);
@@ -396,8 +382,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(launchBrowser);
     }
 
-    // Method to create data reader
-    public TgStreamReader createStreamReader(BluetoothDevice bd) {
+    public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
