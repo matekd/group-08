@@ -14,10 +14,8 @@ const auto pulsesPerMeter = 600;
 const int fSpeed    = 50;  // 50% of the full speed forward
 const int bSpeed    = -50; // 50% of the full speed backward
 const int tankSpeed = 55;  // Speed at which the wheels turn on the spot
-const int flDegrees = -28; // degrees to turn forward left
-const int frDegrees = 28;  // degrees to turn forward right
-const int blDegrees = -152; // degrees to turn backward left
-const int brDegrees = 152; // degrees to turn backward right
+const int lDegrees = -152; // degrees to turn  left
+const int rDegrees = 152;  // degrees to turn  right
 
 BluetoothSerial bluetooth;
 BrushedMotor leftMotor(smartcarlib::pins::v2::leftMotorPins);
@@ -124,7 +122,7 @@ void handleInput()
             break;
         
         case 2: // Turn right forward
-            car.setAngle(frDegrees);
+            car.setAngle(rDegrees);
             changeSpeed(fSpeed);
             break;
 
@@ -134,7 +132,7 @@ void handleInput()
             break;
 
         case 4: // Turn right backward
-            car.setAngle(brDegrees);
+            car.setAngle(rDegrees);
             changeSpeed(bSpeed);
             break;
 
@@ -144,7 +142,7 @@ void handleInput()
             break;
 
         case 6: // Turn left backward
-            car.setAngle(blDegrees);
+            car.setAngle(lDegrees);
             changeSpeed(bSpeed);
             break;
 
@@ -154,7 +152,7 @@ void handleInput()
             break;
 
         case 8: // turn left forward
-            car.setAngle(flDegrees);
+            car.setAngle(lDegrees);
             changeSpeed(fSpeed);
             break;
 
