@@ -1,0 +1,85 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/turquoise</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Control buttons in content_controls.xml -->
+    <style name="controlBtn">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:background">@drawable/bg_controlbtn</item>
+    </style>
+
+    <!-- Header styles in content_header.xml -->
+    <style name="headerText">
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">@font/nunito_light</item>
+    </style>
+
+    <style name="GithubBtn">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/btn_github</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
+    <style name="disconnectedBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <style name="connectedBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/turquoise</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="SwitchActivityBtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <!-- EEG reading concentration level TextView -->
+    <style name="concentrationStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+</resources>
