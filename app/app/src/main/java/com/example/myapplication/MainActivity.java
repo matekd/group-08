@@ -1,10 +1,12 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,8 +18,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -34,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     static final String TAG = null;
     TextView tv_attention;
     TgStreamReader tgStreamReader;
+     private Switch aSwitch;
 
     // For bluetooth connections
     Connector Car = new Connector();
@@ -47,12 +53,40 @@ public class MainActivity extends AppCompatActivity {
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
+    
+    public static final String MyPREFERENCES = "nightModePrefs";
+    public static final String KEY_ISNIGHTMODE = "isNightMode";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
+        
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        aSwitch = findViewById(R.id.switchTheme);
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                 if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    saveNightModeState(true);
+                    recreate();
+                 }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    saveNightModeState(false);
+                    recreate();
+                    }
+        }
+
+     private void saveNightModeState(boolean nightMode) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(KEY_ISNIGHTMODE,nightMode);
+                editor.apply();
+     }});
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
