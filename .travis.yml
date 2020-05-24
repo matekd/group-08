@@ -9,7 +9,7 @@ git:
   quiet: true
 env:
   global:
-    - ARDUINO_IDE_VERSION="1.8.11"
+    - ARDUINO_IDE_VERSION="1.8.12"
      - PRETTYNAME="Adafruit FT6206 Arduino Library"
 # Optional, will default to "$TRAVIS_BUILD_DIR/Doxyfile"
   #  - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
@@ -22,7 +22,7 @@ install:
    - arduino --install-library "VL53L0X"
    - arduino --install-library "ESP32 AnalogWrite"
    - arduino --install-library "ServoESP32"
-   - arduino --install-library <SimpleTimer.h>
+   - arduino --install-library "SimpleTimer.h"
 
 script:
    - build_platform esp32
