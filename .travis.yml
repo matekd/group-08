@@ -22,7 +22,7 @@ install:
    - arduino --install-library "VL53L0X"
    - arduino --install-library "ESP32 AnalogWrite"
    - arduino --install-library "ServoESP32"
-   - arduino --install-library "SimpleTimer.h"
+   - arduino --install-library <SimpleTimer.h>
 
 script:
    - build_platform esp32
