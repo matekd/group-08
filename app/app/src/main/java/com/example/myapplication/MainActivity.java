@@ -432,6 +432,10 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         int msg = 4;
         Car.mmOutputStream.write(msg);
     }
+    void stopCar()throws IOException {
+        int msg = 13;
+        Car.mmOutputStream.write(msg);
+    }
 
     // joyStick eight control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
@@ -512,8 +516,17 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                         }
                     }
                     break;
+                case JoyStick.DIRECTION_CENTER:
+                {
+                    try {
+                        stopCar();
+                    } catch (Exception e) {
+                        e.printStackTrace();;
+                    }
+                }
+                break;
+
                 default:
-                    break;
             }
         }
     }
