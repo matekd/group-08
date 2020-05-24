@@ -120,7 +120,7 @@ void handleInput()
         car.setAngle(0);
         delay(100);
         rotateOnSpot(-90, 80);
-        back = backsensor.getDistance(); 
+        back = backsensor.getDistance()
     }
     
 

@@ -358,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
-                        if (msg.arg1 > 59) {
+                        if (msg.arg1 > 59 && msg.arg1 < 101) {
                             int msgn = 9; // forward
                             try {
                                 Car.mmOutputStream.write(msgn);
