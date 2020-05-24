@@ -132,6 +132,7 @@ void handleInput()
         back = backsensor.getDistance();
         cdObstacle = true;
         coolDown.reset();
+        back = backsensor.getDistance();
     }
     
 
