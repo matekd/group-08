@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,7 +30,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener{
 
     static final String TAG = null;
     TextView tv_attention;
@@ -67,15 +68,19 @@ public class MainActivity extends AppCompatActivity {
         // Activity content id's for changing content in main activity
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
         final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
+        JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
+        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
+        joyStick.setListener(this);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
         // Smart car control buttons in content_controls.xml
-        final ImageButton forward = findViewById(R.id.forwardBtn);
-        final ImageButton backward = findViewById(R.id.backwardBtn);
-        final ImageButton left = findViewById(R.id.leftBtn);
-        final ImageButton right = findViewById(R.id.rightBtn);
+       // final ImageButton forward = findViewById(R.id.forwardBtn);
+       // final ImageButton backward = findViewById(R.id.backwardBtn);
+       // final ImageButton left = findViewById(R.id.leftBtn);
+       // final ImageButton right = findViewById(R.id.rightBtn);
+
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -211,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Click listeners for the smart car navigation control buttons
-        forward.setOnClickListener(new View.OnClickListener() {
+        /* forward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
@@ -269,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        }); */
     }
 
     // Toast methods because I couldn't get the Toasty class to work
@@ -277,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
     private void pleaseConnectDevices() {
         String toastString = "Please connect devices";
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
+
     }
 
     private void pleaseConnectHeadset() {
@@ -409,6 +415,113 @@ public class MainActivity extends AppCompatActivity {
     void goBackward() throws IOException {
         int msg = 5;
         Car.mmOutputStream.write(msg);
+    }
+    void goForwardLeft()throws IOException {
+        int msg = 8;
+        Car.mmOutputStream.write(msg);
+    }
+    void goForwardRight()throws IOException {
+        int msg = 2;
+        Car.mmOutputStream.write(msg);
+    }
+    void goBackwardLeft()throws IOException {
+        int msg = 6;
+        Car.mmOutputStream.write(msg);
+    }
+    void goBackardRight()throws IOException {
+        int msg = 4;
+        Car.mmOutputStream.write(msg);
+    }
+
+    // joyStick eight control methods to replace four buttons
+    public void onMove(JoyStick joyStick, double angle, double power, int direction) {
+       // to have toast message only once
+        if (!carIsConnected) {
+            pleaseConnectCar();
+        } else {
+            switch (direction) {
+                case JoyStick.DIRECTION_LEFT:
+                {
+                    try {
+                        goLeft();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_RIGHT:
+                {
+                    try {
+                        goRight();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_UP:
+                {
+                    try {
+                        goForward();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_DOWN:
+                {
+                    try {
+                        goBackward();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_LEFT_UP:
+                {
+                    try {
+                        goForwardLeft();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+                case JoyStick.DIRECTION_UP_RIGHT:
+                     {
+                        try {
+                            goForwardRight();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case JoyStick.DIRECTION_DOWN_LEFT:
+                      {
+                        try {
+                            goBackwardLeft();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                case JoyStick.DIRECTION_RIGHT_DOWN:
+                        {
+                        try {
+                            goBackardRight();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    public void onTap() {
+
+    }
+    public void onDoubleTap() {
+
     }
 }
 
