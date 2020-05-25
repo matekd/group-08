@@ -1,0 +1,44 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="458dp"
+    android:height="458dp"
+    android:viewportWidth="458"
+    android:viewportHeight="458">
+    <path android:pathData="M229,229m-219,0a219,219 0,1 1,438 0a219,219 0,1 1,-438 0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startY="10"
+                android:startX="10"
+                android:endY="448"
+                android:endX="448"
+                android:type="linear">
+                <item
+                    android:offset="0"
+                    android:color="#FFDDDCDC" />
+                <item
+                    android:offset="0.609375"
+                    android:color="#FFFFFFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M229,229m-216.5,0a216.5,216.5 0,1 1,433 0a216.5,216.5 0,1 1,-433 0"
+        android:strokeWidth="5"
+        android:fillColor="#00000000"
+        android:strokeColor="#03DAC5" />
+    <path
+        android:pathData="M67.001,231.358C65.667,230.588 65.667,228.664 67.001,227.894L97.001,210.574C98.334,209.804 100,210.766 100,212.306V246.947C100,248.486 98.334,249.448 97.001,248.679L67.001,231.358Z"
+        android:fillColor="#03DAC5" />
+    <path
+        android:pathData="M230.732,391C229.962,392.333 228.038,392.333 227.268,391L209.947,361C209.178,359.667 210.14,358 211.679,358H246.321C247.86,358 248.822,359.667 248.053,361L230.732,391Z"
+        android:fillColor="#03DAC5" />
+    <path
+        android:pathData="M391,227.642C392.333,228.412 392.333,230.336 391,231.106L361,248.426C359.666,249.196 358,248.234 358,246.694V212.053C358,210.514 359.666,209.552 361,210.321L391,227.642Z"
+        android:fillColor="#03DAC5" />
+    <path
+        android:pathData="M227.268,67C228.038,65.667 229.962,65.667 230.732,67L248.053,97C248.822,98.333 247.86,100 246.321,100H211.679C210.14,100 209.178,98.333 209.947,97L227.268,67Z"
+        android:fillColor="#03DAC5" />
+
+</vector>
+
+
