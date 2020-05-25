@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
                  if(isChecked){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     saveNightModeState(true);
-                    recreate();
+                    overridePendingTransition(0,0);
                  }else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     saveNightModeState(false);
-                    recreate();
+                    overridePendingTransition(0,0);
                     }
         }
 
