@@ -556,10 +556,11 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
 
                 // Set concentration level in PulseView
-                do {
+                if (eeg == 0) {
+                    pulse.setConcentration(0);
+                } else if ((eeg > 0) && (eeg < 100)) {
                     pulse.setConcentration((eeg / 10) + 1);
                 }
-                while ((eeg > 0) && (eeg < 100));
             }
         };
 

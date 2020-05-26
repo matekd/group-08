@@ -61,16 +61,23 @@ public class PulseView extends View {
         this.pulseGap = 100f;
 
         // For animation interaction
-        this.concentration = 1;
+        this.concentration = 0;
         int minFade = 40;
         int maxFade = 100;
         long maxDuration = 2000L;
 
         // For animating the circles
         this.pulseOffset = 0f;
-        this.duration = maxDuration / concentration;
+
+        if (concentration > 0) {
+            this.duration = maxDuration / concentration;
+            this.fade = minFade + ((maxFade - minFade) / concentration);
+        } else {
+            this.duration = 0;
+            this.fade = 255;
+        }
+
         this.initialAlpha = 255;
-        this.fade = minFade + ((maxFade - minFade) / concentration);
     }
 
     // Setter for changing the concentration level depending on EEG
