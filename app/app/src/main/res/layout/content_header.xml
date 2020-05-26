@@ -31,13 +31,13 @@
         <Button
             android:id="@+id/connectCarBtn"
             android:text="@string/car"
-            android:drawableLeft="@drawable/icon_wifi_disconnected"
+            android:drawableLeft="@drawable/icon_bluetooth_disconnected"
             style="@style/disconnectedBtn" />
 
         <Button
             android:id="@+id/connectedCarBtn"
             android:text="@string/car"
-            android:drawableLeft="@drawable/icon_wifi_connected"
+            android:drawableLeft="@drawable/icon_bluetooth_connected"
             android:visibility="gone"
             style="@style/connectedBtn" />
 
