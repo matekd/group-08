@@ -16,7 +16,7 @@ import android.view.View;
 public class JoyStick extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
 
-    public static final int DIRECTION_CENTER = -1;
+    public static final int DIRECTION_CENTER = 13;
     public static final int DIRECTION_LEFT = 0;
     public static final int DIRECTION_LEFT_UP = 1;
     public static final int DIRECTION_UP = 2;
@@ -25,7 +25,6 @@ public class JoyStick extends View implements GestureDetector.OnGestureListener,
     public static final int DIRECTION_RIGHT_DOWN = 5;
     public static final int DIRECTION_DOWN = 6;
     public static final int DIRECTION_DOWN_LEFT = 7;
-
     public static final int TYPE_8_AXIS = 11;
     public static final int TYPE_4_AXIS = 22;
     public static final int TYPE_2_AXIS_LEFT_RIGHT = 33;
