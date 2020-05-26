@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Process;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -49,11 +50,17 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
 
+    // For animation interaction
+    PulseView pulse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
+
+        // Finding pulse in layout
+        pulse = findViewById(R.id.pulse);
 
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
@@ -358,6 +365,10 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
                         tv_attention.setText("" + msg.arg1);
+
+                        // Changes the animation to reflect eeg
+                        showConcentration(msg.arg1);
+
                         if (msg.arg1 > 59 && msg.arg1 < 101) {
                             int msgn = 9; // forward
                             try {
@@ -535,6 +546,25 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     }
     public void onDoubleTap() {
 
+    }
+
+    // Method for animation changes
+    public void showConcentration(final int eeg) {
+        Runnable animationInteraction = new Runnable() {
+            @Override
+            public void run() {
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+                // Set concentration level in PulseView
+                do {
+                    pulse.setConcentration((eeg / 10) + 1);
+                }
+                while ((eeg > 0) && (eeg < 100));
+            }
+        };
+
+        Thread animationInteractionThread = new Thread(animationInteraction);
+        animationInteractionThread.start();
     }
 }
 

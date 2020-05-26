@@ -18,15 +18,18 @@ public class PulseView extends View {
     private float maxRadius;
     private float initialRadius;
     private float pulseGap;
-    private long duration;
     Resources res = getResources();
     int color = res.getColor(R.color.turquoise);
 
-    // For animating the circles
+    // For animation interaction
+    private int concentration;
+
+    // For animation
     private ValueAnimator pulseAnimator;
     private float pulseOffset;
     private int initialAlpha;
     private int fade;
+    private long duration;
 
     public PulseView(Context context) {
         super(context);
@@ -47,6 +50,7 @@ public class PulseView extends View {
     }
 
     private void init(@Nullable AttributeSet set) {
+
         // For painting the circles
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.paint.setStrokeWidth(4);
@@ -56,16 +60,22 @@ public class PulseView extends View {
         this.initialRadius = 0f;
         this.pulseGap = 100f;
 
+        // For animation interaction
+        this.concentration = 1;
+        int minFade = 40;
+        int maxFade = 100;
+        long maxDuration = 2000L;
+
         // For animating the circles
         this.pulseOffset = 0f;
-        this.duration = 1500L;
+        this.duration = maxDuration / concentration;
         this.initialAlpha = 255;
-        this.fade = 40;
+        this.fade = minFade + ((maxFade - minFade) / concentration);
+    }
 
-        // Cause safety first
-        if (set == null) {
-            return;
-        }
+    // Setter for changing the concentration level depending on EEG
+    public void setConcentration(int concentration) {
+        this.concentration = concentration;
     }
 
     @Override
@@ -95,14 +105,15 @@ public class PulseView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
 
-        maxRadius = getWidth() / 3 * 2;
-        float centerX = getX() + getWidth() / 2;
-        float centerY = getY() + getHeight() / 2;
+        float centerX = getX() + getWidth() / 2f;
+        float centerY = getY() + getHeight() / 2f;
 
+        maxRadius = getWidth() / 3f * 2f;
         float currentRadius = initialRadius + pulseOffset;
+
         int currentAlpha = initialAlpha;
 
         do {
@@ -111,6 +122,7 @@ public class PulseView extends View {
 
             canvas.drawCircle(centerX, centerY, currentRadius, paint);
             currentRadius += pulseGap;
+
         } while (currentRadius < maxRadius);
     }
 }
