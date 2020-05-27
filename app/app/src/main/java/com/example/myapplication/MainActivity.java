@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     CountDownTimer timer = new CountDownTimer(6000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
-                            connectCar.setTextSize(10);
+                            connectCar.setTextSize(9);
                             connectCar.setText(getString(R.string.connecting));
                         }
 
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     CountDownTimer timer = new CountDownTimer(6000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
-                            connectHeadset.setTextSize(10);
+                            connectHeadset.setTextSize(9);
                             connectHeadset.setText("Connecting...");
                         }
 
