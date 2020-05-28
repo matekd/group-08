@@ -23,6 +23,19 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 | 1x MicroUSB cable | Travis CI |
 | [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE) | [Neurosky android developer tools](https://store.neurosky.com/products/android-developer-tools-4) |
 | Android OS with version Lollipop(5.0) or higher | |
+## Application user manual
+### Application header
+1. The application UI indicates to the user that external hardware can be connected to via Bluetooth.
+2. If tapped, the ‘Switch’ button will switch the contents of the UI screen from EEG reading smart car control, to manual smart car control.
+3. The github button takes any curious app users to the project repository.
+### Mind control view
+4. The application user can enable and disable EEG readings from the headset.
+### Manual control view
+5. In order to return to the previous UI screen content, the app end-user can tap the ‘Switch’ button again.
+6. The app end-user can control the smart car manually with the help of a joystick. This is done by pressing down on the screen within the borders of the joystick trackpad, while moving their finger in the displayed directions.
+
+## Hardware user manual
+
 ## Team members
 - Liv Alterskjaer, gusalteli
 - Annan Lao, guslaoan
