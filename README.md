@@ -24,6 +24,8 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 | [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE) | [Neurosky android developer tools](https://store.neurosky.com/products/android-developer-tools-4) |
 | Android OS with version Lollipop(5.0) or higher | |
 ## Application user manual
+![eeg-view](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeg-view.png)
+![joystick-view](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/joystick-view.png)
 ### Application header
 1. The application UI indicates to the user that external hardware can be connected to via Bluetooth.
 2. If tapped, the ‘Switch’ button will switch the contents of the UI screen from EEG reading smart car control, to manual smart car control.
@@ -33,6 +35,7 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 ### Manual control view
 5. In order to return to the previous UI screen content, the app end-user can tap the ‘Switch’ button again.
 6. The app end-user can control the smart car manually with the help of a joystick. This is done by pressing down on the screen within the borders of the joystick trackpad, while moving their finger in the displayed directions.
+![eeg-visual](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeganimation.gif)
 ### Visual EEG readings
 The application will start to display the levels of EEG received by the end-user wearing the headset while EEG readings are enabled. This is visualized both with a text displaying the exact level of the reading, as well as an animation that changes when the reading goes up or down.
 ## Hardware user manual
