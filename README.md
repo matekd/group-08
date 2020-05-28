@@ -8,12 +8,12 @@
 6. [Hardware user manual](#hardware-user-manual)
 7. [Team members](#team-members)
 ## What?
-A software that allows an end-user to remotely control a smart-car in a less traditional way, with the use of an EEG-headset and a mobile app. Moreover, the smart-car can protect itself to prevent for example hitting an obstacle.
+A software that allows an end user to remotely control a smart car in a less traditional way, with the use of an EEG-headset and a mobile app. Moreover, the smart car can prevent itself from hitting obstacles in front and behind it by turning to the opposite direction.
 ## Why?
-The main objective of this software is to utilize and demonstrate the use and application of EEG (Electroencephalography) readings to IoT items. By exploring this domain we hope to demonstrate ways using software engineering to develop for people with different levels of mobility.
+The main objective of this software is to utilize and demonstrate the use and application of EEG (Electroencephalography) readings to external hardware. By exploring this domain we hope to demonstrate ways using software engineering to develop for people with different levels of mobility. One of our goals was to showcase the ability to control a car without the use of hands.
 ## How?
-The EEG-chip within the “Force Trainer II Bluetooth Headset” measures brain activity in Hz, and depending on users’ mental state e.g. stressed or relaxed, the headset will pick up frequencies within different Hz intervals. With the data retrieved from the headset, we will be able to control the forward throttle of the car, while being able to steer right and left via an app.  
-The smart-car will also be able to prevent itself from colliding with obstacles by using ultrasonic sensors. Once the ultrasonic wave reaches the wall or obstacle it bounces back and the displacement between the car and the wall is calculated, and once it is too short the car will be locked in that direction.
+The EEG-chip within the “Force Trainer II Bluetooth Headset” measures brain, and depending on the users’ mental state e.g. stressed or relaxed, the headset will pick up frequencies within different Hz intervals. With the data retrieved from the headset, we will be able to control the forward throttle of the car, while being able to steer right and left via tilting the phone.
+The smart-car will also be able to prevent itself from colliding with obstacles by using ultrasonic sensors. Once the ultrasonic wave reaches obstacle it bounces back and the displacement between the car and the wall is calculated, and once it is too short the car will turn to the opposite direction.
 ## Resources
 | Hardware | Software |
 | --- | --- |
