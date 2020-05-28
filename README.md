@@ -23,20 +23,6 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 | 1x MicroUSB cable | Travis CI |
 | [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE) | [Neurosky android developer tools](https://store.neurosky.com/products/android-developer-tools-4) |
 | Android OS with version Lollipop(5.0) or higher | |
-### Hardware
-- 1x Smartcar
-- 8x AA rechargeable batteries
-- 2x micro-LIDAR sensors
-- 2x ultrasonic sensors
-- 1x MicroUSB cable
-- [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE)
-- Smartphone
-### Software
-- Smart Car shield library
-- Java
-- C++
-- Travis CI
-- GitHub
 ## Team members
 - Liv Alterskjaer, gusalteli
 - Annan Lao, guslaoan
