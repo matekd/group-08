@@ -40,7 +40,8 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 The application will start to display the levels of EEG received by the end-user wearing the headset while EEG readings are enabled. This is visualized both with a text displaying the exact level of the reading, as well as an animation that changes when the reading goes up or down.
 ## Hardware user manual
 ## Team members
-- Liv Alterskjaer, gusalteli
+### [Liv Alterskjaer](https://github.com/liivmarii)
+Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics.
 - Annan Lao, guslaoan
 - Zhijie Wei, gusweizh
 - Douglas Johansson, gusjohdo
