@@ -44,16 +44,11 @@ Headset has a toggle switch and users should switch off after use. When the head
 ### Arduino smart car
 The smart car has an on-off switch on its side, and users should switch off after use. When the car is turned on, a red light should start glowing on top of the smart car.
 ## Team members
-### [Liv Alterskjaer](https://github.com/liivmarii)
-Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics.
-### [Annan Lao](https://github.com/AnnanLao)
-Part of the android backend logic; and night mode logic, toggle and its front end design.
-### [Zhijie Wei](https://github.com/ZJW-92)
-Joystick and its backend logic in manual control mode. 
-### [Douglas Johansson](https://github.com/dojodj)
-Obstacle avoidance, testing, hardware installations. 
-### [Mattias Ekdahl](https://github.com/matekd)
-Car logic, obstacle avoidance and app backend for communication with the car.
-### [Simon Engström](https://github.com/Simonster1999)
-Backend logic for mind control mode. Backend logic for bluetooth connections
-
+| Name | Project contribution |
+| --- | --- |
+| [Liv Alterskjaer](https://github.com/liivmarii) | Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics. |
+| [Annan Lao](https://github.com/AnnanLao) | Part of the android backend logic; and night mode logic, toggle and its front end design. |
+| [Zhijie Wei](https://github.com/ZJW-92) | Joystick and its backend logic in manual control mode. |
+| [Douglas Johansson](https://github.com/dojodj) | Obstacle avoidance, testing, hardware installations. |
+| [Mattias Ekdahl](https://github.com/matekd) | Car logic, obstacle avoidance and app backend for communication with the car. |
+| [Simon Engström](https://github.com/Simonster1999) | Backend logic for mind control mode. Backend logic for bluetooth connections and UI connection micro interactions. |
