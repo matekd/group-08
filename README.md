@@ -46,7 +46,7 @@ The smart car has an on-off switch on its side, and users should switch off afte
 ## Team members
 ### [Liv Alterskjaer](https://github.com/liivmarii)
 Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics.
-### [Annan Lao, guslaoan](https://github.com/AnnanLao)
+### [Annan Lao](https://github.com/AnnanLao)
 Part of the android backend logic; and night mode logic, toggle and its front end design.
 ### [Zhijie Wei](https://github.com/ZJW-92)
 Joystick and its backend logic in manual control mode. 
