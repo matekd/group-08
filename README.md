@@ -21,6 +21,7 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 - 2x ultrasonic sensors
 - 1x MicroUSB cable
 - [Bluetooth EEG headset](https://estore.nu/sv/star-wars/5028-star-wars-force-trainer-ii-8001444158953.html?SubmitCurrency=1&id_currency=1&gclid=EAIaIQobChMIoN7K4YrC6AIV2OeaCh3drQbnEAQYASABEgJZZfD_BwE)
+- [a link](https://github.com/user/repo/blob/branch/other_file.md)
 - Smartphone
 ### Software
 - Smart Car shield library
