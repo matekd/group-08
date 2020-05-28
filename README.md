@@ -35,8 +35,8 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 ### Manual control view
 5. In order to return to the previous UI screen content, the app end-user can tap the ‘Switch’ button again.
 6. The app end-user can control the smart car manually with the help of a joystick. This is done by pressing down on the screen within the borders of the joystick trackpad, while moving their finger in the displayed directions.
-![eeg-visual](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeganimation.gif)
 ### Visual EEG readings
+![eeg-visual](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeganimation.gif)
 The application will start to display the levels of EEG received by the end-user wearing the headset while EEG readings are enabled. This is visualized both with a text displaying the exact level of the reading, as well as an animation that changes when the reading goes up or down.
 ## Hardware user manual
 ## Team members
