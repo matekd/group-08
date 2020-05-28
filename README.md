@@ -39,6 +39,10 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 ![eeg-visual](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeganimation.gif)
 The application will start to display the levels of EEG received by the end-user wearing the headset while EEG readings are enabled. This is visualized both with a text displaying the exact level of the reading, as well as an animation that changes when the reading goes up or down.
 ## Hardware user manual
+### EEG headset
+Headset has a toggle switch and users should switch off after use. When the headset is on, the blue light should blink. One rechargeable triple-battery is in the headset. When the headset is turned on and battery is low the blue light will turn red and blink.
+### Arduino smart car
+The smart car has an on-off switch on its side, and users should switch off after use. When the car is turned on, a red light should start glowing on top of the smart car.
 ## Team members
 ### [Liv Alterskjaer](https://github.com/liivmarii)
 Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics.
