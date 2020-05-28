@@ -55,5 +55,5 @@ Obstacle avoidance, testing, hardware installations.
 ### [Mattias Ekdahl](https://github.com/matekd)
 Car logic, obstacle avoidance and app backend for communication with the car.
 ### [Simon Engström](https://github.com/Simonster1999)
-Backend logic for mind control mode.
+Backend logic for mind control mode. Backend logic for bluetooth connections
 
