@@ -198,12 +198,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         controlEeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!carIsConnected && !headsetIsConnected) {
-                    pleaseConnectDevices();
-                } else if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else if (!headsetIsConnected) {
-                    pleaseConnectHeadset();
+                if (!carIsConnected && !headsetIsConnected || !carIsConnected || !headsetIsConnected) {
+                    pleaseConnect();
                 } else if (carIsConnected && headsetIsConnected && !eegActive) {
                     controlEeg.setBackground(getDrawable(R.drawable.bg_eegcontrol_stop));
                     controlEeg.setText(getString(R.string.stop));
@@ -284,21 +280,9 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         }); */
     }
 
-    // Toast methods because I couldn't get the Toasty class to work
-
-    private void pleaseConnectDevices() {
-        String toastString = "Please connect devices";
-        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
-
-    }
-
-    private void pleaseConnectHeadset() {
-        String toastString = "Please connect the headset";
-        Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
-    }
-
-    private void pleaseConnectCar() {
-        String toastString = "Please connect to smart car";
+    // Toast method, prompting the end-user to check bluetooth connections to hardware
+    private void pleaseConnect() {
+        String toastString = "Please check Bluetooth connection";
         Toast.makeText(getApplicationContext(), toastString, Toast.LENGTH_SHORT).show();
     }
 
@@ -452,7 +436,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
        // to have toast message only once
         if (!carIsConnected) {
-            pleaseConnectCar();
+            pleaseConnect();
         } else {
             switch (direction) {
                 case JoyStick.DIRECTION_LEFT:
