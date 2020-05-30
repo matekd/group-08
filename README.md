@@ -6,7 +6,8 @@
 4. [Resources we used](#resources)
 5. [Application user manual](#application-user-manual)
 6. [Hardware user manual](#hardware-user-manual)
-7. [Team members](#team-members)
+7. [Hardware and software architecture](#hardware-and-software-architecture)
+8. [Team members](#team-members)
 ## What?
 A software that allows an end user to remotely control a smart car in a less traditional way, with the use of an EEG-headset and a mobile app. Moreover, the smart car can prevent itself from hitting obstacles in front and behind it by turning to the opposite direction.
 ## Why?
@@ -43,6 +44,7 @@ The application will start to display the levels of EEG received by the end-user
 Headset has a toggle switch and users should switch off after use. When the headset is on, the blue light should blink. One rechargeable triple-battery is in the headset. When the headset is turned on and battery is low the blue light will turn red and blink.
 ### Arduino smart car
 The smart car has an on-off switch on its side, and users should switch off after use. When the car is turned on, a red light should start glowing on top of the smart car.
+## Hardware and software architecture
 ## Team members
 | Name | Project contribution |
 | --- | --- |
