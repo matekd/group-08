@@ -32,7 +32,6 @@ import com.neurosky.connection.DataType.MindDataType;
 public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener {
 
     static final String TAG = null;
-    TextView tv_attention;
     TgStreamReader tgStreamReader;
 
     // For bluetooth connections
@@ -46,51 +45,66 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     Button connectHeadset;
     Button headsetConnected;
 
-    // For turning eeg on and off
+    private void initConnection() {
+        connectCar = findViewById(R.id.connectCarBtn);
+        carConnected = findViewById(R.id.connectedCarBtn);
+        connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        headsetConnected = findViewById(R.id.connectedHeadsetBtn);
+    }
+
+    // UI layout elements
+    RelativeLayout eegContent;
+
+    RelativeLayout joystickContent;
+    JoyStick joyStick;
+
+    Button eegContentBtn;
+    Button joystickContentBtn;
+
+    private void initLayout() {
+        eegContentBtn = findViewById(R.id.switchToEegBtn);
+        joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
+
+        eegContent = findViewById(R.id.eegContent);
+        joystickContent = findViewById(R.id.joystickContent);
+        joyStick = findViewById(R.id.joy1);
+        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
+        joyStick.setListener(this);
+    }
+
+    // Eeg reading in app
     boolean eegActive = false;
     Button controlEeg;
 
-    //for gyroscope sensors
+    PulseView pulse;
+    TextView tv_attention;
+
+    private void initEeg() {
+        controlEeg = findViewById(R.id.controlEegBtn);
+        pulse = findViewById(R.id.pulse);
+        tv_attention = findViewById(R.id.tv_attention);
+    }
+
+    // For gyroscope sensors
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
 
-    // For animation interaction
-    PulseView pulse;
+    private void initGyroscope() {
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        assert sensorManager != null;
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv_attention = findViewById(R.id.tv_attention);
 
-        // Finding pulse in layout
-        pulse = findViewById(R.id.pulse);
-
-        // Header buttons in content_header.xml
-        connectCar = findViewById(R.id.connectCarBtn);
-        carConnected = findViewById(R.id.connectedCarBtn);
-
-        connectHeadset = findViewById(R.id.connectHeadsetBtn);
-        headsetConnected = findViewById(R.id.connectedHeadsetBtn);
-
-        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
-        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
-
-        // Activity content id's for changing content in main activity
-        final RelativeLayout eegContent = findViewById(R.id.eegContent);
-        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
-        JoyStick joyStick = findViewById(R.id.joy1);
-        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
-        joyStick.setListener(this);
-
-        // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        controlEeg = findViewById(R.id.controlEegBtn);
-
-        //Used for gyroscope
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        assert sensorManager != null;
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        initConnection();
+        initLayout();
+        initEeg();
+        initGyroscope();
 
         accelerometerEventListener = new SensorEventListener() {
             @Override
@@ -455,7 +469,3 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         animationInteractionThread.start();
     }
 }
-
-
-
-
