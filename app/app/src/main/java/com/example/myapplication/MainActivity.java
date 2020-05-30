@@ -1,11 +1,12 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,8 +19,9 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     static final String TAG = null;
     TextView tv_attention;
     TgStreamReader tgStreamReader;
+    private Switch aSwitch;
 
     // For bluetooth connections
     Connector Car = new Connector();
@@ -52,12 +55,21 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
 
     // For animation interaction
     PulseView pulse;
+    public static final String MyPREFERENCES = "nightModePrefs";
+    public static final String KEY_ISNIGHTMODE = "isNightMode";
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         tv_attention = findViewById(R.id.tv_attention);
+
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        aSwitch = findViewById(R.id.switchTheme);
 
         // Finding pulse in layout
         pulse = findViewById(R.id.pulse);
@@ -114,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         };
 
         // Click listeners for connecting to external hardware
+
         connectCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,6 +231,35 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             }
         });
 
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    saveNightModeState(true);
+                    overridePendingTransition(0, 0);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    saveNightModeState(false);
+                    overridePendingTransition(0, 0);
+                }
+            }
+            private void saveNightModeState(boolean nightMode) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(KEY_ISNIGHTMODE, nightMode);
+                if(carIsConnected){
+                editor.putBoolean("carIsConnected", true);
+                }
+                if(headsetIsConnected){
+                editor.putBoolean("headsetIsConnected", true);
+                }
+                editor.apply();
+            }
+
+        });
+    };
+
         // Click listeners for the smart car navigation control buttons
         /* forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 }
             }
         }); */
-    }
+
 
     // Toast method, prompting the end-user to check bluetooth connections to hardware
     private void pleaseConnect() {
