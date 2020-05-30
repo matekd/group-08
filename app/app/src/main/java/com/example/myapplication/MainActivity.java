@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,7 +17,6 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
@@ -217,67 +215,6 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 }
             }
         });
-
-        // Click listeners for the smart car navigation control buttons
-        /* forward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goForward();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goLeft();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goRight();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goBackward();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }); */
     }
 
     // Toast method, prompting the end-user to check bluetooth connections to hardware
@@ -391,145 +328,106 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         return tgStreamReader;
     }
 
-    // Car control buttons
-    void goForward() throws IOException { //Buttons to steer the car
-        int msg = 1;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goLeft() throws IOException {
-        int msg = 8;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goRight() throws IOException {
-        int msg = 2;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goBackward() throws IOException {
-        int msg = 5;
-        Car.mmOutputStream.write(msg);
-    }
-    void goForwardLeft()throws IOException {
-        int msg = 8;
-        Car.mmOutputStream.write(msg);
-    }
-    void goForwardRight()throws IOException {
-        int msg = 2;
-        Car.mmOutputStream.write(msg);
-    }
-    void goBackwardLeft()throws IOException {
-        int msg = 6;
-        Car.mmOutputStream.write(msg);
-    }
-    void goBackardRight()throws IOException {
-        int msg = 4;
-        Car.mmOutputStream.write(msg);
-    }
-    void stopCar()throws IOException {
-        int msg = 13;
-        Car.mmOutputStream.write(msg);
-    }
-
-    // joyStick eight control methods to replace four buttons
+    // Joystick eight control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-       // to have toast message only once
         if (!carIsConnected) {
             pleaseConnect();
+
         } else {
             switch (direction) {
-                case JoyStick.DIRECTION_LEFT:
-                {
+                case JoyStick.DIRECTION_LEFT: {
                     try {
-                        goLeft();
+                        Car.mmOutputStream.write(8);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_RIGHT:
-                {
+
+                case JoyStick.DIRECTION_RIGHT: {
                     try {
-                        goRight();
+                        Car.mmOutputStream.write(2);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_UP:
-                {
+
+                case JoyStick.DIRECTION_UP: {
                     try {
-                        goForward();
+                        Car.mmOutputStream.write(1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_DOWN:
-                {
+
+                case JoyStick.DIRECTION_DOWN: {
                     try {
-                        goBackward();
+                        Car.mmOutputStream.write(5);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_LEFT_UP:
-                {
+
+                case JoyStick.DIRECTION_LEFT_UP: {
                     try {
-                        goForwardLeft();
+                        Car.mmOutputStream.write(8);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_UP_RIGHT:
-                     {
-                        try {
-                            goForwardRight();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_DOWN_LEFT:
-                      {
-                        try {
-                            goBackwardLeft();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_RIGHT_DOWN:
-                        {
-                        try {
-                            goBackardRight();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_CENTER:
-                {
+
+                case JoyStick.DIRECTION_UP_RIGHT: {
                     try {
-                        stopCar();
+                        Car.mmOutputStream.write(2);
                     } catch (Exception e) {
-                        e.printStackTrace();;
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_DOWN_LEFT: {
+                    try {
+                        Car.mmOutputStream.write(6);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_RIGHT_DOWN: {
+                    try {
+                        Car.mmOutputStream.write(4);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_CENTER: {
+                    // Stops the car
+                    try {
+                        Car.mmOutputStream.write(13);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 break;
 
                 default:
+                    break;
+
             }
         }
     }
+
     public void onTap() {
-
     }
-    public void onDoubleTap() {
 
+    public void onDoubleTap() {
     }
 
     // Method for animation changes
