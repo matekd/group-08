@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    // TODO: What does CountDownTimer timer do? It comes up as 'never used' in edit :) Liv, 2020-05-31
                     CountDownTimer timer = new CountDownTimer(6000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -236,7 +237,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     //Stops reading eeg data
     public void stopEeg() {
         tgStreamReader.stop();
-        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+        // If there is not stop cmd, please call close() or the data will accumulate
+        tgStreamReader.close();
         tgStreamReader = null;
     }
 
@@ -256,6 +258,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         //Checks if the headset is connected
         @Override
         public void onStatesChanged(int connectionStates) {
+            // TODO: This could be changed to an if-statement. What does connectionStates require to be true? Liv 2020-05-31
             switch (connectionStates) {
                 case ConnectionStates.STATE_CONNECTED:
                     tgStreamReader.start();
@@ -314,7 +317,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         startActivity(launchBrowser);
     }
 
-    public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
+    // Here the data reader is being created
+    public TgStreamReader createStreamReader(BluetoothDevice bd) {
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
