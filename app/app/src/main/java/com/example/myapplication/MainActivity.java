@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        assert sensorManager != null;
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         accelerometerEventListener = new SensorEventListener() {
