@@ -80,13 +80,6 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
         final Button controlEeg = findViewById(R.id.controlEegBtn);
 
-        // Smart car control buttons in content_controls.xml
-       // final ImageButton forward = findViewById(R.id.forwardBtn);
-       // final ImageButton backward = findViewById(R.id.backwardBtn);
-       // final ImageButton left = findViewById(R.id.leftBtn);
-       // final ImageButton right = findViewById(R.id.rightBtn);
-
-
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
