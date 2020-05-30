@@ -232,9 +232,17 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         });
 
 
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
+                if(headsetIsConnected){
+                onCheckedChangedImplement(buttonView, isChecked);
+                setHeadsetIsConnected(headsetIsConnected);
+                }
+
+            }
+
+            private void onCheckedChangedImplement(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     saveNightModeState(true);
@@ -245,20 +253,15 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     overridePendingTransition(0, 0);
                 }
             }
+
             private void saveNightModeState(boolean nightMode) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(KEY_ISNIGHTMODE, nightMode);
-                if(carIsConnected){
-                editor.putBoolean("carIsConnected", true);
-                }
-                if(headsetIsConnected){
-                editor.putBoolean("headsetIsConnected", true);
-                }
                 editor.apply();
             }
 
         });
-    };
+    }
 
         // Click listeners for the smart car navigation control buttons
         /* forward.setOnClickListener(new View.OnClickListener() {
@@ -390,12 +393,11 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     // Here we establish the data we want to gather
                     case MindDataType.CODE_ATTENTION:
                         Log.d(TAG, "CODE_ATTENTION " + msg.arg1);
-                        tv_attention.setText("" + msg.arg1);
-
                         // Changes the animation to reflect eeg
-                        showConcentration(msg.arg1);
-
                         if (msg.arg1 > 59 && msg.arg1 < 101) {
+                            tv_attention.setText("" + msg.arg1);
+                            showConcentration(msg.arg1);
+
                             int msgn = 9; // forward
                             try {
                                 Car.mmOutputStream.write(msgn);
@@ -416,7 +418,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             }
         };
     };
-
+    
     // Go to repository through the link in GitHub shape
     public void goToUrl(View view) {
         String url = "https://github.com/DIT112-V20/group-08";
