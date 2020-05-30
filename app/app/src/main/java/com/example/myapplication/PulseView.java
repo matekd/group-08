@@ -50,7 +50,6 @@ public class PulseView extends View {
     }
 
     private void init(@Nullable AttributeSet set) {
-
         // For painting the circles
         this.paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.paint.setStrokeWidth(4);
@@ -61,23 +60,16 @@ public class PulseView extends View {
         this.pulseGap = 100f;
 
         // For animation interaction
-        this.concentration = 0;
+        this.concentration = 1;
         int minFade = 40;
         int maxFade = 100;
         long maxDuration = 2000L;
 
         // For animating the circles
         this.pulseOffset = 0f;
-
-        if (concentration > 0) {
-            this.duration = maxDuration / concentration;
-            this.fade = minFade + ((maxFade - minFade) / concentration);
-        } else {
-            this.duration = 0;
-            this.fade = 255;
-        }
-
+        this.duration = maxDuration / concentration;
         this.initialAlpha = 255;
+        this.fade = minFade + ((maxFade - minFade) / concentration);
     }
 
     // Setter for changing the concentration level depending on EEG
