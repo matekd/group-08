@@ -29,7 +29,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener{
+public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener {
 
     static final String TAG = null;
     TextView tv_attention;
@@ -37,11 +37,18 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
 
     // For bluetooth connections
     Connector Car = new Connector();
-    Connector Headset = new Connector();
-
-    boolean eegActive = false;
     boolean carIsConnected = false;
+    Button connectCar;
+    Button carConnected;
+
+    Connector Headset = new Connector();
     boolean headsetIsConnected = false;
+    Button connectHeadset;
+    Button headsetConnected;
+
+    // For turning eeg on and off
+    boolean eegActive = false;
+    Button controlEeg;
 
     //for gyroscope sensors
     SensorManager sensorManager;
@@ -61,11 +68,11 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         pulse = findViewById(R.id.pulse);
 
         // Header buttons in content_header.xml
-        final Button connectCar = findViewById(R.id.connectCarBtn);
-        final Button carConnected = findViewById(R.id.connectedCarBtn);
+        connectCar = findViewById(R.id.connectCarBtn);
+        carConnected = findViewById(R.id.connectedCarBtn);
 
-        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
-        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
+        connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        headsetConnected = findViewById(R.id.connectedHeadsetBtn);
 
         final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
         final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         joyStick.setListener(this);
 
         // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        final Button controlEeg = findViewById(R.id.controlEegBtn);
+        controlEeg = findViewById(R.id.controlEegBtn);
 
         //Used for gyroscope
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
