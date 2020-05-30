@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     Connector Headset = new Connector();
 
     boolean eegActive = false;
-    boolean carIsConnected = false;
-    boolean headsetIsConnected = false;
+    boolean carIsConnected;
+    boolean headsetIsConnected;
 
     //for gyroscope sensors
     SensorManager sensorManager;
