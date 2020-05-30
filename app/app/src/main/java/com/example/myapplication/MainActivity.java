@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         // Activity content id's for changing content in main activity
         final RelativeLayout eegContent = findViewById(R.id.eegContent);
         final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
-        JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
+        JoyStick joyStick = findViewById(R.id.joy1);
         joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
         joyStick.setListener(this);
 
