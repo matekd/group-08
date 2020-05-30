@@ -17,13 +17,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <!-- Control buttons in content_controls.xml -->
-    <style name="controlBtn">
-        <item name="android:layout_width">120dp</item>
-        <item name="android:layout_height">120dp</item>
-        <item name="android:background">@drawable/bg_controlbtn</item>
-    </style>
-
     <!-- Header styles in content_header.xml -->
     <style name="headerText">
         <item name="android:layout_marginTop">30dp</item>
