@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
                 if(headsetIsConnected){
                 onCheckedChangedImplement(buttonView, isChecked);
-                setHeadsetIsConnected(headsetIsConnected);
+                headsetIsConnected=true;
                 }
 
             }
