@@ -64,16 +64,20 @@ The smart car has an on-off switch on its side, and users should switch off afte
 
 ## Hardware and software architecture
 ### Arduino software
+
+## [smartcar.ino](https://github.com/DIT112-V20/group-08/blob/master/arduino/smartcar/smartcar.ino)
+| Method name | Purpose / function |
+| --- | --- |
+| handleInput() | Allows bluetooth communication with the car. The car is able to move in 8 degrees. |
+| rotateOnSpot() | Activates whenever an object is within 20 cm from the front or rearend of the car. |
+| rotateOnSpot() | Used to temporarily disable the sensors, since otherwise one of them would always detect the obstacle. |
+| changeSpeed() | A method used to ensure that the system is stable by adding a delay whenever the motors are changing direction. |
+
 ### Hardware
 
 NeuroDrive is controlling a smartcar, a vehicle platform used for [educational purposes.](https://github.com/platisd/smartcar_shield) 
 The smartcar is equipped with an ESP32 microcontroller. When the smartcar.ino sketch is uplodaded to the ESP32 the smartcar will have all features described:
 Two SR04 Sensors are always active and reading distances up to 1 metre.
-
-handleInput() - Allows bluetooth communication with the car. The car is able to move in 8 degrees.
-rotateOnSpot() - Activates whenever an object is within 20 cm from the front or rearend of the car.
-SimpleTimer cooldown - Used to temporarily disable the sensors, since otherwise one of them would always detect the obstacle.
-Changespeed - A method used to ensure that the system is stable by adding a delay whenever the motors are changing direction.
 
 !!DISCLAIMER!!
 NeuroDrive is not assosicated with NeuroSky but is dependent on an algorithm created by them to function.
