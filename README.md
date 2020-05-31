@@ -61,6 +61,7 @@ Headset has a toggle switch and users should switch off after use. When the head
 The smart car has an on-off switch on its side, and users should switch off after use. When the car is turned on, a red light should start glowing on top of the smart car.
 
 ## Hardware and software architecture
+### Arduino software
 ### Hardware
 
 NeuroDrive is controlling a smartcar, a vehicle platform used for [educational purposes.](https://github.com/platisd/smartcar_shield) 
@@ -113,10 +114,6 @@ The android application consists of one main activity java file which uses xml r
 | [icon_github.png](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_github.png) & [btn_github.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/btn_github.xml) | Icon used to indicate to the end-user that a github repository is available via an external link. |
 | [bg_eegcontrol_start.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/bg_eegcontrol_start.xml) & [bg_eegcontrol_stop.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/bg_eegcontrol_stop.xml) | Background xml shape files that visualise the EEG concentration readings being turned off and on. |
 | [joystick_trackpad_background.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/joystick_trackpad_background.xml) | Vector graphics used in the background of the joystick. |
-
-### Arduino software
-
-### Hardware
 
 ## Team members
 | Name | Project contribution |
