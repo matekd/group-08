@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     TextView tv_attention;
     TgStreamReader tgStreamReader;
      private Switch aSwitch;
-
+    View view;
+    
     // For bluetooth connections
     Connector Car = new Connector();
     Connector Headset = new Connector();
@@ -69,28 +70,16 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        aSwitch = findViewById(R.id.switchTheme);
-
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            @Override
+        Switch aSwitch = findViewById(R.id.switchTheme);
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                 if(isChecked){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    saveNightModeState(true);
-                    overridePendingTransition(0,0);
-                 }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    saveNightModeState(false);
-                    overridePendingTransition(0,0);
-                    }
-        }
-
-     private void saveNightModeState(boolean nightMode) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(KEY_ISNIGHTMODE,nightMode);
-                editor.apply();
-     }});
-
+                if (isChecked) {
+                    view.setBackgroundResource(R.color.black);
+                } else {
+                    view.setBackgroundResource(R.color.white);
+                }
+            }
+        });
         // Header buttons in content_header.xml
         final Button connectCar = findViewById(R.id.connectCarBtn);
         final Button carConnected = findViewById(R.id.connectedCarBtn);
