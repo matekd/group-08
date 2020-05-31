@@ -65,7 +65,7 @@ The smart car has an on-off switch on its side, and users should switch off afte
 ## Hardware and software architecture
 ### Arduino software
 
-## [smartcar.ino](https://github.com/DIT112-V20/group-08/blob/master/arduino/smartcar/smartcar.ino)
+#### [smartcar.ino](https://github.com/DIT112-V20/group-08/blob/master/arduino/smartcar/smartcar.ino)
 | Method name | Purpose / function |
 | --- | --- |
 | handleInput() | Allows bluetooth communication with the car. The car is able to move in 8 degrees. |
