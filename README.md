@@ -30,8 +30,8 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 | Android OS with version Lollipop(5.0) or higher | Google fonts, [Nunito](https://fonts.google.com/specimen/Nunito) |
 
 ## Application user manual
-![eeg-view](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeg-view.png)
-![joystick-view](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/joystick-view.png)
+![eeg-view](readme-images/eeg-view.png)
+![joystick-view](readme-images/joystick-view.png)
 
 ### Application header
 1. The application UI indicates to the user that external hardware can be connected to via Bluetooth.
@@ -46,7 +46,7 @@ The smart-car will also be able to prevent itself from colliding with obstacles 
 6. The app end-user can control the smart car manually with the help of a joystick. This is done by pressing down on the screen within the borders of the joystick trackpad, while moving their finger in the displayed directions.
 
 ### Visual EEG readings
-![eeg-visual](https://github.com/DIT112-V20/group-08/blob/documentation/readme-images/eeganimation.gif)
+![eeg-visual](readme-images/eeganimation.gif)
 The application will start to display the levels of EEG received by the end-user wearing the headset while EEG readings are enabled. This is visualized both with a text displaying the exact level of the reading, as well as an animation that changes when the reading goes up or down.
 
 ## Hardware user manual
@@ -117,7 +117,7 @@ The android application consists of one main activity java file which uses xml r
 | Name | Project contribution |
 | --- | --- |
 | [Liv Alterskjaer](https://github.com/liivmarii) | Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics. |
-| [Annan Lao](https://github.com/AnnanLao) | Part of the android backend logic; and night mode logic, toggle and its front end design. |
+| [Annan Lao](https://github.com/AnnanLao) | Part of the android backend logic, including car manual control and url link; and night mode design and logic. |
 | [Zhijie Wei](https://github.com/ZJW-92) | Joystick and its backend logic in manual control mode. |
 | [Douglas Johansson](https://github.com/dojodj) | Obstacle avoidance, testing, hardware installations. |
 | [Mattias Ekdahl](https://github.com/matekd) | Car logic, obstacle avoidance and app backend for communication with the car. |
