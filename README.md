@@ -102,7 +102,7 @@ The android application consists of one main activity java file which uses xml r
 | Name | Project contribution |
 | --- | --- |
 | [Liv Alterskjaer](https://github.com/liivmarii) | Android application UI design and front end development: Animation, view layouts and custom views, micro interactions, toast notifications, and vector graphics. |
-| [Annan Lao](https://github.com/AnnanLao) | Part of the android backend logic; and night mode logic, toggle and its front end design. |
+| [Annan Lao](https://github.com/AnnanLao) | Part of the android backend logic, including car manual control and url link; and night mode design and logic. |
 | [Zhijie Wei](https://github.com/ZJW-92) | Joystick and its backend logic in manual control mode. |
 | [Douglas Johansson](https://github.com/dojodj) | Obstacle avoidance, testing, hardware installations. |
 | [Mattias Ekdahl](https://github.com/matekd) | Car logic, obstacle avoidance and app backend for communication with the car. |
