@@ -42,7 +42,7 @@ public class Connector {     //Used to connect the devices via bluetooth
                 mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
                 mmSocket.connect();
                 mmOutputStream = mmSocket.getOutputStream();
-
+                mmOutputStream.write(13);
             }
         }
 }

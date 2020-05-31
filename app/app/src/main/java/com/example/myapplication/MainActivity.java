@@ -134,9 +134,10 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 if (!carIsConnected) {
                     connectionHelper("Car");
                     try {
-                        Car.openBT();
                         Thread.sleep(3000);
-                        Car.mmSocket.isConnected();
+                        if (Car.mmSocket.isConnected()==false) {
+                            pleaseConnect();
+                        } else {
                         CountDownTimer timer = new CountDownTimer(6000, 1000) { // TODO: What does CountDownTimer timer do? It comes up as 'never used' in edit :) Liv, 2020-05-31
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                                 carIsConnected = true;
                             }
                         }.start();
-                    } catch (IOException | InterruptedException | NullPointerException e) {
+                    }} catch (NullPointerException | InterruptedException e) {
                         e.printStackTrace();
                         pleaseConnect();
                     }
@@ -163,10 +164,10 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     if (!headsetIsConnected) {
                         connectionHelper("Force Trainer II");
                         try {
-                            Headset.openBT();
-                            Thread.sleep(3000);
-                            Headset.mmSocket.isConnected();
-                            CountDownTimer timer = new CountDownTimer(6000, 1000) {
+                            if (Car.mmOutputStream == null) {
+                                pleaseConnect();
+                            } else  {
+                                CountDownTimer timer = new CountDownTimer(6000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
                                     connectHeadset.setTextSize(9);
@@ -180,7 +181,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                                     headsetIsConnected = true;
                                 }
                             }.start();
-                        } catch (IOException | InterruptedException | NullPointerException e) {
+                        } }
+                        catch (NullPointerException e) {
                             e.printStackTrace();
                             pleaseConnect();
                         }
@@ -489,6 +491,11 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 Process.setThreadPriority(Process.THREAD_PRIORITY_MORE_FAVORABLE);
                 if(name.equals("Car")){
                     Car.findBT(name);
+                    try {
+                        Car.openBT();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else
                     Headset.findBT(name);
             }
