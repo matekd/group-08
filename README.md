@@ -57,6 +57,21 @@ Headset has a toggle switch and users should switch off after use. When the head
 The smart car has an on-off switch on its side, and users should switch off after use. When the car is turned on, a red light should start glowing on top of the smart car.
 
 ## Hardware and software architecture
+### Hardware
+
+NeuroDrive is controlling a smartcar, a vehicle platform used for [educational purposes.](https://github.com/platisd/smartcar_shield) 
+The smartcar is equipped with an ESP32 microcontroller. When the smartcar.ino sketch is uplodaded to the ESP32 the smartcar will have all features described:
+Two SR04 Sensors are always active and reading distances up to 1 metre.
+
+handleInput() - Allows bluetooth communication with the car. The car is able to move in 8 degrees.
+rotateOnSpot() - Activates whenever an object is within 20 cm from the front or rearend of the car.
+SimpleTimer cooldown - Used to temporarily disable the sensors, since otherwise one of them would always detect the obstacle.
+Changespeed - A method used to ensure that the system is stable by adding a delay whenever the motors are changing direction.
+
+!!DISCLAIMER!!
+NeuroDrive is not assosicated with NeuroSky but is dependent on an algorithm created by them to function.
+Their algorithm allows communication between the TGAM inside the Force Trainer II and the NeuroDrive Application.
+If this software was (for some reason) ever to be used in it must comply with Neurosky EULA.
 ### Application software
 The android application consists of one main activity java file which uses xml resources and java classes to build the functionality and structure as follows:
 
@@ -64,7 +79,7 @@ The android application consists of one main activity java file which uses xml r
 | Filename | Purpose / function |
 | --- | --- |
 | [MainActivity.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/MainActivity.java) | Main application java file. Contains and implements application functionality. |
-| [Connector.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/Connector.java) |  |
+| [Connector.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/Connector.java) | A class file with methods FindBT(String name) - enables bluetooth on device and searches for paired devices that matches the bluetooth device name. The second method openBT() opens a socket to said device.
 | [JoyStick.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/JoyStick.java) |  |
 | [PulseView.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/PulseView.java) | Custom view that generates an animation which changes dependent on values recieved in MainActivity.java |
 
