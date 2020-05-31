@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             }
         };
 
-        Thread connectorThread = new Thread(animationInteraction);
+        Thread connectorThread = new Thread(connector);
         connectorThread.start();
     }
 }
