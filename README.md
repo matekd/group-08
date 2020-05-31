@@ -2,7 +2,7 @@
 
 <img align="left" width="100" src="https://i.ytimg.com/vi/pvArIKRuUSM/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDT-DnnqyrOr88k35BqLSSViMLIRA">
 
-## [Check check out our system demo video on youtube](https://youtu.be/pvArIKRuUSM)
+## [Check out our system demo video on youtube](https://youtu.be/pvArIKRuUSM)
 In order to demo our end product, we have recoded a short video demonstrating the functionality of our system. We hope the video gives you a good idea of what we've been trying to achieve. Thanks for watching!
 
 ## Table of contents
