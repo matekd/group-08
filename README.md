@@ -1,14 +1,19 @@
 # Mini project: NeuroDrive
+
+<img align="left" width="100" src="https://i.ytimg.com/vi/pvArIKRuUSM/hqdefault.jpg?sqp=-oaymwEZCPYBEIoBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLDT-DnnqyrOr88k35BqLSSViMLIRA">
+
+## [Check check out our system demo video on youtube](https://youtu.be/pvArIKRuUSM)
+In order to demo our end product, we have recoded a short video demonstrating the functionality of our system. We hope the video gives you a good idea of what we've been trying to achieve. Thanks for watching!
+
 ## Table of contents
 1. [What does this repository contain?](#what)
 2. [Why did we develop this?](#why)
 3. [How did we reach these results?](#how)
-4. [System presentation video](#system-presentation-video)
-5. [Resources we used](#resources)
-6. [Application user manual](#application-user-manual)
-7. [Hardware user manual](#hardware-user-manual)
-8. [Hardware and software architecture](#hardware-and-software-architecture)
-9. [Team members](#team-members)
+4. [Resources we used](#resources)
+5. [Application user manual](#application-user-manual)
+6. [Hardware user manual](#hardware-user-manual)
+7. [Hardware and software architecture](#hardware-and-software-architecture)
+8. [Team members](#team-members)
 
 ## What?
 A software that allows an end user to remotely control a smart car in a less traditional way, with the use of an EEG-headset and a mobile app. Moreover, the smart car can prevent itself from hitting obstacles in front and behind it by turning to the opposite direction.
@@ -19,9 +24,6 @@ The main objective of this software is to utilize and demonstrate the use and ap
 ## How?
 The EEG-chip within the “Force Trainer II Bluetooth Headset” measures brain, and depending on the users’ mental state e.g. stressed or relaxed, the headset will pick up frequencies within different Hz intervals. With the data retrieved from the headset, we will be able to control the forward throttle of the car, while being able to steer right and left via tilting the phone.
 The smart-car will also be able to prevent itself from colliding with obstacles by using ultrasonic sensors. Once the ultrasonic wave reaches obstacle it bounces back and the displacement between the car and the wall is calculated, and once it is too short the car will turn to the opposite direction.
-
-## System presentation video
-In order to demo our end product, we have recoded a short video demonstrating the functionality of our system. The video can be viewed [here](https://youtu.be/pvArIKRuUSM). We hope the video gives you a good idea of what we've been trying to achieve. Thanks for watching!
 
 ## Resources
 | Hardware | Software |
