@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             switch (direction) {
                 case JoyStick.DIRECTION_LEFT: {
                     try {
-                        Car.mmOutputStream.write(8);
+                        Car.mmOutputStream.write(7);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -365,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
 
                 case JoyStick.DIRECTION_RIGHT: {
                     try {
-                        Car.mmOutputStream.write(2);
+                        Car.mmOutputStream.write(3);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
