@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,7 +17,6 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
@@ -31,67 +29,82 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 import com.neurosky.connection.DataType.MindDataType;
 
-public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener{
+public class MainActivity extends AppCompatActivity implements JoyStick.JoyStickListener {
 
     static final String TAG = null;
-    TextView tv_attention;
     TgStreamReader tgStreamReader;
 
     // For bluetooth connections
     Connector Car = new Connector();
-    Connector Headset = new Connector();
-
-    boolean eegActive = false;
     boolean carIsConnected = false;
-    boolean headsetIsConnected = false;
+    Button connectCar;
+    Button carConnected;
 
-    //for gyroscope sensors
+    Connector Headset = new Connector();
+    boolean headsetIsConnected = false;
+    Button connectHeadset;
+    Button headsetConnected;
+
+    private void initConnection() {
+        connectCar = findViewById(R.id.connectCarBtn);
+        carConnected = findViewById(R.id.connectedCarBtn);
+        connectHeadset = findViewById(R.id.connectHeadsetBtn);
+        headsetConnected = findViewById(R.id.connectedHeadsetBtn);
+    }
+
+    // UI layout elements
+    RelativeLayout eegContent;
+
+    RelativeLayout joystickContent;
+    JoyStick joyStick;
+
+    Button eegContentBtn;
+    Button joystickContentBtn;
+
+    private void initLayout() {
+        eegContentBtn = findViewById(R.id.switchToEegBtn);
+        joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
+
+        eegContent = findViewById(R.id.eegContent);
+        joystickContent = findViewById(R.id.joystickContent);
+        joyStick = findViewById(R.id.joy1);
+        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
+        joyStick.setListener(this);
+    }
+
+    // Eeg reading in app
+    boolean eegActive = false;
+    Button controlEeg;
+
+    PulseView pulse;
+    TextView tv_attention;
+
+    private void initEeg() {
+        controlEeg = findViewById(R.id.controlEegBtn);
+        pulse = findViewById(R.id.pulse);
+        tv_attention = findViewById(R.id.tv_attention);
+    }
+
+    // For gyroscope sensors
     SensorManager sensorManager;
     Sensor accelerometer;
     SensorEventListener accelerometerEventListener;
 
-    // For animation interaction
-    PulseView pulse;
+    private void initGyroscope() {
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        assert sensorManager != null;
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv_attention = findViewById(R.id.tv_attention);
 
-        // Finding pulse in layout
-        pulse = findViewById(R.id.pulse);
-
-        // Header buttons in content_header.xml
-        final Button connectCar = findViewById(R.id.connectCarBtn);
-        final Button carConnected = findViewById(R.id.connectedCarBtn);
-
-        final Button connectHeadset = findViewById(R.id.connectHeadsetBtn);
-        final Button headsetConnected = findViewById(R.id.connectedHeadsetBtn);
-
-        final Button eegContentBtn = findViewById(R.id.switchToEegBtn);
-        final Button joystickContentBtn = findViewById(R.id.switchToJoystickBtn);
-
-        // Activity content id's for changing content in main activity
-        final RelativeLayout eegContent = findViewById(R.id.eegContent);
-        final RelativeLayout joystickContent = findViewById(R.id.joystickContent);
-        JoyStick joyStick = (JoyStick) findViewById(R.id.joy1);
-        joyStick.setBackgroundResource(R.drawable.joystick_trackpad_background);
-        joyStick.setListener(this);
-
-        // Buttons to control the start and stop of eeg reading in UI, found in content_controls.xml
-        final Button controlEeg = findViewById(R.id.controlEegBtn);
-
-        // Smart car control buttons in content_controls.xml
-       // final ImageButton forward = findViewById(R.id.forwardBtn);
-       // final ImageButton backward = findViewById(R.id.backwardBtn);
-       // final ImageButton left = findViewById(R.id.leftBtn);
-       // final ImageButton right = findViewById(R.id.rightBtn);
-
-
-        //Used for gyroscope
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        initConnection();
+        initLayout();
+        initEeg();
+        initGyroscope();
 
         accelerometerEventListener = new SensorEventListener() {
             @Override
@@ -124,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    // TODO: What does CountDownTimer timer do? It comes up as 'never used' in edit :) Liv, 2020-05-31
                     CountDownTimer timer = new CountDownTimer(6000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -217,67 +231,6 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 }
             }
         });
-
-        // Click listeners for the smart car navigation control buttons
-        /* forward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goForward();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goLeft();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goRight();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        backward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!carIsConnected) {
-                    pleaseConnectCar();
-                } else {
-                    try {
-                        goBackward();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }); */
     }
 
     // Toast method, prompting the end-user to check bluetooth connections to hardware
@@ -305,7 +258,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     //Stops reading eeg data
     public void stopEeg() {
         tgStreamReader.stop();
-        tgStreamReader.close();//if there is not stop cmd, please call close() or the data will accumulate
+        // If there is not stop cmd, please call close() or the data will accumulate
+        tgStreamReader.close();
         tgStreamReader = null;
     }
 
@@ -325,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         //Checks if the headset is connected
         @Override
         public void onStatesChanged(int connectionStates) {
+            // TODO: This could be changed to an if-statement. What does connectionStates require to be true? Liv 2020-05-31
             switch (connectionStates) {
                 case ConnectionStates.STATE_CONNECTED:
                     tgStreamReader.start();
@@ -383,7 +338,8 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         startActivity(launchBrowser);
     }
 
-    public TgStreamReader createStreamReader(BluetoothDevice bd) { //here the data reader is being created
+    // Here the data reader is being created
+    public TgStreamReader createStreamReader(BluetoothDevice bd) {
         if (tgStreamReader == null) {
             tgStreamReader = new TgStreamReader(bd, callback);
             tgStreamReader.startLog();
@@ -391,145 +347,106 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         return tgStreamReader;
     }
 
-    // Car control buttons
-    void goForward() throws IOException { //Buttons to steer the car
-        int msg = 1;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goLeft() throws IOException {
-        int msg = 8;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goRight() throws IOException {
-        int msg = 2;
-        Car.mmOutputStream.write(msg);
-    }
-
-    void goBackward() throws IOException {
-        int msg = 5;
-        Car.mmOutputStream.write(msg);
-    }
-    void goForwardLeft()throws IOException {
-        int msg = 8;
-        Car.mmOutputStream.write(msg);
-    }
-    void goForwardRight()throws IOException {
-        int msg = 2;
-        Car.mmOutputStream.write(msg);
-    }
-    void goBackwardLeft()throws IOException {
-        int msg = 6;
-        Car.mmOutputStream.write(msg);
-    }
-    void goBackardRight()throws IOException {
-        int msg = 4;
-        Car.mmOutputStream.write(msg);
-    }
-    void stopCar()throws IOException {
-        int msg = 13;
-        Car.mmOutputStream.write(msg);
-    }
-
-    // joyStick eight control methods to replace four buttons
+    // Joystick eight control methods to replace four buttons
     public void onMove(JoyStick joyStick, double angle, double power, int direction) {
-       // to have toast message only once
         if (!carIsConnected) {
             pleaseConnect();
+
         } else {
             switch (direction) {
-                case JoyStick.DIRECTION_LEFT:
-                {
+                case JoyStick.DIRECTION_LEFT: {
                     try {
-                        goLeft();
+                        Car.mmOutputStream.write(7);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_RIGHT:
-                {
+
+                case JoyStick.DIRECTION_RIGHT: {
                     try {
-                        goRight();
+                        Car.mmOutputStream.write(3);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_UP:
-                {
+
+                case JoyStick.DIRECTION_UP: {
                     try {
-                        goForward();
+                        Car.mmOutputStream.write(1);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_DOWN:
-                {
+
+                case JoyStick.DIRECTION_DOWN: {
                     try {
-                        goBackward();
+                        Car.mmOutputStream.write(5);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_LEFT_UP:
-                {
+
+                case JoyStick.DIRECTION_LEFT_UP: {
                     try {
-                        goForwardLeft();
+                        Car.mmOutputStream.write(8);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 break;
-                case JoyStick.DIRECTION_UP_RIGHT:
-                     {
-                        try {
-                            goForwardRight();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_DOWN_LEFT:
-                      {
-                        try {
-                            goBackwardLeft();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_RIGHT_DOWN:
-                        {
-                        try {
-                            goBackardRight();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    break;
-                case JoyStick.DIRECTION_CENTER:
-                {
+
+                case JoyStick.DIRECTION_UP_RIGHT: {
                     try {
-                        stopCar();
+                        Car.mmOutputStream.write(2);
                     } catch (Exception e) {
-                        e.printStackTrace();;
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_DOWN_LEFT: {
+                    try {
+                        Car.mmOutputStream.write(6);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_RIGHT_DOWN: {
+                    try {
+                        Car.mmOutputStream.write(4);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+                case JoyStick.DIRECTION_CENTER: {
+                    // Stops the car
+                    try {
+                        Car.mmOutputStream.write(13);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 break;
 
                 default:
+                    break;
+
             }
         }
     }
+
     public void onTap() {
-
     }
-    public void onDoubleTap() {
 
+    public void onDoubleTap() {
     }
 
     // Method for animation changes
@@ -552,7 +469,3 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
         animationInteractionThread.start();
     }
 }
-
-
-
-
