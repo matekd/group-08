@@ -485,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
     }
 
     public void connectionHelper(final String name) {
-        Runnable animationInteraction = new Runnable() {
+        Runnable connector = new Runnable() {
             @Override
             public void run() {
                 Process.setThreadPriority(Process.THREAD_PRIORITY_MORE_FAVORABLE);
@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             }
         };
 
-        Thread animationInteractionThread = new Thread(animationInteraction);
-        animationInteractionThread.start();
+        Thread connectorThread = new Thread(animationInteraction);
+        connectorThread.start();
     }
 }
