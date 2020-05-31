@@ -90,36 +90,36 @@ The android application consists of one main activity java file which uses xml r
 #### Java files
 | Filename | Purpose / function |
 | --- | --- |
-| [MainActivity.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/MainActivity.java) | Main application java file. Contains and implements application functionality. |
-| [Connector.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/Connector.java) | A class file with methods FindBT(String name) - enables bluetooth on device and searches for paired devices that matches the bluetooth device name. The second method openBT() opens a socket to said device.
-| [JoyStick.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/JoyStick.java) | A class file with method onTouchEvent() - calculates the axle x, axle y, direction, angle and power on the joystick. The second method calculateDirection(Double degrees) - enables both joystick and smart car have the same directions. |
-| [PulseView.java](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/java/com/example/myapplication/PulseView.java) | Custom view that generates an animation which changes dependent on values recieved in MainActivity.java |
+| [MainActivity.java](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/java/com/example/myapplication/MainActivity.java) | Main application java file. Contains and implements application functionality. |
+| [Connector.java](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/java/com/example/myapplication/Connector.java) | A class file with methods FindBT(String name) - enables bluetooth on device and searches for paired devices that matches the bluetooth device name. The second method openBT() opens a socket to said device.
+| [JoyStick.java](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/java/com/example/myapplication/JoyStick.java) | A class file with method onTouchEvent() - calculates the axle x, axle y, direction, angle and power on the joystick. The second method calculateDirection(Double degrees) - enables both joystick and smart car have the same directions. |
+| [PulseView.java](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/java/com/example/myapplication/PulseView.java) | Custom view that generates an animation which changes dependent on values recieved in MainActivity.java |
 
 #### XML layout resource files
 | Filename | Purpose / function |
 | --- | --- |
-| [activity_main.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/layout/activity_main.xml) | Main application activity content. Container that includes content files. |
-| [content_header.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/layout/content_header.xml) | Structures the application header that holds buttons to connect to hardware and change the application activity contents. |
-| [content_eeg.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/layout/content_eeg.xml) | Contains elements related to EEG readings and visuals that display concentration levels to the end-user, as well as allows the end-user to toggle EEG readings on and off. |
-| [content_joystick.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/layout/content_joystick.xml) | Contains joystick view which lets the end-user manually control the smart car, instead of reading EEG concentration levels. |
+| [activity_main.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/layout/activity_main.xml) | Main application activity content. Container that includes content files. |
+| [content_header.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/layout/content_header.xml) | Structures the application header that holds buttons to connect to hardware and change the application activity contents. |
+| [content_eeg.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/layout/content_eeg.xml) | Contains elements related to EEG readings and visuals that display concentration levels to the end-user, as well as allows the end-user to toggle EEG readings on and off. |
+| [content_joystick.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/layout/content_joystick.xml) | Contains joystick view which lets the end-user manually control the smart car, instead of reading EEG concentration levels. |
 
 #### XML values resource files
 | Filename | Purpose / function |
 | --- | --- |
-| [attrs.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/attrs.xml) | So far only contains joystick related attributes. Can be changed later to include attributes for other custom views. |
-| [colors.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/colors.xml) | Contains application UI color palette. |
-| [font_certs.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/font_certs.xml) & [preloaded_fonts.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/preloaded_fonts.xml) | Contains the custom Google Fonts that were implemented into the UI design. |
-| [strings.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/strings.xml) | Contains all strings used in the app UI. |
-| [styles.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/values/styles.xml) | This file contains UI style attributes that could be repeated in different layout elements. Style attributes that are never repeated are written inline in the UI element. |
+| [attrs.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/attrs.xml) | So far only contains joystick related attributes. Can be changed later to include attributes for other custom views. |
+| [colors.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/colors.xml) | Contains application UI color palette. |
+| [font_certs.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/font_certs.xml) & [preloaded_fonts.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/preloaded_fonts.xml) | Contains the custom Google Fonts that were implemented into the UI design. |
+| [strings.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/strings.xml) | Contains all strings used in the app UI. |
+| [styles.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/values/styles.xml) | This file contains UI style attributes that could be repeated in different layout elements. Style attributes that are never repeated are written inline in the UI element. |
 
 #### XML drawable resource files
 | Filename | Purpose / function |
 | --- | --- |
-| [icon_bluetooth_connected.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_bluetooth_connected.xml) & [icon_bluetooth_disconnected.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_bluetooth_disconnected.xml) | Vectors icons used to illustrate Bluetooth connectivity. |
-| [icon_controls.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_controls.xml) & [icon_headset.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_headset.xml) | Vector icons that illustrate to the user which type of content to view in activity_main.xml. This is toggled by visibility settings. |
-| [icon_github.png](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable-v24/icon_github.png) & [btn_github.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/btn_github.xml) | Icon used to indicate to the end-user that a github repository is available via an external link. |
-| [bg_eegcontrol_start.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/bg_eegcontrol_start.xml) & [bg_eegcontrol_stop.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/bg_eegcontrol_stop.xml) | Background xml shape files that visualise the EEG concentration readings being turned off and on. |
-| [joystick_trackpad_background.xml](https://github.com/DIT112-V20/group-08/blob/clean-up/app/app/src/main/res/drawable/joystick_trackpad_background.xml) | Vector graphics used in the background of the joystick. |
+| [icon_bluetooth_connected.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable-v24/icon_bluetooth_connected.xml) & [icon_bluetooth_disconnected.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable-v24/icon_bluetooth_disconnected.xml) | Vectors icons used to illustrate Bluetooth connectivity. |
+| [icon_controls.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable-v24/icon_controls.xml) & [icon_headset.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable-v24/icon_headset.xml) | Vector icons that illustrate to the user which type of content to view in activity_main.xml. This is toggled by visibility settings. |
+| [icon_github.png](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable-v24/icon_github.png) & [btn_github.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable/btn_github.xml) | Icon used to indicate to the end-user that a github repository is available via an external link. |
+| [bg_eegcontrol_start.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable/bg_eegcontrol_start.xml) & [bg_eegcontrol_stop.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable/bg_eegcontrol_stop.xml) | Background xml shape files that visualise the EEG concentration readings being turned off and on. |
+| [joystick_trackpad_background.xml](https://github.com/DIT112-V20/group-08/blob/master/app/app/src/main/res/drawable/joystick_trackpad_background.xml) | Vector graphics used in the background of the joystick. |
 
 ## Team members
 | Name | Project contribution |
