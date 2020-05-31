@@ -17,6 +17,12 @@ public class Connector {     //Used to connect the devices via bluetooth
 
     void findBT(String name){ //You need to specify the name of the bluetooth device
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(mBluetoothAdapter==null){
+            return;
+        }
+        else if(!mBluetoothAdapter.isEnabled()){
+            mBluetoothAdapter.enable();
+        }
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if (pairedDevices.size() > 0) {
             for (BluetoothDevice device : pairedDevices) {
@@ -25,8 +31,6 @@ public class Connector {     //Used to connect the devices via bluetooth
                     mmDevice = device;
 
                     break;
-                } else {
-
                 }
             }
         }

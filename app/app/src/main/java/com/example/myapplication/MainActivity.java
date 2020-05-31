@@ -17,6 +17,7 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 import android.view.View;
+import android.widget.HeaderViewListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
@@ -131,68 +132,80 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
             @Override
             public void onClick(View view) {
                 if (!carIsConnected) {
-                    Car.findBT("Car");
+                    connectionHelper("Car");
                     try {
                         Car.openBT();
-                    } catch (IOException e) {
+                        Thread.sleep(3000);
+                        Car.mmSocket.isConnected();
+                        CountDownTimer timer = new CountDownTimer(6000, 1000) { // TODO: What does CountDownTimer timer do? It comes up as 'never used' in edit :) Liv, 2020-05-31
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                connectCar.setTextSize(9);
+                                connectCar.setText(getString(R.string.connecting));
+                            }
+                            @Override
+                            public void onFinish() {
+                                connectCar.setVisibility(View.GONE);
+                                carConnected.setVisibility(View.VISIBLE);
+                                carIsConnected = true;
+                            }
+                        }.start();
+                    } catch (IOException | InterruptedException | NullPointerException e) {
                         e.printStackTrace();
+                        pleaseConnect();
                     }
-                    // TODO: What does CountDownTimer timer do? It comes up as 'never used' in edit :) Liv, 2020-05-31
-                    CountDownTimer timer = new CountDownTimer(6000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            connectCar.setTextSize(9);
-                            connectCar.setText(getString(R.string.connecting));
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            connectCar.setVisibility(View.GONE);
-                            carConnected.setVisibility(View.VISIBLE);
-                            carIsConnected = true;
-                        }
-                    }.start();
                 }
-            }
-        });
+            }});
 
         connectHeadset.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if (!headsetIsConnected) {
-                    Headset.findBT("Force Trainer II");
-                    CountDownTimer timer = new CountDownTimer(6000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            connectHeadset.setTextSize(9);
-                            connectHeadset.setText("Connecting...");
-                        }
+            public void onClick(View view){
+                    if (!headsetIsConnected) {
+                        connectionHelper("Force Trainer II");
+                        try {
+                            Headset.openBT();
+                            Thread.sleep(3000);
+                            Headset.mmSocket.isConnected();
+                            CountDownTimer timer = new CountDownTimer(6000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                    connectHeadset.setTextSize(9);
+                                    connectHeadset.setText("Connecting...");
+                                }
 
-                        @Override
-                        public void onFinish() {
-                            connectHeadset.setVisibility(View.GONE);
-                            headsetConnected.setVisibility(View.VISIBLE);
-                            headsetIsConnected = true;
+                                @Override
+                                public void onFinish() {
+                                    connectHeadset.setVisibility(View.GONE);
+                                    headsetConnected.setVisibility(View.VISIBLE);
+                                    headsetIsConnected = true;
+                                }
+                            }.start();
+                        } catch (IOException | InterruptedException | NullPointerException e) {
+                            e.printStackTrace();
+                            pleaseConnect();
                         }
-                    }.start();
+                    }
                 }
-            }
         });
 
         // Click listeners for changing activity content
         joystickContentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                joystickContent.setVisibility(View.VISIBLE);
-                eegContent.setVisibility(View.GONE);
+                if (Car.mmOutputStream == null) {
+                    pleaseConnect();
+                } else {
+                    joystickContent.setVisibility(View.VISIBLE);
+                    eegContent.setVisibility(View.GONE);
 
-                joystickContentBtn.setVisibility(View.GONE);
-                eegContentBtn.setVisibility(View.VISIBLE);
+                    joystickContentBtn.setVisibility(View.GONE);
+                    eegContentBtn.setVisibility(View.VISIBLE);
 
-                if (eegActive) {
-                    eegActive = false;
-                    stopEeg();
-                    stopGyro();
+                    if (eegActive) {
+                        eegActive = false;
+                        stopEeg();
+                        stopGyro();
+                    }
                 }
             }
         });
@@ -462,6 +475,22 @@ public class MainActivity extends AppCompatActivity implements JoyStick.JoyStick
                 } else if ((eeg > 0) && (eeg < 100)) {
                     pulse.setConcentration((eeg / 10) + 1);
                 }
+            }
+        };
+
+        Thread animationInteractionThread = new Thread(animationInteraction);
+        animationInteractionThread.start();
+    }
+
+    public void connectionHelper(final String name) {
+        Runnable animationInteraction = new Runnable() {
+            @Override
+            public void run() {
+                Process.setThreadPriority(Process.THREAD_PRIORITY_MORE_FAVORABLE);
+                if(name.equals("Car")){
+                    Car.findBT(name);
+                } else
+                    Headset.findBT(name);
             }
         };
 
