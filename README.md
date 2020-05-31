@@ -70,7 +70,7 @@ The smart car has an on-off switch on its side, and users should switch off afte
 | --- | --- |
 | handleInput() | Allows bluetooth communication with the car. The car is able to move in 8 degrees. |
 | rotateOnSpot() | Activates whenever an object is within 20 cm from the front or rearend of the car. |
-| rotateOnSpot() | Used to temporarily disable the sensors, since otherwise one of them would always detect the obstacle. |
+| SimpleTimer cooldown | Used to temporarily disable the sensors, since otherwise one of them would always detect the obstacle. |
 | changeSpeed() | A method used to ensure that the system is stable by adding a delay whenever the motors are changing direction. |
 
 ### Hardware
